@@ -1,16 +1,12 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-function ClientLayout(props) {
+function LayoutWrapper(props) {
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-md-12">
-                    {props.children}
-                </div>
-            </div>
+            {/* Check role */}
         </div>
     );
 }
 
-export default ClientLayout;
+export default LayoutWrapper;
