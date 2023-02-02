@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "@mui/material";
+import ClientLayout from "./client";
 
 function LayoutWrapper(props) {
     return (
-        <div className="container">
-            {/* Check role */}
-        </div>
+        <ClientLayout {...props}>
+            <h1> Xin Chào</h1>
+        </ClientLayout>
     );
 }
 
