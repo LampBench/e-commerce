@@ -19,33 +19,8 @@ import {
 
 import { NavLink } from "react-router-dom";
 import style from "./index.module.scss";
-
-const pages = [
-    {
-        title: 'Trang chủ',
-        href: '/',
-    },
-    {
-        title: 'Sách',
-        href: '/books',
-    },
-    {
-        title: 'Tác giả',
-        href: '/authors',
-    },
-    {
-        title: 'Thể loại',
-        href: '/categories',
-    },
-    {
-        title: 'Nhà xuất bản',
-        href: '/publishers',
-    },
-    {
-        title: 'Liên hệ',
-        href: '/contact',
-    },
-];
+import { MenuList, SettingList } from "../../../../constants/client";
+import Cart from "./Cart";
 
 function Navbar(props) {
     const [anchorElMenu, setAnchorElMenu] = useState(null);
@@ -121,7 +96,7 @@ function Navbar(props) {
                             }}
                         >
                             {
-                                pages.map((page, index) => (
+                                MenuList.map((page, index) => (
                                     <MenuItem key={index} onClick={handleCloseNavMenu}>
                                         <Typography textAlign={'center'}>{page.title}</Typography>
                                     </MenuItem>
@@ -150,7 +125,7 @@ function Navbar(props) {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {
-                            pages.map((page, index) => (
+                            MenuList.map((page, index) => (
                                 <NavLink
                                     key={index}
                                     to={page.href}
@@ -165,6 +140,8 @@ function Navbar(props) {
                             ))
                         }
                     </Box>
+                    {/* -------- Cart -------- */}
+                    <Cart sx={{ p: 0, mr: 3}}/>
                     {/* -------- Profile -------- */}
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Tài khoản">
@@ -191,12 +168,27 @@ function Navbar(props) {
                             }
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign={'center'}>Tài khoản</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign={'center'}>Đăng xuất</Typography>
-                            </MenuItem>
+                            {
+                                props.user ? (
+                                    SettingList.map((page, index) => {
+                                        if (props.user.role !== 'admin' && page.isPermission === true) return null;
+                                        return (
+                                            <MenuItem key={index} onClick={handleCloseUserMenu}>
+                                                <Typography textAlign={'center'}>{page.title}</Typography>
+                                            </MenuItem>
+                                        )
+                                    })
+                                ) : (
+                                    <React.Fragment>
+                                        <MenuItem onClick={handleCloseUserMenu}>
+                                            <Typography textAlign={'center'}>Đăng nhập</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleCloseUserMenu}>
+                                            <Typography textAlign={'center'}>Đăng ký</Typography>
+                                        </MenuItem>
+                                    </React.Fragment>
+                                )
+                            }
                         </Menu>
                     </Box>
                 </Toolbar>
