@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'first_name' => $firstName,
             'last_name' => $lastName,
             'email' => $email,
-            'password' => Hash::make($password), // first_name + last_name + @Password
+            'password' => Hash::make($password), // first_name + last_name does not contain space + @Password
         ];
     }
 }
