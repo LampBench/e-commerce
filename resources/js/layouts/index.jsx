@@ -1,15 +1,15 @@
 import React from "react";
 import ClientLayout from "./client";
+import AdminLayout from "./admin";
 import { useSelector } from "react-redux";
 import {
     CategoryList
 } from "../pages/client";
+import Routes from "../routes";
+
 function LayoutWrapper(props) {
-    const user = useSelector((state) => state.user.data);
     return (
-        <ClientLayout {...props} user={user}>
-            <CategoryList />
-        </ClientLayout>
+        <Routes />
     );
 }
 

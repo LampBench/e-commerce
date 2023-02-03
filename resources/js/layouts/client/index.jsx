@@ -2,18 +2,25 @@ import React from "react";
 import {
     Navbar
 } from "./components";
+
 import {
     Container,
 } from "@mui/material";
-function ClientLayout(props) {
+
+import withPermission from "../../routes/WithPermission";
+import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+function ClientLayout() {
+    const user = useSelector((state) => state.user.data);
     return (
         <div className="container">
-            <Navbar user={props.user} />
+            <Navbar user={user} />
             <Container maxWidth="lg">
-                {props.children}
+                <Outlet />
             </Container>
         </div>
     );
 };
 
-export default ClientLayout;
+export default withPermission(['admin', 'user'])(ClientLayout);
