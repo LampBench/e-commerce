@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('email', 128)->unique();
             $table->string('password');
             $table->boolean('admin')->default(false);
-            $table->rememberToken();
-            $table->timestamps();
             $table->softDeletes();
         });
     }

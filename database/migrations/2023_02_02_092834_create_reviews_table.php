@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('review_reply_for')->nullable()->constrained('reviews');
             $table->string('review_title', 120);
-            $table->string('review_details')->nullable();
+            $table->text('review_details')->nullable();
             $table->enum('status', [1, 2])->default(1);
             $table->timestamp('review_date');
             $table->integer('rating_star')->default(5);
