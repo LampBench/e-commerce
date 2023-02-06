@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateUserRequest;
+use App\Traits\RespondsWithHttpStatus;
 
 class UserController extends Controller
 {
+    use RespondsWithHttpStatus;
+
     protected $service;
 
     public function __construct(UserService $service)
@@ -30,9 +34,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        $user = $this->service->create($request->all());
+        return $this->respondWithSuccess($user, 'User created successfully', 201);
     }
 
     /**
