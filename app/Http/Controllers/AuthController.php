@@ -2,15 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Http\Requests\LoginRequest;
+use App\Services\AuthService;
+use App\Traits\RespondsWithHttpStatus;
 
 class AuthController extends Controller
 {
-    public function __construct()
+    use RespondsWithHttpStatus;
+
+    protected $service;
+    
+    public function __construct(AuthService $service)
     {
+        $this->service = $service;
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $auth = $this->service->login($request->only('email', 'password'));
+        if (!$auth) {
+            return $this->respondUnauthorized();
+        }
+
+        return $this->respondWithSuccess($auth, 'Login successful');
     }
 }
