@@ -7,7 +7,8 @@ export const userSlice = createSlice({
             id: 1,
             name: "John Doe",
             email: "johndoe123@email.com",
-            role: "admin"
+            role: "admin",
+            avatar: "https://i.pravatar.cc/150?img=1"
         }
     },
     reducers: {

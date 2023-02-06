@@ -1,15 +1,19 @@
 import React from "react";
-import ClientLayout from "./client";
+import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline, StyledEngineProvider } from '@mui/material';
+import themes from '../themes';
 import { useSelector } from "react-redux";
-import {
-    CategoryList
-} from "../pages/client";
-function LayoutWrapper(props) {
-    const user = useSelector((state) => state.user.data);
+import Routes from "../routes";
+
+function LayoutWrapper() {
+    const customization = useSelector((state) => state.theme);
     return (
-        <ClientLayout {...props} user={user}>
-            <CategoryList />
-        </ClientLayout>
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={themes(customization)}>
+                <CssBaseline />
+                <Routes />
+            </ThemeProvider>
+        </StyledEngineProvider>
     );
 }
 
