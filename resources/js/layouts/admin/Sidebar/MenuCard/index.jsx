@@ -13,10 +13,8 @@ import {
     linearProgressClasses
 } from '@mui/material';
 
-// assets
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 
-// styles
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
     borderRadius: 30,

@@ -13,7 +13,7 @@ import {
     CheveronRight
 } from "@mui/icons-material";
 
-import { toggleLeftDrawer } from "../../reducers/themeSlice";
+import { SET_MENU } from "../../reducers/themeSlice";
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(({ theme, open }) => ({
     ...theme.typography.mainContent,
@@ -63,15 +63,15 @@ function AdminLayout() {
     const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'));
 
     // Handle left drawer
-    const leftDrawerOpened = useSelector((state) => state.theme.leftDrawerOpened);
+    const leftDrawerOpened = useSelector((state) => state.theme.opened);
     const dispatch = useDispatch();
     const handleLeftDrawerToggle = () => {
-        dispatch(toggleLeftDrawer(!leftDrawerOpened));
+        dispatch(SET_MENU(!leftDrawerOpened));
     }
 
     useEffect(() => {
         if (matchDownMd) {
-            dispatch(toggleLeftDrawer(false));
+            dispatch(SET_MENU(false));
         }
     }, [matchDownMd]);
     return (
@@ -92,7 +92,7 @@ function AdminLayout() {
                 </Toolbar>
             </AppBar>
 
-            
+            <Sidebar drawerOpen={!matchDownMd ? leftDrawerOpened : !leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
 
             <Main theme={theme} open={leftDrawerOpened}>
                 <Outlet />

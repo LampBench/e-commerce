@@ -5,16 +5,17 @@ import {
     Menu as MenuIcon,
 } from "@mui/icons-material";
 import ProfileSection from "./ProfileSection";
-
+import NotificationSection from "./NotificationSection";
+import SearchSection from "./SearchSection";
+import LogoSection from "../LogoSection";
 function Header({ handleLeftDrawerToggle }) {
     const theme = useTheme();
     return (
         <React.Fragment>
-
             <Box
                 sx={{
                     display: "flex",
-                    width: "228",
+                    width: 228,
                     [theme.breakpoints.down('md')]: {
                         width: 'auto'
                     }
@@ -30,7 +31,7 @@ function Header({ handleLeftDrawerToggle }) {
                         flexGrow: 1,
                     }}
                 >
-                    <h1>Admin</h1>
+                    <LogoSection />
                 </Box>
                 <ButtonBase
                     sx={{
@@ -58,9 +59,10 @@ function Header({ handleLeftDrawerToggle }) {
                     </Avatar>
                 </ButtonBase>
             </Box>
+            <SearchSection />
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ flexGrow: 1 }} />
+            <NotificationSection />
             <ProfileSection />
         </React.Fragment>
     )
