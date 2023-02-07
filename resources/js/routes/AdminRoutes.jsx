@@ -11,11 +11,11 @@ const AdminRoutes = {
             element: <Dashboard />,
         },
         {
-            path: "/admin/order",
+            path: "/admin/orders",
             element: <Order />,
         },
         {
-            path: "/admin/user",
+            path: "/admin/users",
             element: <User />,
         },
     ],
