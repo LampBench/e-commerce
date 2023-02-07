@@ -2,20 +2,22 @@ import React from "react";
 import {
     Navbar
 } from "./components";
+
 import {
     Container,
 } from "@mui/material";
-function ClientLayout(props) {
-    const user = {
-        name: "John Doe",
-        avatar: "https://i.pravatar.cc/300",
-        role: "admin"
-    }
+
+import withPermission from "../../routes/hocs/WithPermission";
+import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+function ClientLayout() {
+    const user = useSelector((state) => state.user.data);
     return (
         <div className="container">
             <Navbar user={user} />
             <Container maxWidth="lg">
-                {props.children}
+                <Outlet />
             </Container>
         </div>
     );
