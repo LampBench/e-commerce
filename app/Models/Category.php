@@ -11,4 +11,9 @@ class Category extends Model
 
     protected $table = 'categories';
     public $timestamps = false;
+
+    public function scopeGetAllDetails($query)
+    {
+        return $query->select('*');
+    }
 }

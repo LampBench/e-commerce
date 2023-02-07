@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Classes\BaseRepository;
+use App\Classes\ExpandedBaseRepository;
 use App\Models\Category;
 
-class CategoryRepository extends BaseRepository
+class CategoryRepository extends ExpandedBaseRepository
 {
     protected $model;
 

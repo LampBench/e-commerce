@@ -38,6 +38,22 @@ return [
         ],
         'extraFields' => []
     ],
+    'categories' => [
+        'default' => [
+            'sort' => 'category_name'
+        ],
+        'sortFields' => [
+            'id',
+            'category_name',
+        ],
+        'filterFields' => [],
+        'searchFields' => [
+            'id',
+            'category_name',
+            'category_desc'
+        ],
+        'extraFields' => []
+    ],
     'nonStringFields' => [
         'id',
         'admin',

@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Classes\BaseService;
+use App\Classes\ExpandedBaseService;
 use App\Repositories\CategoryRepository;
 
-class CategoryService extends BaseService
+class CategoryService extends ExpandedBaseService
 {
     protected $repository;
 
