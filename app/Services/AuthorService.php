@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Classes\BaseService;
+use App\Classes\ExpandedBaseService;
 use App\Repositories\AuthorRepository;
 
-class AuthorService extends BaseService
+class AuthorService extends ExpandedBaseService
 {
     protected $repository;
 

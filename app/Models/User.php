@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\GetTable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +17,7 @@ class User extends Authenticatable implements JWTSubject
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
+    use GetTable;
 
     protected $table = 'users';
     public $timestamps = false;
@@ -44,6 +46,17 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function scopeGetAllDetails($query)
+    {
+        return $query->select(
+            'users.id',
+            'users.first_name',
+            'users.last_name',
+            'users.email',
+            'users.admin'
+        );
     }
 
     public function getRoleAttribute()
