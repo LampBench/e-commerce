@@ -5,6 +5,10 @@ class AuthService extends Repository {
         return await this.post("login", data);
     }
 
+    async register(data) {
+        return await this.post("register", data);
+    }
+
     async check() {
         return await this.get("me");
     }
