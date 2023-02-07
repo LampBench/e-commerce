@@ -8,8 +8,7 @@ const withPermission = (allowedRoles) => (Component) => {
         if (user && allowedRoles.includes(user.role)) {
             return <Component {...props} />;
         } else {
-            user ? console.log('403') : console.log('login');
-            user ? redirect('/403') : redirect('/login');
+            user ? redirect('/403') : window.location.href = '/login';
         }
     };
 };

@@ -1,8 +1,25 @@
 import axios from "./base.service";
-
+import { decode } from "js-base64";
 export default class Repository {
     constructor() {
         this.axios = axios;
+        // add token to request header
+
+        this.axios.interceptors.request.use(
+            (config) => {
+                const token = decode(localStorage.getItem("TOKEN") || "");
+                if (token) {
+                    config.headers["Authorization"] = "Bearer " + token;
+                }
+                return config;
+            }
+        );
+
+        this.axios.interceptors.response.use(
+            (response) => {
+                return response;
+            }
+        );
     }
 
     async get(url) {

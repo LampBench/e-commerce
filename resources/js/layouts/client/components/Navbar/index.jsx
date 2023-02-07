@@ -21,10 +21,15 @@ import { NavLink } from "react-router-dom";
 import style from "./index.module.scss";
 import { MenuList, SettingList } from "../../../../constants/client";
 import Cart from "./Cart";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../../../../services/auth.service";
+import { LOG_OUT } from "../../../../reducers/userSlice";
+import { useDispatch } from "react-redux";
 
 function Navbar(props) {
     const [anchorElMenu, setAnchorElMenu] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+    const dispatch = useDispatch();
     
     const handleOpenNavMenu = (event) => {
         setAnchorElMenu(event.currentTarget);
@@ -41,6 +46,21 @@ function Navbar(props) {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleLogout = () => {
+        console.log('logout');
+        AuthService.logout()
+            .then((response) => {
+                if (response.status === 200) {
+                    dispatch(LOG_OUT());
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const navigate = useNavigate();
 
     return (
         <AppBar position="static">
@@ -174,19 +194,28 @@ function Navbar(props) {
                                         if (props.user.role !== 'admin' && page.isPermission === true) return null;
                                         return (
                                             <MenuItem key={index} onClick={handleCloseUserMenu}>
-                                                <Typography textAlign={'center'}>{page.title}</Typography>
+                                                <Typography textAlign={'center'} onClick={
+                                                    () => {
+                                                        console.log('page.href: ', page.href);
+                                                        if (page.href === '/logout') {
+                                                            handleLogout();
+                                                        } else {
+                                                            navigate(page.href);
+                                                        }
+                                                    }
+                                                }>{page.title}</Typography>
                                             </MenuItem>
                                         )
                                     })
                                 ) : (
-                                    <React.Fragment>
-                                        <MenuItem onClick={handleCloseUserMenu}>
-                                            <Typography textAlign={'center'}>Đăng nhập</Typography>
-                                        </MenuItem>
-                                        <MenuItem onClick={handleCloseUserMenu}>
-                                            <Typography textAlign={'center'}>Đăng ký</Typography>
-                                        </MenuItem>
-                                    </React.Fragment>
+                                    <MenuItem onClick={handleCloseUserMenu}>
+                                        <Typography textAlign={'center'} onClick={
+                                            () => {
+                                                console.log('navigate');
+                                                navigate('/login');
+                                            }
+                                        }>Đăng nhập</Typography>
+                                    </MenuItem>
                                 )
                             }
                         </Menu>
