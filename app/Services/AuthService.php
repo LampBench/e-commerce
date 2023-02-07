@@ -15,7 +15,8 @@ class AuthService
         $this->repository = $repository;
     }
 
-    public function login($credentials) {
+    public function login($credentials)
+    {
         $token = Auth::attempt($credentials);
         if (!$token) {
             return false;

@@ -3,12 +3,13 @@
 return [
     'users' => [
         'default' => [
-            'sort' => 'first_name',
+            'sort' => 'first-name',
+            'perPage' => 15
         ],
         'sortFields' => [
             'id',
-            'first_name',
-            'last_name',
+            'first-name',
+            'last-name',
             'admin'
         ],
         'filterFields' => [
@@ -16,32 +17,51 @@ return [
         ],
         'searchFields' => [
             'id',
-            'full_name'
+            'full-name'
         ],
         'extraFields' => [
-            'full_name' => "CONCAT(users.first_name,' ', users.last_name)"
+            'full-name' => "CONCAT(users.first_name,' ', users.last_name)"
         ]
     ],
     'authors' => [
         'default' => [
-            'sort' => 'author_name'
+            'sort' => 'author-name',
+            'perPage' => 10
         ],
         'sortFields' => [
             'id',
-            'author_name',
+            'author-name',
+            'author-bio'
         ],
         'filterFields' => [],
         'searchFields' => [
             'id',
-            'author_name',
-            'author_bio'
+            'author-name',
+            'author-bio'
+        ],
+        'extraFields' => []
+    ],
+    'categories' => [
+        'default' => [
+            'sort' => 'category-name',
+            'perPage' => 10
+        ],
+        'sortFields' => [
+            'id',
+            'category-name',
+        ],
+        'filterFields' => [],
+        'searchFields' => [
+            'id',
+            'category-name',
+            'category-desc'
         ],
         'extraFields' => []
     ],
     'nonStringFields' => [
         'id',
         'admin',
-        'rating_star',
+        'rating-star',
         'quantity',
     ]
 ];

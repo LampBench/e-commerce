@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryCollection;
 use App\Services\CategoryService;
+use App\Traits\RespondsWithHttpStatus;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    use RespondsWithHttpStatus;
+
     protected $service;
 
     public function __construct(CategoryService $service)
@@ -19,9 +23,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->service->all();
+        $categories = $this->service->applySortFilterSearch($request);
+        return new CategoryCollection($categories);
     }
 
     /**
