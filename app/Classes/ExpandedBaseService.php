@@ -19,7 +19,8 @@ abstract class ExpandedBaseService extends BaseService
     {
         $defaultSortField = config('constants.' . $table . '.default.sort');
         $requestSort = $requestData['sort'] ?? $defaultSortField;
-        $sortField = in_array($requestSort, config('constants.' . $table . '.sortFields')) ? $requestSort : $defaultSortField;
+        $sortFields = config('constants.' . $table . '.sortFields');
+        $sortField = in_array($requestSort, $sortFields) ? $requestSort : $defaultSortField;
         return str_replace('-', '_', $sortField);
     }
 
