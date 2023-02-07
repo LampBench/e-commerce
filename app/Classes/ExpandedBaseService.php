@@ -20,7 +20,7 @@ abstract class ExpandedBaseService extends BaseService
         $defaultSortField = config('constants.' . $table . '.default.sort');
         $requestSort = $requestData['sort'] ?? $defaultSortField;
         $sortField = in_array($requestSort, config('constants.' . $table . '.sortFields')) ? $requestSort : $defaultSortField;
-        return $sortField;
+        return str_replace('-', '_', $sortField);
     }
 
     public function getQueryField($field, $table)
@@ -29,7 +29,7 @@ abstract class ExpandedBaseService extends BaseService
         $nonStringFields = config('constants.nonStringFields');
         $field = $extraFields[$field] ?? $field;
         $field = in_array($field, $nonStringFields) ? $field : 'LOWER(' . $field . ')';
-        return $field;
+        return str_replace('-', '_', $field);
     }
 
     public function getSearchData($requestData, $table)
@@ -61,6 +61,13 @@ abstract class ExpandedBaseService extends BaseService
         return $filterData;
     }
 
+    public function getPerPage($requestData, $table)
+    {
+        $perPage = $requestData['per-page'] ?? config('constants.' . $table . '.default.perPage');
+        $perPage = (int) $perPage > 1 ? $perPage : config('constants.' . $table . '.default.perPage');
+        return $perPage;
+    }
+
     public function getRequestData($request, $table)
     {
         $requestData = $request->all();
@@ -68,6 +75,7 @@ abstract class ExpandedBaseService extends BaseService
         $requestData['sort'] = $this->getSortField($requestData, $table);
         $requestData['search'] = $this->getSearchData($requestData, $table);
         $requestData['filter'] = $this->getFilterData($requestData, $table);
+        $requestData['perPage'] = $this->getPerPage($requestData, $table);
         return $requestData;
     }
 }

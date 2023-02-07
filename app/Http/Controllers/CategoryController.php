@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = $this->service->applySortFilterSearch($request)->get();
+        $categories = $this->service->applySortFilterSearch($request);
         return new CategoryCollection($categories);
     }
 

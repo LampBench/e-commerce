@@ -21,7 +21,7 @@ class AuthorController extends Controller
      */
     public function index(Request $request)
     {
-        $authors = $this->service->applySortFilterSearch($request)->get();
+        $authors = $this->service->applySortFilterSearch($request);
         return new AuthorCollection($authors);
     }
 

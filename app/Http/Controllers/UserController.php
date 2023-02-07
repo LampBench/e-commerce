@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->service->applySortFilterSearch($request)->get();
+        $users = $this->service->applySortFilterSearch($request);
         return new UserCollection($users);
     }
 
