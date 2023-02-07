@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AuthorCollection;
 use App\Services\AuthorService;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,8 @@ class AuthorController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->service->applySortFilterSearch($request)->get();
+        $authors = $this->service->applySortFilterSearch($request)->get();
+        return new AuthorCollection($authors);
     }
 
     /**

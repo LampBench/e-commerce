@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Resources\UserCollection;
 use App\Traits\RespondsWithHttpStatus;
 
 class UserController extends Controller
@@ -25,7 +26,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->service->applySortFilterSearch($request)->get();
+        $users = $this->service->applySortFilterSearch($request)->get();
+        return new UserCollection($users);
     }
 
     /**
