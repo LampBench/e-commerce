@@ -7,7 +7,7 @@ import {
     Container,
 } from "@mui/material";
 
-import withPermission from "../../routes/WithPermission";
+import withPermission from "../../routes/hocs/WithPermission";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -23,4 +23,4 @@ function ClientLayout() {
     );
 };
 
-export default withPermission(['admin', 'user'])(ClientLayout);
+export default ClientLayout;

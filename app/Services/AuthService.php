@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\AuthRepository;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\UserResource;
 
 class AuthService
 {
@@ -21,12 +22,29 @@ class AuthService
         }
         $user = Auth::user();
         return [
-            'user' => $user,
-            'authorisation' => [
-                'token_type' => 'bearer',
-                'expires_in' => Auth::factory()->getTTL() * 60,
-                'token' => $token,
-            ]
+            'user' => new UserResource($user),
+            'token' => $token,
         ];
+    }
+
+    public function me() {
+        $user = Auth::user();
+        if(!$user) {
+            return false;
+        }
+
+        return [
+            'user' => new UserResource($user),
+            'token' => Auth::getToken(),
+        ];
+    }
+
+    public function logout() {
+        $user = Auth::user();
+        if(!$user) {
+            return false;
+        }
+        Auth::logout();
+        return true;
     }
 }

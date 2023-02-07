@@ -29,7 +29,7 @@ class AuthController extends Controller
             return $this->respondUnauthorized();
         }
 
-        return $this->respondWithSuccess($auth, 'Register successful');
+        return $this->respondWithSuccess($auth, 'Login successful', 200);
     }
 
     public function register(CreateUserRequest $request)
@@ -40,5 +40,25 @@ class AuthController extends Controller
         }
 
         return $this->respondWithSuccess($user, 'Register successful', 201);
+    }
+
+    public function me()
+    {
+        $user = $this->authService->me();
+        if (!$user) {
+            return $this->respondUnauthorized();
+        }
+
+        return $this->respondWithSuccess($user);
+    }
+
+    public function logout()
+    {
+        $logout = $this->authService->logout();
+        if (!$logout) {
+            return $this->respondUnauthorized();
+        }
+
+        return $this->respondWithSuccess(null, 'Logout successful', 200);
     }
 }

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { styled, useTheme } from "@mui/material/styles";
 import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material';
 
-import withPermission from "../../routes/WithPermission";
+import withPermission from "../../routes/hocs/WithPermission";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { drawerWidth } from "../../constants/shared/theme.constant";

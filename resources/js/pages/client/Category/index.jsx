@@ -1,5 +1,5 @@
 import React from 'react';
-import withPermission from '../../../routes/WithPermission';
+import withPermission from '../../../routes/hocs/WithPermission';
 
 function CategoryList() {
     return (
