@@ -13,7 +13,7 @@ export const themeSlice = createSlice({
             state.opened = action.payload
         },
         SET_OPEN: (state, action) => {
-            state.isOpen = action.payload
+            state.isOpen = [action.payload]
         },
         SET_FONT: (state, action) => {
             state.fontFamily = action.payload

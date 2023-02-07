@@ -7,10 +7,10 @@ const dashboard = {
     type: 'group',
     children: [
         {
-            id: 'default',
+            id: 'admin',
             title: 'Dashboard',
             type: 'item',
-            url: '/admin/',
+            url: '/admin',
             icon: icons.IconDashboard,
             breadcrumbs: false
         }

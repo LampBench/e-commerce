@@ -41,8 +41,8 @@ const NavItem = ({ item, level }) => {
     }
 
     const itemHandler = (id) => {
-        dispatch({ type: MENU_OPEN, id });
-        if (matchesSM) dispatch({ type: SET_MENU, opened: false });
+        dispatch(SET_OPEN(id));
+        if (matchesSM) dispatch(SET_MENU(false));
     };
 
     useEffect(() => {
@@ -51,7 +51,7 @@ const NavItem = ({ item, level }) => {
             .split('/')
             .findIndex((id) => id === item.id);
         if (currentIndex > -1) {
-            dispatch({ type: MENU_OPEN, id: item.id });
+            dispatch(SET_OPEN(item.id));
         }
     }, []);
 
