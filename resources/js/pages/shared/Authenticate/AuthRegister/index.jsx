@@ -1,28 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import AuthWrapper from '../AuthWrapper';
 import AuthCardWrapper from '../AuthCardWrapper';
-import LoginForm from '../AuthForms/LoginForm';
 import { Logo } from '../../../../components/admin';
 import { Link } from 'react-router-dom';
-import withLogin from '../../../../routes/hocs/WithLogin';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useLogged from '../../../../hooks/useLogged';
-function Login() {
+import RegisterForm from '../AuthForms/RegisterForm';
+import { Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+const Register = () => {
     const logged = useLogged();
     const navigate = useNavigate();
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
     useEffect(() => {
-        if(logged) {
+        if (logged) {
             navigate('/');
         }
     }, [logged]);
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
-    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setNotify({
+            ...notify,
+            isOpen: false,
+        });
+    };
     return (
         <AuthWrapper>
+            {notify.isOpen && (
+                <Snackbar open={notify.isOpen} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity={notify.type} sx={{ width: '100%' }}>
+                        {notify.message}
+                    </Alert>
+                </Snackbar>
+            )}
             <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
@@ -43,7 +63,7 @@ function Login() {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Hi, Welcome Back
+                                                        Sign up
                                                     </Typography>
                                                     <Typography
                                                         variant="caption"
@@ -57,7 +77,7 @@ function Login() {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <LoginForm setNotify={setNotify}/>
+                                        <RegisterForm setNotify={setNotify}/>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
@@ -66,11 +86,11 @@ function Login() {
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
                                                 component={Link}
-                                                to="/register"
+                                                to="/login"
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >
-                                                Don&apos;t have an account?
+                                                Already have an account?
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -84,7 +104,7 @@ function Login() {
                 </Grid>
             </Grid>
         </AuthWrapper>
-    )
-}
+    );
+};
 
-export default Login;
+export default Register;

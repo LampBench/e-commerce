@@ -8,6 +8,7 @@ import AuthServices from "../services/auth.service";
 import { SET_USER } from "../reducers/userSlice";
 import { useDispatch } from "react-redux";
 import { Backdrop } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function LayoutWrapper() {
     const customization = useSelector((state) => state.theme);
@@ -30,7 +31,14 @@ function LayoutWrapper() {
     }, []);
 
     if(loading) {
-        return <Backdrop open={loading} />
+        return (
+            <Backdrop open={loading} sx={{
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+                color: '#fff',
+            }}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+        )
     }
 
     return (

@@ -24,13 +24,14 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import useScriptRef from '../../../../hooks/useScriptRef';
-import { Logo } from '../../../../components/admin';
 import AuthService from '../../../../services/auth.service';
 
 import { SET_USER } from '../../../../reducers/userSlice';
 import { encode } from 'js-base64';
 
-const LoginForm = ({ ...others }) => {
+import images from '../../../../../assets/images';
+
+const LoginForm = ({ setNotify, ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const dispatch = useDispatch();
@@ -57,12 +58,22 @@ const LoginForm = ({ ...others }) => {
             const response = await AuthService.login(values);
             localStorage.setItem('TOKEN', encode(response.data.data.token));
             dispatch(SET_USER(response.data.data));
+            setNotify({
+                isOpen: true,
+                message: 'Login successfully',
+                type: 'success'
+            });
         } catch (error) {
             if(error.response.status === 401) {
                 setErrors({ password: 'Invalid credentials'});
             } else {
                 setErrors(error.response.data.errors);
             }
+            setNotify({
+                isOpen: true,
+                message: 'Login failed',
+                type: 'error'
+            });
             setSubmitting(false);
         }
     };
@@ -84,7 +95,7 @@ const LoginForm = ({ ...others }) => {
                         }}
                     >
                         <Box sx={{ mr: { xs: 1, sm: 2, width: 20 } }}>
-                            
+                            <img src={images['google_icon']} alt="google" width={16} height={16} style={{ marginRight: matchDownSM ? 8 : 16 }} />
                         </Box>
                         Sign in with Google
                     </Button>
