@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Classes\BaseService;
+use App\Classes\ExpandedBaseService;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 
-class UserService extends BaseService
+class UserService extends ExpandedBaseService
 {
     protected $repository;
 

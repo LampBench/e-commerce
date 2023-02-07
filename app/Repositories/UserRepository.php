@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Classes\BaseRepository;
+use App\Classes\ExpandedBaseRepository;
 use App\Models\User;
 
 
-class UserRepository extends BaseRepository
+class UserRepository extends ExpandedBaseRepository
 {
     protected $model;
 

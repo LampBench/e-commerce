@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Classes\BaseRepository;
+use App\Classes\ExpandedBaseRepository;
 use App\Models\Author;
 
-class AuthorRepository extends BaseRepository
+class AuthorRepository extends ExpandedBaseRepository
 {
     protected $model;
 
