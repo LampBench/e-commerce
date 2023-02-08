@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
-            $table->string('email', 128)->unique();
-            $table->string('password');
-            $table->boolean('admin')->default(false);
-            $table->foreignId('user_group_id')->nullable()->constrained('user_groups');
+            $table->string('name')->nullable()->unique();
+            $table->text('permissions')->nullable();
+            $table->text('description')->nullable();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_groups');
     }
 };
