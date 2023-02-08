@@ -1,6 +1,9 @@
 import ClientLayout from "../layouts/client";
-import Home from "../pages/client/Home";
-import Category from "../pages/client/Category";
+import { lazy } from "react";
+import Loadable from "../components/shared/Loadable";
+
+const Home = Loadable(lazy(() => import("../pages/client/Home")));
+const Category = Loadable(lazy(() => import("../pages/client/Category")));
 
 const ClientRoutes = {
     path: "/",

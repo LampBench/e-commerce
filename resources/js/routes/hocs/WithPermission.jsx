@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const withPermission = (allowedRoles) => (Component) => {
     return (props) => {
@@ -8,7 +8,11 @@ const withPermission = (allowedRoles) => (Component) => {
         if (user && allowedRoles.includes(user.role)) {
             return <Component {...props} />;
         } else {
-            user ? redirect('/403') : window.location.href = '/login';
+            if(user) {
+                return <Navigate to="/403" />;
+            } else {
+                return <Navigate to="/login" />;
+            }
         }
     };
 };
