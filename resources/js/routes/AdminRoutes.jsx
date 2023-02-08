@@ -6,7 +6,7 @@ const Dashboard = Loadable(lazy(() => import("../pages/admin/Dashboard")));
 const Order = Loadable(lazy(() => import("../pages/admin/Order")));
 const User = Loadable(lazy(() => import("../pages/admin/User")));
 const CreateUser = Loadable(lazy(() => import("../pages/admin/CreateUser")));
-
+const Category = Loadable(lazy(() => import("../pages/admin/Category")));
 const AdminRoutes = {
     path: "/admin",
     element: <AdminLayout />,
@@ -25,9 +25,13 @@ const AdminRoutes = {
         },
         {
             path: "/admin/users/user-create",
-            element: <CreateUser type='create'/>,
-        }
+            element: <CreateUser type="create" />,
+        },
+        {
+            path: "/admin/categories",
+            element: <Category />,
+        },
     ],
-}
+};
 
 export default AdminRoutes;
