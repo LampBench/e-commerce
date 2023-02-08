@@ -1,7 +1,12 @@
+import { lazy } from "react";
 import AdminLayout from "../layouts/admin";
-import Dashboard from "../pages/admin/Dashboard";
-import Order from "../pages/admin/Order";
-import User from "../pages/admin/User";
+import Loadable from "../components/shared/Loadable";
+
+const Dashboard = Loadable(lazy(() => import("../pages/admin/Dashboard")));
+const Order = Loadable(lazy(() => import("../pages/admin/Order")));
+const User = Loadable(lazy(() => import("../pages/admin/User")));
+const CreateUser = Loadable(lazy(() => import("../pages/admin/CreateUser")));
+
 const AdminRoutes = {
     path: "/admin",
     element: <AdminLayout />,
@@ -18,6 +23,10 @@ const AdminRoutes = {
             path: "/admin/users",
             element: <User />,
         },
+        {
+            path: "/admin/users/user-create",
+            element: <CreateUser type='create'/>,
+        }
     ],
 }
 

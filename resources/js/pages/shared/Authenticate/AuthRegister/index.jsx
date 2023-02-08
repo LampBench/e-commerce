@@ -9,15 +9,11 @@ import { useNavigate } from 'react-router-dom';
 import useLogged from '../../../../hooks/useLogged';
 import RegisterForm from '../AuthForms/RegisterForm';
 import { Snackbar } from '@mui/material';
-import MuiAlert from '@mui/material/Alert';
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import { Alert } from '../../../../components/shared';
 
 const Register = () => {
     const logged = useLogged();
     const navigate = useNavigate();
-    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
     useEffect(() => {
         if (logged) {
             navigate('/');
@@ -25,6 +21,7 @@ const Register = () => {
     }, [logged]);
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;

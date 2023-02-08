@@ -23,17 +23,17 @@ const manageUser = {
             
             children: [
                 {
-                    id: 'manage-user-list',
+                    id: 'users',
                     title: 'User List',
                     type: 'item',
-                    url: '/admin/users/',
+                    url: '/admin/users',
                     icon: icons.IconGroup
                 },
                 {
-                    id: 'manage-user-create',
+                    id: 'user-create',
                     title: 'Create User',
                     type: 'item',
-                    url: '/admin/users/create/',
+                    url: '/admin/users/user-create',
                     icon: icons.IconGroupAdd
                 }
             ]

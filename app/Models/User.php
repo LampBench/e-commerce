@@ -21,6 +21,8 @@ class User extends Authenticatable implements JWTSubject
 
     protected $table = 'users';
     public $timestamps = false;
+    public const ROLE_ADMIN = true;
+    public const ROLE_USER = false;
 
     protected $fillable = [
         'first_name',
