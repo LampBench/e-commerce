@@ -28,9 +28,10 @@ class AuthService
         ];
     }
 
-    public function me() {
+    public function me()
+    {
         $user = Auth::user();
-        if(!$user) {
+        if (!$user) {
             return false;
         }
 
@@ -40,9 +41,10 @@ class AuthService
         ];
     }
 
-    public function logout() {
+    public function logout()
+    {
         $user = Auth::user();
-        if(!$user) {
+        if (!$user) {
             return false;
         }
         Auth::logout();
