@@ -42,4 +42,4 @@ function CreateUser() {
     );
 }
 
-export default withPermission(['admin'])(CreateUser);
+export default withPermission('users', 'create')(CreateUser);

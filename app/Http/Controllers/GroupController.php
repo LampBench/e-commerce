@@ -30,28 +30,23 @@ class GroupController extends Controller
 
     public function show($id)
     {
-        //
+        $permissions = $this->groupService->getPermissionList($id);
+        $group = $this->groupService->show($id);
+        return $this->respondWithSuccess([
+            'group' => $group,
+            'permissions' => $permissions,
+            'modules' => config('modules')
+        ]);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $permissions = $this->groupService->updatePermission($id, $request->roles);
+        return $this->respondWithSuccess($permissions);
     }
 
     public function destroy($id)
     {
         //
-    }
-
-    public function getPermission($id)
-    {
-        $permissions = $this->groupService->getPermissionList($id);
-        return $this->respondWithSuccess($permissions);
-    }
-
-    public function updatePermission(Request $request, $id)
-    {
-        $permissions = $this->groupService->updatePermission($id, $request->roles);
-        return $this->respondWithSuccess($permissions);
     }
 }

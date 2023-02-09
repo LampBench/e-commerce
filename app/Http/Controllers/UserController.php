@@ -26,7 +26,6 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $this -> authorize('viewAny', 'App\Models\User');
         $users = $this->service->applySortFilterSearch($request);
         return new UserCollection($users);
     }

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('user_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable()->unique();
-            $table->text('permissions')->nullable();
+            $table->text('permissions')->nullable()->default('"dashboard":["view"]');
             $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();

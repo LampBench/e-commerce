@@ -101,4 +101,4 @@ function AdminLayout() {
     );
 }
 
-export default withPermission(['admin'])(AdminLayout);
+export default withPermission('dashboard', 'view')(AdminLayout);

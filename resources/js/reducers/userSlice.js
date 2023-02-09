@@ -3,11 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice = createSlice({
     name: "user",
     initialState: {
-        data: null
+        data: null,
+        permissions: {}
     },
     reducers: {
         SET_USER: (state, action) => {
             state.data = action.payload.user;
+            state.permissions = action.payload.permissions;
         },
         LOG_OUT: (state, action) => {
             localStorage.removeItem('TOKEN');

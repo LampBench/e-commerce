@@ -38,7 +38,3 @@ Route::controller(AuthController::class)->group(function () {
 
 // User groups
 Route::apiResource('groups', GroupController::class);
-Route::group(['prefix' => 'groups'], function () {
-    Route::get('{id}/permissions', [GroupController::class, 'getPermission']);
-    Route::post('{id}/permissions', [GroupController::class, 'updatePermission']);
-});

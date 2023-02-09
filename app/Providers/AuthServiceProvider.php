@@ -29,16 +29,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $moduleList = Module::all();
+        $moduleList = config('modules');
 
-        if($moduleList->count() > 0) {
+        if(count($moduleList) > 0) {
             foreach ($moduleList as $module) {
-                Gate::define($module->name, function (User $user) use ($module) {
+                Gate::define($module['name'], function (User $user) use ($module) {
                     $roleJson = $user->group->permissions;
 
                     if(!empty($roleJson)) {
                         $roleArr = json_decode($roleJson, true);
-                        $check = isRole($roleArr, $module->name);
+                        $check = isRole($roleArr, $module['name']);
                         return $check;
                     }
 

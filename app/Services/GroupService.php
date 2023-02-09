@@ -47,12 +47,14 @@ class GroupService extends BaseService {
     public function updatePermission($id, $data) {
         if (!empty($data)) {
             $roleArr = $data;
+            $roleArr['dashboard'] = ['view'];
         } else {
             $roleArr = [];
+            $roleArr['dashboard'] = [];
         }
 
         $roleJson = json_encode($roleArr);
-
+        
         $group = $this->show($id);
         $group->permissions = $roleJson;
         $group->save();

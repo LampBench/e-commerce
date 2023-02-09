@@ -1,5 +1,5 @@
 import React from "react";
-
+import withPermission from "../../../routes/hocs/WithPermission";
 function User() {
     return (
         <div className="container">
@@ -8,4 +8,4 @@ function User() {
     );
 }
 
-export default User;
+export default withPermission("users", "view")(User);
