@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CategoryService from "../../../services/category.serviece";
 import DataTable from "../../../components/admin/DataTable";
 import { MainCard } from "../../../components/shared";
-import userService from "../../../services/user.service";
+
 // import { categoryAction } from "../../../reducers/categorySlice";
 
 const Category = () => {
@@ -25,8 +25,7 @@ const Category = () => {
     ];
 
     useEffect(() => {
-        userService
-            .getUsers(params)
+        CategoryService.getCategories(params)
             .then((res) => {
                 setData(res.data.data);
                 setCountPage(res.data.meta.last_page);
@@ -37,7 +36,7 @@ const Category = () => {
     }, [params]);
 
     return (
-        <MainCard>
+        <MainCard title="Category list">
             <DataTable
                 data={data}
                 countPage={countPage}
