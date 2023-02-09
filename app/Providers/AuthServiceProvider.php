@@ -4,6 +4,10 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Module;
+use App\Models\User;
+use App\Policies\UserPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -25,6 +29,22 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $moduleList = Module::all();
+
+        if($moduleList->count() > 0) {
+            foreach ($moduleList as $module) {
+                Gate::define($module->name, function (User $user) use ($module) {
+                    $roleJson = $user->group->permissions;
+
+                    if(!empty($roleJson)) {
+                        $roleArr = json_decode($roleJson, true);
+                        $check = isRole($roleArr, $module->name);
+                        return $check;
+                    }
+
+                    return false;
+                });
+            }
+        }
     }
 }

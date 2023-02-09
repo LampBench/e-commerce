@@ -29,9 +29,7 @@ class UserGroupSeeder extends Seeder
                 'last_name' => 'User',
                 'email' => 'admin@localhost',
                 'password' => Hash::make('Admin@Password'),
-                'user_group_id' => $groupId,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
+                'user_group_id' => $groupId
             ]);
         }
     }
