@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { MainCard } from "../../../components/shared";
-import { DataGrid } from "@mui/x-data-grid";
+
 import CategoryService from "../../../services/category.serviece";
-import { set } from "lodash";
-import { date } from "yup";
-import { stringify } from "postcss";
+import DataTable from "../../../components/admin/DataTable";
+import { MainCard } from "../../../components/shared";
+import userService from "../../../services/user.service";
 // import { categoryAction } from "../../../reducers/categorySlice";
 
 const Category = () => {
-    // /api/categories?page=1&sort=category-name&order=asc
-    const [dataCategory, setDataCategory] = useState([]);
+    const [data, setData] = useState([]);
     const [params, setParams] = useState({
         page: 1,
         sort: "category-name",
@@ -27,9 +25,10 @@ const Category = () => {
     ];
 
     useEffect(() => {
-        CategoryService.getCategories(params)
+        userService
+            .getUsers(params)
             .then((res) => {
-                setDataCategory(res.data.data);
+                setData(res.data.data);
                 setCountPage(res.data.meta.last_page);
                 setRowCount(res.data.meta.total);
                 setPerPage(res.data.meta.per_page);
@@ -37,55 +36,16 @@ const Category = () => {
             .catch((e) => console.log(e.response));
     }, [params]);
 
-    const handleSortModelChange = (sortModel) => {
-        // Here you save the data you need from the sort model
-
-        setParams((prevValue) => {
-            return {
-                ...prevValue,
-                sort: sortModel[0].field.replace("_", "-"),
-                order: sortModel[0].sort,
-            };
-        });
-    };
-
-    const handlePageChange = (newPage) => {
-        if (newPage + 1 <= countPage) {
-            setParams((prevValue) => {
-                return {
-                    ...prevValue,
-                    page: newPage + 1,
-                };
-            });
-        }
-        return;
-    };
-
-    const handlePageSizeChange = (e) => {
-        setParams((prevValue) => {
-            return { ...prevValue, perPage: e };
-        });
-    };
-
     return (
         <MainCard>
-            <div style={{ height: 400, width: "100%" }}>
-                <DataGrid
-                    rows={dataCategory}
-                    columns={columns}
-                    sortingMode="server"
-                    sortingOrder={["desc", "asc"]}
-                    onSortModelChange={handleSortModelChange}
-                    pagination
-                    pageSize={perPage === 0 ? 10 : perPage}
-                    paginationMode="server"
-                    rowsPerPageOptions={[5, 10, 20]}
-                    onPageChange={handlePageChange}
-                    onPageSizeChange={handlePageSizeChange}
-                    rowCount={rowCount}
-                    checkboxSelection
-                />
-            </div>
+            <DataTable
+                data={data}
+                countPage={countPage}
+                perPage={perPage}
+                columns={columns}
+                setParams={setParams}
+                rowCount={rowCount}
+            />
         </MainCard>
     );
 };

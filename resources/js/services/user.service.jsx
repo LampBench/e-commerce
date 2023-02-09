@@ -1,8 +1,10 @@
 import Repository from "./repository";
 
 class UserService extends Repository {
-    async getUsers() {
-        return await this.get("users");
+    async getUsers(params) {
+        return await this.get(
+            `users?page=${params.page}&sort=${params.sort}&order=${params.order}&per-page=${params.perPage}`
+        );
     }
 
     async create(data) {
