@@ -16,8 +16,8 @@ class UserService extends ExpandedBaseService
     public function create(array $data)
     {
         $data['password'] = Hash::make($data['password']);
-        if (empty($data['user_group'])) {
-            $data['user_group'] = config('userGroup.userGroupName');
+        if (empty($data['user_group_id'])) {
+            $data['user_group_id'] = config('userGroup.memberGroupId');
         }
         return $this->repository->create($data);
     }

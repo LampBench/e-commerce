@@ -1,8 +1,7 @@
 <?php
 
 return [
-    'adminGroupName' => 'Administrator',
-    'staffGroupName' => 'Moderator',
-    'userGroupName' => 'Member',
-    'userModules' => ['books', 'authors', 'categories']
+    'adminGroupId' => 1,
+    'moderatorGroupId' => 2,
+    'memberGroupId' => 3,
 ];

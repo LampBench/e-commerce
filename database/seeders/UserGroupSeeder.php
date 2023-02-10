@@ -34,24 +34,18 @@ class UserGroupSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        $staffId = DB::table('user_groups')->insertGetId([
-            'name' => 'Staff',
-            'description' => 'Staff group',
-            'permissions' => json_encode(array()),
+        $moderatorId = DB::table('user_groups')->insertGetId([
+            'name' => 'Moderator',
+            'description' => 'Moderator group',
+            'permissions' => json_encode(array('dashboard' => ['view'])),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        $userPermissions = array();
-        $userModules = config('userGroup.userModules');
-        foreach ($userModules as $userModule) {
-            $userPermissions[$userModule] = ['view'];
-        }
-
-        $userId = DB::table('user_groups')->insertGetId([
-            'name' => 'User',
-            'description' => 'User group',
-            'permissions' => json_encode($userPermissions),
+        $memberId = DB::table('user_groups')->insertGetId([
+            'name' => 'Member',
+            'description' => 'Member group',
+            'permissions' => json_encode(array()),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -66,15 +60,15 @@ class UserGroupSeeder extends Seeder
             ]);
         }
 
-        if ($staffId) {
+        if ($moderatorId) {
             User::factory()->count(5)->create([
-                'user_group_id' => $staffId
+                'user_group_id' => $moderatorId
             ]);
         }
 
-        if ($userId) {
+        if ($memberId) {
             User::factory()->count(5)->create([
-                'user_group_id' => $userId
+                'user_group_id' => $memberId
             ]);
         }
     }
