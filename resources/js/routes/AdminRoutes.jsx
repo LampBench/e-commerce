@@ -30,7 +30,7 @@ const AdminRoutes = {
             element: <User />,
         },
         {
-            path: "/admin/users/user-create",
+            path: "/admin/users/create",
             element: <CreateUser type="create" />,
         },
         {
