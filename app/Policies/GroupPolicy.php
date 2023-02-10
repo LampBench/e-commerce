@@ -52,7 +52,7 @@ class GroupPolicy
      * @param  \App\Models\UserGroup  $userGroup
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, UserGroup $userGroup)
+    public function update(User $user)
     {
         $permissionsJson = json_decode($user->group->permissions, true);
         return isRole($permissionsJson, 'groups', 'update') ? true : false;
