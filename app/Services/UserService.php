@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService extends ExpandedBaseService
 {
-    protected $repository;
-
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;

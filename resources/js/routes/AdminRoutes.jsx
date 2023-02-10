@@ -11,6 +11,8 @@ const CreateUser = Loadable(lazy(() => import("../pages/admin/CreateUser")));
 const GroupList = Loadable(lazy(() => import("../pages/admin/GroupList")));
 const GroupView = Loadable(lazy(() => import("../pages/admin/GroupView")));
 
+// Manage Category Page
+const Category = Loadable(lazy(() => import("../pages/admin/Category")));
 const AdminRoutes = {
     path: "/admin",
     element: <AdminLayout />,
@@ -29,21 +31,21 @@ const AdminRoutes = {
         },
         {
             path: "/admin/users/user-create",
-            element: <CreateUser type='create'/>,
+            element: <CreateUser type="create" />,
+        },
+        {
+            path: "/admin/categories",
+            element: <Category />,
         },
         {
             path: "/admin/groups",
             element: <GroupList />,
         },
         {
-            path: "/admin/groups/group-create",
-            element: <GroupList />,
-        },
-        {
             path: "/admin/groups/:id",
             element: <GroupView />,
-        }
+        },
     ],
-}
+};
 
 export default AdminRoutes;
