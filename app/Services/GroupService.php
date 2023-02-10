@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Classes\BaseService;
 use App\Repositories\GroupRepository;
-use App\Models\UserGroup;
-use App\Models\Module;
 
 class GroupService extends BaseService {
 
