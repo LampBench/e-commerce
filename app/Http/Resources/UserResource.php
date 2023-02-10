@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\UserGroup;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -18,7 +19,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'full_name' => $this->full_name,
             'email' => $this->email,
-            'permissions' => $this->permissions ?? [],
+            'role' => $this->role,
+            'group_name' => $this->group->name,
+            'permissions' => json_decode($this->group->permissions, true)
         ];
     }
 }
