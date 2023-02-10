@@ -6,6 +6,7 @@ use App\Http\Resources\GroupCollection;
 use Illuminate\Http\Request;
 use App\Traits\RespondsWithHttpStatus;
 use App\Services\GroupService;
+use App\Http\Requests\CreateGroupRequest;
 
 class GroupController extends Controller
 {
@@ -24,9 +25,11 @@ class GroupController extends Controller
         return $this->respondWithSuccess($groupList);
     }
 
-    public function store(Request $request)
+    public function store(CreateGroupRequest $request)
     {
-        //
+        $this->authorize('create', 'App\Models\UserGroup');
+        $group = $this->groupService->create($request->all());
+        return $this->respondWithSuccess($group);
     }
 
     public function show($id)
@@ -42,12 +45,13 @@ class GroupController extends Controller
 
     public function update(Request $request, $id)
     {
-        $permissions = $this->groupService->updatePermission($id, $request->roles);
+        $this->authorize('update', 'App\Models\UserGroup');
+        $permissions = $this->groupService->update($request->roles, $id);
         return $this->respondWithSuccess($permissions);
     }
 
     public function destroy($id)
     {
-        //
+        $this->authorize('delete', 'App\Models\UserGroup');
     }
 }

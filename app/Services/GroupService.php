@@ -42,21 +42,35 @@ class GroupService extends BaseService {
         return $permissionList;
     }
 
-    public function updatePermission($id, $data) {
-        if (!empty($data)) {
-            $roleArr = $data;
-            $roleArr['dashboard'] = ['view'];
+    public function convertToPermissionArray($data) {
+        if(!empty($data)) {
+            $permissionArr = $data;
+            $permissionArr['dashboard'] = ['view'];
         } else {
-            $roleArr = [];
-            $roleArr['dashboard'] = [];
+            $permissionArr = [];
+            $permissionArr['dashboard'] = [];
         }
 
-        $roleJson = json_encode($roleArr);
-        
+        return json_encode($permissionArr);
+    }
+
+    public function update($data, $id) {
+        $permissionJson = $this->convertToPermissionArray($data);
         $group = $this->show($id);
-        $group->permissions = $roleJson;
+        $group->permissions = $permissionJson;
         $group->save();
 
         return $group->permissions;
+    }
+
+    public function create($data) {
+        $permissionJson = $this->convertToPermissionArray($data['permissions']);
+        $groupData = [
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'permissions' => $permissionJson,
+        ];
+        $group = $this->repository->create($groupData);
+        return $group;
     }
 }

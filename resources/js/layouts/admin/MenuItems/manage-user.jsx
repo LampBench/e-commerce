@@ -30,17 +30,17 @@ const manageUser = {
             
             children: [
                 {
-                    id: 'users',
+                    id: 'admin-users',
                     title: 'User List',
                     type: 'item',
                     url: '/admin/users',
                     icon: icons.IconGroup
                 },
                 {
-                    id: 'user-create',
+                    id: 'users-create',
                     title: 'Create User',
                     type: 'item',
-                    url: '/admin/users/user-create',
+                    url: '/admin/users/create',
                     icon: icons.IconGroupAdd
                 }
             ]
@@ -53,17 +53,17 @@ const manageUser = {
 
             children: [
                 {
-                    id: 'groups',
+                    id: 'admin-groups',
                     title: 'Group List',
                     type: 'item',
                     url: '/admin/groups',
                     icon: icons.IconAdminPanelSettings
                 },
                 {
-                    id: 'group-create',
+                    id: 'groups-create',
                     title: 'Create Group',
                     type: 'item',
-                    url: '/admin/groups/group-create',
+                    url: '/admin/groups/create',
                     icon: icons.IconAddModerator
                 }
             ]

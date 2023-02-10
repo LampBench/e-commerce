@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import SearchSection from "../../../layouts/admin/Header/SearchSection";
 
 function DataTable({ columns, params, setParams, service }) {
     const [data, setData] = useState([]);
@@ -54,25 +55,35 @@ function DataTable({ columns, params, setParams, service }) {
         });
     };
 
+    // const handleFilterChange = (filter) => {
+    //     setParams(() => {});
+    // };
+
     return (
-        <div style={{ height: 400, width: "100%" }}>
-            <DataGrid
-                rows={data}
-                columns={columns}
-                sortingMode="server"
-                sortingOrder={["desc", "asc"]}
-                onSortModelChange={handleSortModelChange}
-                loading={isLoading}
-                pagination
-                pageSize={perPage === 0 ? 10 : perPage}
-                paginationMode="server"
-                rowsPerPageOptions={[5, 10, 20]}
-                onPageChange={handlePageChange}
-                onPageSizeChange={handlePageSizeChange}
-                rowCount={rowCount}
-                checkboxSelection
-            />
-        </div>
+        <>
+            <SearchSection setParams={setParams} />
+            <div style={{ height: 400, width: "100%" }}>
+                <DataGrid
+                    rows={data}
+                    columns={columns}
+                    sortingMode="server"
+                    sortingOrder={["desc", "asc"]}
+                    onSortModelChange={handleSortModelChange}
+                    loading={isLoading}
+                    page={params.page - 1}
+                    pagination
+                    pageSize={perPage === 0 ? 10 : perPage}
+                    paginationMode="server"
+                    rowsPerPageOptions={[5, 10, 20]}
+                    onPageChange={handlePageChange}
+                    onPageSizeChange={handlePageSizeChange}
+                    rowCount={rowCount}
+                    // filterMode="server"
+                    // onFilterModelChange={handleFilterChange}
+                    checkboxSelection
+                />
+            </div>
+        </>
     );
 }
 

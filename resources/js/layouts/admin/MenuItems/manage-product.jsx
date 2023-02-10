@@ -22,24 +22,24 @@ const manageProduct = {
     type: 'group',
     children: [
         {
-            id: 'manage-product',
+            id: 'manage-products',
             title: 'Manage Product',
             type: 'collapse',
             icon: icons.IconInventory2,
             
             children: [
                 {
-                    id: 'books',
+                    id: 'admin-books',
                     title: 'Book List',
                     type: 'item',
                     url: '/admin/books',
                     icon: icons.IconLibraryBooks,
                 },
                 {
-                    id: 'book-create',
+                    id: 'books-create',
                     title: 'Create Book',
                     type: 'item',
-                    url: '/admin/books/book-create',
+                    url: '/admin/books/create',
                     icon: icons.IconLibraryAdd,
                 }
             ]
@@ -52,17 +52,17 @@ const manageProduct = {
 
             children: [
                 {
-                    id: 'categories',
+                    id: 'admin-categories',
                     title: 'Category List',
                     type: 'item',
                     url: '/admin/categories',
                     icon: icons.IconDashboard,
                 },
                 {
-                    id: 'category-create',
+                    id: 'categories-create',
                     title: 'Create Category',
                     type: 'item',
-                    url: '/admin/categories/category-create',
+                    url: '/admin/categories/create',
                     icon: icons.IconDashboard,
                 }
             ]
@@ -75,16 +75,16 @@ const manageProduct = {
 
             children: [
                 {
-                    id: 'authors',
+                    id: 'admin-authors',
                     title: 'Author List',
                     type: 'item',
                     url: '/admin/authors',
                 },
                 {
-                    id: 'manage-author-create',
+                    id: 'authors-create',
                     title: 'Create Author',
                     type: 'item',
-                    url: '/admin/authors/author-create',
+                    url: '/admin/authors/create',
                 }
             ]
         },
@@ -96,16 +96,16 @@ const manageProduct = {
 
             children: [
                 {
-                    id: 'discounts',
+                    id: 'admin-discounts',
                     title: 'Discount List',
                     type: 'item',
                     url: '/admin/discounts',
                 },
                 {
-                    id: 'discount-create',
+                    id: 'discounts-create',
                     title: 'Create Discount',
                     type: 'item',
-                    url: '/admin/discounts/discount-create',
+                    url: '/admin/discounts/create',
                 }
             ]
         }

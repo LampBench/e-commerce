@@ -61,5 +61,5 @@ return [
         'id',
         'rating-star',
         'quantity',
-    ]
+    ],
 ];
