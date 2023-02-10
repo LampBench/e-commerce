@@ -17,7 +17,6 @@ import GroupService from "../../../services/group.service";
 import TableGroup from "../../../components/admin/TableGroup";
 
 function GroupView() {
-    // Get id from url
     const { id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [permissions, setPermissions] = useState([]);
@@ -47,7 +46,6 @@ function GroupView() {
     };
 
     const handleSave = () => {
-
         GroupService.updatePermissions(group.id, permissions)
             .then((response) => {
                 console.log(response);
@@ -92,8 +90,7 @@ function GroupView() {
                                         sx={{ ml: 2 }}
                                         onClick={() => {
                                             handleSave();
-                                        }}
-                                    >Save</Button>}
+                                        }}>Save</Button>}
                     </div>
                 }
             >
