@@ -43,4 +43,4 @@ function User() {
     );
 }
 
-export default withPermission(['admin'])(User);
+export default withPermission("users", "view")(User);

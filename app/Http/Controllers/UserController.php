@@ -50,7 +50,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->authorize('view', $this->service->show($id));
+        return $this->service->show($id);
     }
 
     /**

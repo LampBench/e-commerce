@@ -24,6 +24,7 @@ class AuthService
         $user = Auth::user();
         return [
             'user' => new UserResource($user),
+            'permissions' => json_decode($user->group->permissions, true) ?? [],
             'token' => $token,
         ];
     }
@@ -37,6 +38,7 @@ class AuthService
 
         return [
             'user' => new UserResource($user),
+            'permissions' => json_decode($user->group->permissions, true) ?? [],
             'token' => Auth::getToken(),
         ];
     }

@@ -6,6 +6,12 @@ const Dashboard = Loadable(lazy(() => import("../pages/admin/Dashboard")));
 const Order = Loadable(lazy(() => import("../pages/admin/Order")));
 const User = Loadable(lazy(() => import("../pages/admin/User")));
 const CreateUser = Loadable(lazy(() => import("../pages/admin/CreateUser")));
+
+// Manage Group Page
+const GroupList = Loadable(lazy(() => import("../pages/admin/GroupList")));
+const GroupView = Loadable(lazy(() => import("../pages/admin/GroupView")));
+
+// Manage Category Page
 const Category = Loadable(lazy(() => import("../pages/admin/Category")));
 const AdminRoutes = {
     path: "/admin",
@@ -30,6 +36,14 @@ const AdminRoutes = {
         {
             path: "/admin/categories",
             element: <Category />,
+        },
+        {
+            path: "/admin/groups",
+            element: <GroupList />,
+        },
+        {
+            path: "/admin/groups/:id",
+            element: <GroupView />,
         },
     ],
 };
