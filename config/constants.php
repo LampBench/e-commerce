@@ -49,6 +49,7 @@ return [
         'sortFields' => [
             'id',
             'category-name',
+            'category-desc'
         ],
         'filterFields' => [],
         'searchFields' => [
