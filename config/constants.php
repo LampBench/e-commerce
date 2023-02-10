@@ -61,5 +61,5 @@ return [
         'admin',
         'rating-star',
         'quantity',
-    ]
+    ],
 ];
