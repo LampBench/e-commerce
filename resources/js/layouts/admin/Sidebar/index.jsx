@@ -8,7 +8,9 @@ import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
 import MenuCard from './MenuCard';
 
-const drawerWidth = 300;
+import { drawerWidth } from '../../../constants/shared/theme.constant';
+
+import "react-perfect-scrollbar/dist/css/styles.css";
 
 const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
     const theme = useTheme();
@@ -35,7 +37,16 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
             </BrowserView>
             <MobileView>
                 <Box sx={{ px: 2 }}>
-                    <MenuList />
+                    <PerfectScrollbar
+                        component="div"
+                        style={{
+                            height: 'calc(100vh - 56px)',
+                            paddingLeft: '16px',
+                            paddingRight: '16px'
+                        }}
+                    >
+                        <MenuList />
+                    </PerfectScrollbar>
                 </Box>
             </MobileView>
         </>
