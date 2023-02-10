@@ -28,6 +28,7 @@
         "@mui/x-data-grid": "^5.17.22",
         "@reduxjs/toolkit": "^1.9.2",
         "formik": "^2.2.9",
+        "framer-motion": "^9.0.2",
         "js-base64": "^3.7.4",
         "laravel-mix": "^6.0.49",
         "react": "^18.2.0",
