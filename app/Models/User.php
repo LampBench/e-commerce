@@ -52,13 +52,16 @@ class User extends Authenticatable implements JWTSubject
 
     public function scopeGetAllDetails($query)
     {
-        return $query->select(
-            'users.id',
-            'users.first_name',
-            'users.last_name',
-            'users.email',
-            'users.user_group_id'
-        );
+        return $query
+            ->leftJoin('user_groups', 'users.user_group_id', 'user_groups.id')
+            ->select(
+                'users.id',
+                'users.first_name',
+                'users.last_name',
+                'users.email',
+                'users.user_group_id',
+                'user_groups.name as group_name'
+            );
     }
 
     public function getFullNameAttribute()

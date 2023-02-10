@@ -7,13 +7,14 @@ return [
             'perPage' => 15
         ],
         'sortFields' => [
-            'id',
+            'users.id',
             'first-name',
             'last-name',
+            'group-name'
         ],
         'filterFields' => [],
         'searchFields' => [
-            'id',
+            'users.id',
             'full-name'
         ],
         'extraFields' => [
@@ -26,13 +27,13 @@ return [
             'perPage' => 10
         ],
         'sortFields' => [
-            'id',
+            'authors.id',
             'author-name',
             'author-bio'
         ],
         'filterFields' => [],
         'searchFields' => [
-            'id',
+            'authors.id',
             'author-name',
             'author-bio'
         ],
@@ -44,13 +45,13 @@ return [
             'perPage' => 10
         ],
         'sortFields' => [
-            'id',
+            'categories.id',
             'category-name',
             'category-desc'
         ],
         'filterFields' => [],
         'searchFields' => [
-            'id',
+            'categories.id',
             'category-name',
             'category-desc'
         ],
@@ -58,7 +59,6 @@ return [
     ],
     'nonStringFields' => [
         'id',
-        'admin',
         'rating-star',
         'quantity',
     ]

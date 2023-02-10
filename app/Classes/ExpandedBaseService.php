@@ -29,7 +29,7 @@ abstract class ExpandedBaseService extends BaseService
         $extraFields = config('constants.' . $table . '.extraFields');
         $nonStringFields = config('constants.nonStringFields');
         $field = $extraFields[$field] ?? $field;
-        $field = in_array($field, $nonStringFields) ? $field : 'LOWER(' . $field . ')';
+        $field = in_array(str_replace($table . '.', '', $field), $nonStringFields) ? $field : 'LOWER(' . $field . ')';
         return str_replace('-', '_', $field);
     }
 
