@@ -29,7 +29,12 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        $permissionsJson = json_decode($user->group->permissions, true);
+        if ($user->id == $model->id || isRole($permissionsJson, 'users', 'view')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -40,7 +45,8 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        
+        $permissionsJson = json_decode($user->group->permissions, true);
+        return isRole($permissionsJson, 'users', 'create') ? true : false;
     }
 
     /**
@@ -52,7 +58,8 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        //
+        $permissionsJson = json_decode($user->group->permissions, true);
+        return $user->id == $model->id || isRole($permissionsJson, 'users', 'update') ? true : false;
     }
 
     /**
@@ -64,7 +71,8 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        //
+        $permissionsJson = json_decode($user->group->permissions, true);
+        return $user->id == $model->id || isRole($permissionsJson, 'users', 'delete') ? true : false;
     }
 
     /**
