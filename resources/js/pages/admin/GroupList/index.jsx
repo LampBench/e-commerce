@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { styled } from '@mui/material/styles';
 import {
     Table,
@@ -9,60 +8,23 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Button
+    Button,
+    Grid,
+    Typography,
+    CircularProgress,
+    Box
 } from '@mui/material';
-
 import { tableCellClasses } from '@mui/material/TableCell';
-
 import { MainCard } from "../../../components/shared";
-
 import GroupService from "../../../services/group.service";
-
-const columns = [
-    {
-        title: 'Group name',
-        dataIndex: 'name',
-        type: 'text',
-        columnAlign: 'center',
-        contentAlign: 'left',
-    },
-    {
-        title: 'Group description',
-        dataIndex: 'description',
-        type: 'text',
-        columnAlign: 'center',
-        contentAlign: 'left',
-    },
-    {
-        title: 'Actions',
-        dataIndex: 'action',
-        type: 'action',
-        columnAlign: 'center',
-        contentAlign: 'center',
-        options: [
-            {
-                title: 'Edit',
-                sx: {
-                    backgroundColor: 'green',
-                    color: 'white',
-                },
-                onClick: () => {
-                    console.log('Edit');
-                },
-            },
-            {
-                title: 'Delete',
-                sx: {
-                    backgroundColor: 'red',
-                    color: 'white',
-                },
-                onClick: () => {
-                    console.log('Delete');
-                },
-            },
-        ]
-    },
-];
+import withPermission from "../../../routes/hocs/WithPermission";
+import { useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import {
+    AddModerator,
+    Policy,
+    Delete
+} from "@mui/icons-material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -91,6 +53,7 @@ const GroupTable = (columns, dataSource) => {
                                 key={column.title}
                                 align={column.columnAlign || 'left'}
                                 sx={{ fontWeight: 'bold' }}
+                                width={column.width || 'auto'}
                             >
                                 {column.title}
                             </StyledTableCell>
@@ -107,14 +70,30 @@ const GroupTable = (columns, dataSource) => {
                                 const value = row[column.dataIndex];
                                 if (column.type === 'action') {
                                     return (
-                                        <StyledTableCell key={column.title} align={column.contentAlign || 'left'}>
+                                        <StyledTableCell 
+                                            key={column.title} 
+                                            align={column.contentAlign || 'left'}
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                '& > :not(style) + :not(style)': {
+                                                    ml: 1
+                                                }
+                                            }}
+                                        >
                                             {column.options.map((option) => (
                                                 <Button
                                                     key={option.title}
                                                     sx={option.sx}
-                                                    onClick={option.onClick}
+                                                    onClick={
+                                                        () => option.onClick(row.id)
+                                                    }
+                                                    startIcon={option.startIcon}
                                                 >
-                                                    {option.title}
+                                                    <Typography variant="body1">
+                                                        {option.title}
+                                                    </Typography>
                                                 </Button>
                                             ))}
                                         </StyledTableCell>
@@ -122,7 +101,14 @@ const GroupTable = (columns, dataSource) => {
                                 } else {
                                     return (
                                         <StyledTableCell key={column.title} align={column.contentAlign || 'left'}>
-                                            {value}
+                                            <Typography 
+                                                variant="body1"
+                                                sx={{
+                                                    fontWeight: column.fontWeight || 'normal'
+                                                }}
+                                            >
+                                                {value}
+                                            </Typography>
                                         </StyledTableCell>
                                     );
                                 }
@@ -135,20 +121,109 @@ const GroupTable = (columns, dataSource) => {
     );
 }
 
-
 function GroupList() {
     const [groups, setGroups] = useState([]);
-
+    const [isLoading, setIsLoading] = useState(true);
+    const theme = useTheme();
+    const navigate = useNavigate();
     useEffect(() => {
-        GroupService.getGroups().then((response) => {
-            setGroups(response.data.data);
-        });
+        GroupService.getGroups()
+            .then((response) => {
+                setGroups(response.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, []);
+    const columns = [
+        {
+            title: 'Group name',
+            dataIndex: 'name',
+            type: 'text',
+            columnAlign: 'left',
+            contentAlign: 'left',
+        },
+        {
+            title: 'Group description',
+            dataIndex: 'description',
+            type: 'text',
+            columnAlign: 'left',
+            contentAlign: 'left',
+        },
+        {
+            title: 'Actions',
+            dataIndex: 'action',
+            type: 'action',
+            columnAlign: 'center',
+            contentAlign: 'center',
+            width: '300px',
+            options: [
+                {
+                    title: 'Permissions',
+                    sx: {
+                        backgroundColor: theme.palette.primary.main,
+                        color: 'white',
+                        '&:hover': {
+                            backgroundColor: theme.palette.primary.dark,
+                        }
+                    },
+                    onClick: (id) => {
+                        navigate(`/admin/groups/${id}`);
+                    },
+                    startIcon: <Policy />,
+                },
+                {
+                    title: 'Delete',
+                    sx: {
+                        backgroundColor: theme.palette.error.main,
+                        color: 'white',
+                        '&:hover': {
+                            backgroundColor: theme.palette.error.dark,
+                        }
+                    },
+                    onClick: (id) => {
+                        console.log("Debug id: ", id);
+                    },
+                    startIcon: <Delete />,
+                },
+            ]
+        },
+    ];
     return (
-        <MainCard title="Group List">
-            {GroupTable(columns, groups)}
+        <MainCard 
+            title="Group List" 
+            secondary={
+                <Button
+                    variant="contained"
+                    startIcon={<AddModerator />}
+                    sx={{
+                        backgroundColor: theme.palette.primary.main,
+                        color: 'white',
+                    }}
+                    onClick={() => navigate('/admin/groups/group-create')}
+                >
+                    Add Group
+                </Button>
+            }
+        >
+            {
+                isLoading ? (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            {GroupTable(columns, groups)}
+                        </Grid>
+                    </Grid>
+                )
+            }
         </MainCard>
     );
 }
 
-export default GroupList;
+export default withPermission('groups', 'view')(GroupList);
