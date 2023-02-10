@@ -1,15 +1,11 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
 import { MainCard } from "../../../components/shared";
 import UserService from "../../../services/user.service";
-import DataTable from "../../../components/admin/DataTable";
+import DataTable from "../../../components/shared/DataTable";
 
 function User() {
-    const [data, setData] = useState([]);
-    const [countPage, setCountPage] = useState(0);
-    const [rowCount, setRowCount] = useState(0);
-    const [perPage, setPerPage] = useState(0);
     const [params, setParams] = useState({
         page: 1,
         sort: "first-name",
@@ -18,13 +14,13 @@ function User() {
     });
 
     const columns = [
-        { field: "id", headerName: "ID", width: 70 },
-        { field: "full_name", headerName: "Full name", width: 260 },
+        { field: "id", headerName: "ID", width: 100 },
+        { field: "full_name", headerName: "Full name", width: 300 },
         { field: "email", headerName: "Email", width: 300 },
         {
             field: "role",
             headerName: "Role",
-            width: 60,
+            width: 100,
             valueGetter: (params) =>
                 `${
                     params.row.role.charAt(0).toUpperCase() +
@@ -33,28 +29,17 @@ function User() {
         },
     ];
 
-    useEffect(() => {
-        UserService.getUsers(params)
-            .then((res) => {
-                setData(res.data.data);
-                setCountPage(res.data.meta.last_page);
-                setRowCount(res.data.meta.total);
-                setPerPage(res.data.meta.per_page);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [params]);
+    const service = (params) => {
+        return UserService.getUsers(params);
+    };
 
     return (
         <MainCard title="User list">
             <DataTable
-                data={data}
-                countPage={countPage}
-                perPage={perPage}
                 columns={columns}
+                params={params}
                 setParams={setParams}
-                rowCount={rowCount}
+                service={service}
             ></DataTable>
         </MainCard>
     );

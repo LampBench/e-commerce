@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-
-import CategoryService from "../../../services/category.serviece";
-import DataTable from "../../../components/admin/DataTable";
+import React, { useState } from "react";
+import DataTable from "../../../components/shared/DataTable";
 import { MainCard } from "../../../components/shared";
-
+import CategoryService from "../../../services/category.serviece";
 // import { categoryAction } from "../../../reducers/categorySlice";
 
 const Category = () => {
-    const [data, setData] = useState([]);
     const [params, setParams] = useState({
         page: 1,
         sort: "category-name",
@@ -15,35 +12,23 @@ const Category = () => {
         perPage: "10",
     });
 
-    const [countPage, setCountPage] = useState(0);
-    const [rowCount, setRowCount] = useState(0);
-    const [perPage, setPerPage] = useState(0);
     const columns = [
-        { field: "id", headerName: "ID", width: 70 },
-        { field: "category_name", headerName: "Category name", width: 200 },
+        { field: "id", headerName: "ID", width: 100 },
+        { field: "category_name", headerName: "Category name", width: 270 },
         { field: "category_desc", headerName: "Category desc", width: 350 },
     ];
 
-    useEffect(() => {
-        CategoryService.getCategories(params)
-            .then((res) => {
-                setData(res.data.data);
-                setCountPage(res.data.meta.last_page);
-                setRowCount(res.data.meta.total);
-                setPerPage(res.data.meta.per_page);
-            })
-            .catch((e) => console.log(e.response));
-    }, [params]);
+    const service = (params) => {
+        return CategoryService.getCategories(params);
+    };
 
     return (
         <MainCard title="Category list">
             <DataTable
-                data={data}
-                countPage={countPage}
-                perPage={perPage}
                 columns={columns}
+                params={params}
                 setParams={setParams}
-                rowCount={rowCount}
+                service={service}
             />
         </MainCard>
     );
