@@ -37,4 +37,4 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 // User groups
-Route::apiResource('groups', GroupController::class);
+Route::apiResource('groups', GroupController::class)->middleware('can:groups');
