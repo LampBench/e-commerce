@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GroupCollection;
 use Illuminate\Http\Request;
 use App\Traits\RespondsWithHttpStatus;
 use App\Services\GroupService;
@@ -19,7 +20,7 @@ class GroupController extends Controller
 
     public function index()
     {
-        $groupList = $this->groupService->all();
+        $groupList = new GroupCollection($this->groupService->all());
         return $this->respondWithSuccess($groupList);
     }
 
