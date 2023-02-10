@@ -11,6 +11,10 @@ class UserGroup extends Model
 
     protected $table = 'user_groups';
 
+    public const ADMIN_GROUP_ID = 1;
+    public const MODERATOR_GROUP_ID = 2;
+    public const MEMBER_GROUP_ID = 3;
+
     protected $fillable = [
         'name',
         'permissions'
