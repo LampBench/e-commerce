@@ -19,7 +19,6 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'full_name' => $this->full_name,
             'email' => $this->email,
-            'role' => $this->role,
             'group_name' => $this->group->name,
             'permissions' => json_decode($this->group->permissions, true)
         ];

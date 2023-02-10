@@ -47,7 +47,6 @@ class UserGroupSeeder extends Seeder
                 'last_name' => 'User',
                 'email' => 'admin@email.com',
                 'password' => Hash::make('Admin@Password'),
-                'admin' => true,
                 'user_group_id' => $adminId
             ]);
         }

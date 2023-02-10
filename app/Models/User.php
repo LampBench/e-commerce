@@ -57,14 +57,8 @@ class User extends Authenticatable implements JWTSubject
             'users.first_name',
             'users.last_name',
             'users.email',
-            'users.admin',
             'users.user_group_id'
         );
-    }
-
-    public function getRoleAttribute()
-    {
-        return $this->admin ? 'admin' : 'user';
     }
 
     public function getFullNameAttribute()

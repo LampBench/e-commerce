@@ -10,11 +10,8 @@ return [
             'id',
             'first-name',
             'last-name',
-            'admin'
         ],
-        'filterFields' => [
-            'admin',
-        ],
+        'filterFields' => [],
         'searchFields' => [
             'id',
             'full-name'
