@@ -56,7 +56,6 @@ class GroupPolicy
     {
         $permissionsJson = json_decode($user->group->permissions, true);
         return isRole($permissionsJson, 'groups', 'update') ? true : false;
-        return true;
     }
 
     /**
