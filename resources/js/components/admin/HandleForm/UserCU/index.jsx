@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Box,
     FormHelperText,
@@ -16,21 +16,24 @@ import { FormItem } from "../../../shared";
 import { userFormItems } from "../../../../constants/admin/user.form-item.constant";
 
 import UserService from "../../../../services/user.service";
+import GroupService from "../../../../services/group.service";
 
-function UserCU({type, userData, setNotify, ...orthers}) {
+function UserCU({ type, userData, setNotify, ...orthers }) {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const customization = useSelector((state) => state.theme);
     const [showPassword, setShowPassword] = React.useState(false);
+    const [userGroupOptions, setUserGroupOptions] = useState([]);
 
     const handleOnSubmit = (values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
+
         const data = {
             first_name: values.first_name,
             last_name: values.last_name,
             email: values.email,
             password: values.password,
-            role: values.role,
+            user_group_id: values.user_group_id,
         };
         if (type === 'create') {
             UserService.create(data)
@@ -82,6 +85,25 @@ function UserCU({type, userData, setNotify, ...orthers}) {
         return rules;
     };
 
+    useEffect(() => {
+        GroupService.getGroups()
+            .then((response) => {
+                let options = [];
+                response.data.data.data.map((option) => {
+                    options.push(
+                        {
+                            value: option.id,
+                            text: option.name,
+                        }
+                    );
+                });
+                setUserGroupOptions(options);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, []);
+
     return (
         <Formik
             initialValues={{
@@ -90,14 +112,14 @@ function UserCU({type, userData, setNotify, ...orthers}) {
                 email: userData ? userData.email : '',
                 password: '',
                 password_confirmation: '',
-                role: userData ? userData.role : '',
+                user_group_id: userData ? userData.user_group_id : '',
                 submit: null
             }}
             onSubmit={handleOnSubmit}
             validationSchema={Yup.object().shape(
                 handleMappingRules(userFormItems)
             )}
-                
+
         >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue }) => (
                 <form noValidate onSubmit={handleSubmit} >
@@ -124,7 +146,7 @@ function UserCU({type, userData, setNotify, ...orthers}) {
                                             handleChange={handleChange}
                                             handleBlur={handleBlur}
                                             rangeLength={item.rangeLength ? item.rangeLength : null}
-                                            options={item.options ? item.options : null}
+                                            options={item.options ? eval(item.options) : null}
                                             showPassword={showPassword}
                                             setShowPassword={setShowPassword}
                                             errors={errors}
@@ -133,7 +155,7 @@ function UserCU({type, userData, setNotify, ...orthers}) {
                                     </Box>
                                 );
                             }
-                        )}
+                            )}
                         {
                             errors.submit && (
                                 <Box sx={{ mt: 3 }}>
