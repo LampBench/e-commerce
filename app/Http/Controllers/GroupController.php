@@ -25,7 +25,7 @@ class GroupController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', 'App\Models\UserGroup');
     }
 
     public function show($id)
@@ -41,12 +41,13 @@ class GroupController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->authorize('update', 'App\Models\UserGroup');
         $permissions = $this->groupService->updatePermission($id, $request->roles);
         return $this->respondWithSuccess($permissions);
     }
 
     public function destroy($id)
     {
-        //
+        $this->authorize('delete', 'App\Models\UserGroup');
     }
 }
