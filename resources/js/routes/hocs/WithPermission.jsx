@@ -2,18 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from "react-router-dom";
 
-const withPermission = (allowedRoles) => (Component) => {
+const withPermission = (module, allowedPermission) => (Component) => {
     return (props) => {
-        const user = useSelector((state) => state.user.data);
-        if (user && allowedRoles.includes(user.role)) {
+        const permissions = useSelector(state => state.user.permissions);
+        if (permissions[module] && permissions[module].includes(allowedPermission)) {
             return <Component {...props} />;
-        } else {
-            if(user) {
-                return <Navigate to="/403" />;
-            } else {
-                return <Navigate to="/login" />;
-            }
         }
+        return <Navigate to="/error/access-denied" />;
     };
 };
 

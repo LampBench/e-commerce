@@ -16,7 +16,9 @@ class UserService extends ExpandedBaseService
     public function create(array $data)
     {
         $data['password'] = Hash::make($data['password']);
-        $data['admin'] = $data['role'] === 'admin' ? true : false;
+        if (!empty($data['role'])) {
+            $data['admin'] = $data['role'] == 'admin' ? true : false;
+        }
         return $this->repository->create($data);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('users', UserController::class);
+Route::apiResource('users', UserController::class)->middleware('can:users');
 Route::apiResource('authors', AuthorController::class);
 Route::apiResource('categories', CategoryController::class);
 
@@ -34,3 +35,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
     Route::get('me', 'me');
 });
+
+// User groups
+Route::apiResource('groups', GroupController::class);

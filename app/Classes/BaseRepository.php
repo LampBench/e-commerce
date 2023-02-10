@@ -36,6 +36,6 @@ abstract class BaseRepository extends EloquentRepository implements RepositoryIn
 
     public function show($id)
     {
-        return $this->model->show($id);
+        return $this->model->find($id);
     }
 }
