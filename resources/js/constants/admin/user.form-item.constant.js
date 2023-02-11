@@ -8,9 +8,9 @@ export const userFormItems = [
         placeholder: 'Enter first name',
         rangeLength: 50,
         rules: Yup.string()
-                .required('First name is required')
-                .max(50, 'First name must be less than 50 characters')
-                .min(3, 'First name must be more than 3 characters'),
+            .required('First name is required')
+            .max(50, 'First name must be less than 50 characters')
+            .min(3, 'First name must be more than 3 characters'),
     },
     {
         label: 'Last Name',
@@ -19,9 +19,9 @@ export const userFormItems = [
         placeholder: 'Enter last name',
         rangeLength: 50,
         rules: Yup.string()
-                .required('Last name is required')
-                .max(50, 'Last name must be less than 50 characters')
-                .min(3, 'Last name must be more than 3 characters'),
+            .required('Last name is required')
+            .max(50, 'Last name must be less than 50 characters')
+            .min(3, 'Last name must be more than 3 characters'),
     },
     {
         label: 'Email',
@@ -30,10 +30,10 @@ export const userFormItems = [
         placeholder: 'Enter email',
         rangeLength: 255,
         rules: Yup.string()
-                .required('Email is required')
-                .email('Email is invalid')
-                .max(255, 'Email must be less than 255 characters')
-                .min(3, 'Email must be more than 3 characters'),
+            .required('Email is required')
+            .email('Email is invalid')
+            .max(255, 'Email must be less than 255 characters')
+            .min(3, 'Email must be more than 3 characters'),
     },
     {
         label: 'Password',
@@ -42,9 +42,9 @@ export const userFormItems = [
         placeholder: 'Enter password',
         rangeLength: 255,
         rules: Yup.string()
-                .required('Password is required')
-                .max(255, 'Password must be less than 255 characters')
-                .min(3, 'Password must be more than 6 characters'),
+            .required('Password is required')
+            .max(255, 'Password must be less than 255 characters')
+            .min(3, 'Password must be more than 6 characters'),
     },
     {
         label: 'Confirm Password',
@@ -53,28 +53,19 @@ export const userFormItems = [
         placeholder: 'Enter confirm password',
         rangeLength: 255,
         rules: Yup.string()
-                .required('Confirm password is required')
-                .max(255, 'Confirm password must be less than 255 characters')
-                .min(3, 'Confirm password must be more than 6 characters')
-                .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+            .required('Confirm password is required')
+            .max(255, 'Confirm password must be less than 255 characters')
+            .min(3, 'Confirm password must be more than 6 characters')
+            .oneOf([Yup.ref('password'), null], 'Passwords must match'),
     },
     {
-        label: 'Role',
-        name: 'role',
+        label: 'User group',
+        name: 'user_group_id',
         type: 'select',
-        placeholder: 'Select role',
+        placeholder: 'Select user group',
         isEdit: false,
-        options: [
-            {
-                value: 'admin',
-                text: 'Admin',
-            },
-            {
-                value: 'user',
-                text: 'User',
-            },
-        ],
+        options: 'userGroupOptions',
         rules: Yup.string()
-                .required('Role is required'),
+            .required('Role is required'),
     },
 ];
