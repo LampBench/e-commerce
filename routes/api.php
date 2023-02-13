@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ManufacturerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('users', UserController::class)->middleware('can:users');
-Route::apiResource('authors', AuthorController::class);
+Route::apiResource('manufacturers', ManufacturerController::class);
 Route::apiResource('categories', CategoryController::class);
 
 // Authenticated routes

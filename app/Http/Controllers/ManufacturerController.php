@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\AuthorCollection;
-use App\Services\AuthorService;
+use App\Http\Resources\ManufacturerCollection;
+use App\Services\ManufacturerService;
 use Illuminate\Http\Request;
 
-class AuthorController extends Controller
+class ManufacturerController extends Controller
 {
     protected $service;
 
-    public function __construct(AuthorService $service)
+    public function __construct(ManufacturerService $service)
     {
         $this->service = $service;
     }
@@ -21,8 +21,8 @@ class AuthorController extends Controller
      */
     public function index(Request $request)
     {
-        $authors = $this->service->applySortFilterSearch($request);
-        return new AuthorCollection($authors);
+        $manufacturers = $this->service->applySortFilterSearch($request);
+        return new ManufacturerCollection($manufacturers);
     }
 
     /**
