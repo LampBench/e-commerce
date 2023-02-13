@@ -34,6 +34,8 @@ function FormItem(props) {
         touched,
     } = props;
 
+    console.log('Debug render 2');
+
     const handleDataChild = (type) => {
         switch (type) {
             case 'text':
@@ -64,7 +66,6 @@ function FormItem(props) {
                                         ) : (
                                             rangeLength && (
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {console.log("Debug: FormItemUser -> value", value)}
                                                     {value !== undefined ? value.length : 0} / {rangeLength}
                                                 </Typography>
                                             )

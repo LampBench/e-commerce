@@ -78,11 +78,7 @@ function UserCU({ type, userData, setNotify, ...orthers }) {
     };
 
     const handleMappingRules = (items) => {
-        const rules = {};
-        items.forEach((item) => {
-            rules[item.name] = item.rules;
-        });
-        return rules;
+        return mappingRules(items);
     };
 
     useEffect(() => {
