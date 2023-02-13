@@ -2,27 +2,26 @@ import React, { useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
 import DataTable from "../../../components/shared/DataTable";
 import { MainCard } from "../../../components/shared";
-import CategoryService from "../../../services/category.serviece";
-import { categoriesColumns } from "../../../constants/shared/columns/categories.columns.constant";
-// import { categoryAction } from "../../../reducers/categorySlice";
+import AuthorService from "../../../services/author.service";
+import { authorsColumns } from "../../../constants/shared/columns/authors.columns.constant";
 
-const Category = () => {
+const Author = () => {
     const [params, setParams] = useState({
         page: 1,
-        sort: "category-name",
+        sort: "author-name",
         order: "asc",
         perPage: "10",
         search: "",
     });
 
     const service = (params) => {
-        return CategoryService.getCategories(params);
+        return AuthorService.getAuthors(params);
     };
 
     return (
-        <MainCard title="Category list">
+        <MainCard title="Author list">
             <DataTable
-                columns={categoriesColumns}
+                columns={authorsColumns}
                 params={params}
                 setParams={setParams}
                 service={service}
@@ -31,4 +30,4 @@ const Category = () => {
     );
 };
 
-export default withPermission("categories", "view")(Category);
+export default withPermission("authors", "view")(Author);

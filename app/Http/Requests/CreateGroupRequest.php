@@ -25,8 +25,8 @@ class CreateGroupRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|unique:user_groups,name',
-            'description' => 'required|string|max:512|nullable',
-            'permissions' => 'required|array',
+            'description' => 'string|max:512|nullable',
+            'permissions' => 'nullable',
         ];
     }
 }

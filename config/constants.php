@@ -7,7 +7,7 @@ return [
             'perPage' => 15
         ],
         'sortFields' => [
-            'users.id',
+            'id',
             'first-name',
             'last-name',
             'group-name'
@@ -27,7 +27,7 @@ return [
             'perPage' => 10
         ],
         'sortFields' => [
-            'authors.id',
+            'id',
             'author-name',
             'author-bio'
         ],
@@ -45,7 +45,7 @@ return [
             'perPage' => 10
         ],
         'sortFields' => [
-            'categories.id',
+            'id',
             'category-name',
             'category-desc'
         ],

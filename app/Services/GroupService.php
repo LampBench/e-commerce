@@ -18,16 +18,15 @@ class GroupService extends BaseService {
         return $moduleList;
     }
 
-    public function getPermissionList($id) {
+    public function mapPermissions($rawPermissions) {
         $modules = $this->getModuleList();
-        $group = $this->show($id);
         $roleListArr = [
             'view' => 'View',
             'create' => 'Create',
             'update' => 'Update',
             'delete' => 'Delete',
         ];
-        $groupPermission = json_decode($group->permissions, true);
+        $groupPermission = json_decode($rawPermissions, true);
         $permissionList = [];
         foreach ($modules as $module) {
             $permissionList[$module['name']] = [];
@@ -39,6 +38,12 @@ class GroupService extends BaseService {
             }
         }
 
+        return $permissionList;
+    }
+
+    public function getPermissionList($id) {
+        $group = $this->show($id);
+        $permissionList = $this->mapPermissions($group->permissions);
         return $permissionList;
     }
 
@@ -72,5 +77,11 @@ class GroupService extends BaseService {
         ];
         $group = $this->repository->create($groupData);
         return $group;
+    }
+
+    public function getModules()
+    {
+        $moduleList = $this->mapPermissions('');
+        return $moduleList;
     }
 }

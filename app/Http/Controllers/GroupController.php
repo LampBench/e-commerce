@@ -21,7 +21,7 @@ class GroupController extends Controller
 
     public function index()
     {
-        $groupList = new GroupCollection($this->groupService->all());
+        $groupList = $this->groupService->all();
         return $this->respondWithSuccess($groupList);
     }
 
@@ -39,7 +39,7 @@ class GroupController extends Controller
         return $this->respondWithSuccess([
             'group' => $group,
             'permissions' => $permissions,
-            'modules' => config('modules')
+            'modules' => $this->groupService->getModuleList(),
         ]);
     }
 
@@ -53,5 +53,14 @@ class GroupController extends Controller
     public function destroy($id)
     {
         $this->authorize('delete', 'App\Models\UserGroup');
+    }
+
+    public function getModules()
+    {
+        $permissions = $this->groupService->mapPermissions('');
+        return $this->respondWithSuccess([
+            'permissions' => $permissions,
+            'modules' => $this->groupService->getModuleList(),
+        ]);
     }
 }
