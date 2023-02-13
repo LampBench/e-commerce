@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DataTable from "../../../components/shared/DataTable";
 import { MainCard } from "../../../components/shared";
-import CategoryService from "../../../services/category.serviece";
+import CategoryService from "../../../services/category.service";
 // import { categoryAction } from "../../../reducers/categorySlice";
 import { getGridStringOperators } from "@mui/x-data-grid";
 
