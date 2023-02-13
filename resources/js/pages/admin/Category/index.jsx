@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
 import DataTable from "../../../components/shared/DataTable";
 import { MainCard } from "../../../components/shared";
-import CategoryService from "../../../services/category.serviece";
+import CategoryService from "../../../services/category.service";
 import { categoriesColumns } from "../../../constants/shared/columns/categories.columns.constant";
 // import { categoryAction } from "../../../reducers/categorySlice";
 
