@@ -6,6 +6,10 @@ class CategoryService extends Repository {
             `categories?page=${params.page}&sort=${params.sort}&order=${params.order}&per-page=${params.perPage}&search=${params.search}`
         );
     }
+
+    async create(data) {
+        return await this.post("categories", data);
+    }
 }
 
 export default new CategoryService();
