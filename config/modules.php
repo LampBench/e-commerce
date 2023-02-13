@@ -7,9 +7,9 @@ return [
         'description' => 'Manage users',
     ],
     [
-        'name' => 'authors',
-        'title' => 'Authors',
-        'description' => 'Manage authors',
+        'name' => 'manufacturers',
+        'title' => 'Manufacturers',
+        'description' => 'Manage manufacturers',
     ],
     [
         'name' => 'categories',
@@ -22,8 +22,8 @@ return [
         'description' => 'Manage groups',
     ],
     [
-        'name' => 'books',
-        'title' => 'Books',
-        'description' => 'Manage books',
+        'name' => 'products',
+        'title' => 'Products',
+        'description' => 'Manage products',
     ]
 ];

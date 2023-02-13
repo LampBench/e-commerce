@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import AdminLayout from "../layouts/admin";
 import Loadable from "../components/shared/Loadable";
-import Author from "../pages/admin/Author";
+import Manufacturer from "../pages/admin/Manufacturer";
 import CreateCategory from "../pages/admin/CreateCategory";
 
 const Dashboard = Loadable(lazy(() => import("../pages/admin/Dashboard")));
@@ -40,6 +40,7 @@ const AdminRoutes = {
             path: "/admin/categories",
             element: <Category />,
         },
+        { path: "/admin/categories/create", element: <CreateCategory /> },
         {
             path: "/admin/groups",
             element: <GroupList />,
@@ -53,10 +54,9 @@ const AdminRoutes = {
             element: <GroupCreate type="create" />,
         },
         {
-            path: "/admin/authors",
-            element: <Author />,
+            path: "/admin/manufacturers",
+            element: <Manufacturer />,
         },
-        { path: "/admin/categories/create", element: <CreateCategory /> },
     ],
 };
 

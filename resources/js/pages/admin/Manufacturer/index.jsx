@@ -2,26 +2,26 @@ import React, { useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
 import DataTable from "../../../components/shared/DataTable";
 import { MainCard } from "../../../components/shared";
-import AuthorService from "../../../services/author.service";
-import { authorsColumns } from "../../../constants/shared/columns/authors.columns.constant";
+import ManufacturerService from "../../../services/manufacturer.service";
+import { manufacturersColumns } from "../../../constants/shared/columns/manufacturers.columns.constant";
 
-const Author = () => {
+const Manufacturer = () => {
     const [params, setParams] = useState({
         page: 1,
-        sort: "author-name",
+        sort: "name",
         order: "asc",
         perPage: "10",
         search: "",
     });
 
     const service = (params) => {
-        return AuthorService.getAuthors(params);
+        return ManufacturerService.getManufacturers(params);
     };
 
     return (
-        <MainCard title="Author list">
+        <MainCard title="Manufacturer list">
             <DataTable
-                columns={authorsColumns}
+                columns={manufacturersColumns}
                 params={params}
                 setParams={setParams}
                 service={service}
@@ -30,4 +30,4 @@ const Author = () => {
     );
 };
 
-export default withPermission("authors", "view")(Author);
+export default withPermission("manufacturers", "view")(Manufacturer);

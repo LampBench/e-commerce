@@ -29,7 +29,6 @@ return [
         'sortFields' => [
             'id',
             'name',
-            'description',
             'phone-number',
             'email',
             'address',
