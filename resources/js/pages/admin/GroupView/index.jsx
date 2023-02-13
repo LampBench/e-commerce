@@ -58,8 +58,6 @@ function GroupView() {
             });
     };
 
-    console.log("Debug permissions: ", permissions);
-
     if (isLoading) {
         return (
             <MainCard title={"Group view"}>

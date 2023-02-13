@@ -1,5 +1,5 @@
 import Repository from "./repository";
-
+import { mappingPermissions, mappingPermissionsToArray } from "../utils/function.helper";
 class GroupService extends Repository {
     async getGroups() {
         return await this.get("groups");
@@ -10,18 +10,17 @@ class GroupService extends Repository {
     }
 
     async updatePermissions(id, data) {
-        let result = "";
-
-        for (const [module, permissions] of Object.entries(data)) {
-            for (const [permission, value] of Object.entries(permissions)) {
-                if (value.checked) {
-                    result += `roles[${module}][]=${permission}&`;
-                }
-            }
-        }
-
-        const roles = result.slice(0, -1);
+        const roles = mappingPermissions(data, 'roles');
         return await this.patch(`groups/${id}`, roles);
+    }
+
+    async getModules() {
+        return await this.get("groups/modules");
+    }
+
+    async createGroup(data) {
+        data['permissions'] = mappingPermissionsToArray(data['permissions']);
+        return await this.post("groups", data);
     }
 }
 

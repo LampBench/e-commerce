@@ -18,6 +18,8 @@ import { userFormItems } from "../../../../constants/admin/user.form-item.consta
 import UserService from "../../../../services/user.service";
 import GroupService from "../../../../services/group.service";
 
+import { mappingRules } from "../../../../utils/function.helper"
+
 function UserCU({ type, userData, setNotify, ...orthers }) {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -78,18 +80,14 @@ function UserCU({ type, userData, setNotify, ...orthers }) {
     };
 
     const handleMappingRules = (items) => {
-        const rules = {};
-        items.forEach((item) => {
-            rules[item.name] = item.rules;
-        });
-        return rules;
+        return mappingRules(items);
     };
 
     useEffect(() => {
         GroupService.getGroups()
             .then((response) => {
                 let options = [];
-                response.data.data.data.map((option) => {
+                response.data.data.map((option) => {
                     options.push(
                         {
                             value: option.id,

@@ -203,7 +203,7 @@ function GroupList() {
                         backgroundColor: theme.palette.primary.main,
                         color: 'white',
                     }}
-                    onClick={() => navigate('/admin/groups/group-create')}
+                    onClick={() => navigate('/admin/groups/create')}
                 >
                     Add Group
                 </Button>
