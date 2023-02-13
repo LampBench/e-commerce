@@ -25,6 +25,7 @@ class UserGroupSeeder extends Seeder
         foreach ($modules as $module) {
             $adminPermissions[$module['name']] = $modulePermissions;
         }
+
         $adminId = DB::table('user_groups')->insertGetId([
             'name' => 'Administrator',
             'description' => 'Admin group',
@@ -33,9 +34,17 @@ class UserGroupSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        $staffId = DB::table('user_groups')->insertGetId([
-            'name' => 'Staff',
-            'description' => 'Staff group',
+        $moderatorId = DB::table('user_groups')->insertGetId([
+            'name' => 'Moderator',
+            'description' => 'Moderator group',
+            'permissions' => json_encode(array('dashboard' => ['view'])),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        $memberId = DB::table('user_groups')->insertGetId([
+            'name' => 'Member',
+            'description' => 'Member group',
             'permissions' => json_encode(array()),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
@@ -51,9 +60,15 @@ class UserGroupSeeder extends Seeder
             ]);
         }
 
-        if ($staffId) {
-            User::factory()->count(10)->create([
-                'user_group_id' => $staffId
+        if ($moderatorId) {
+            User::factory()->count(5)->create([
+                'user_group_id' => $moderatorId
+            ]);
+        }
+
+        if ($memberId) {
+            User::factory()->count(5)->create([
+                'user_group_id' => $memberId
             ]);
         }
     }
