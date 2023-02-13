@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import AdminLayout from "../layouts/admin";
 import Loadable from "../components/shared/Loadable";
+import Author from "../pages/admin/Author";
 
 const Dashboard = Loadable(lazy(() => import("../pages/admin/Dashboard")));
 const Order = Loadable(lazy(() => import("../pages/admin/Order")));
@@ -44,6 +45,10 @@ const AdminRoutes = {
         {
             path: "/admin/groups/:id",
             element: <GroupView />,
+        },
+        {
+            path: "/admin/authors",
+            element: <Author />,
         },
     ],
 };
