@@ -3,7 +3,7 @@ import Repository from "./repository";
 class UserService extends Repository {
     async getUsers(params) {
         return await this.get(
-            `users?page=${params.page}&sort=${params.sort}&order=${params.order}&per-page=${params.perPage}`
+            `users?page=${params.page}&sort=${params.sort}&order=${params.order}&per-page=${params.perPage}&search=${params.search}`
         );
     }
 
