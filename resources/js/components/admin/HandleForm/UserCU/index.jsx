@@ -18,9 +18,12 @@ import { userFormItems } from "../../../../constants/admin/user.form-item.consta
 import UserService from "../../../../services/user.service";
 import GroupService from "../../../../services/group.service";
 
-import { mappingRules } from "../../../../utils/function.helper"
+import { mappingRules } from "../../../../utils/function.helper";
 
-function UserCU({ type, userData, setNotify, ...orthers }) {
+import { toast } from 'react-toastify';
+
+function UserCU({ type, userData, ...orthers }) {
+
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const customization = useSelector((state) => state.theme);
@@ -40,18 +43,14 @@ function UserCU({ type, userData, setNotify, ...orthers }) {
         if (type === 'create') {
             UserService.create(data)
                 .then((response) => {
-                    setNotify({
-                        isOpen: true,
-                        message: 'Create user successfully',
-                        type: 'success'
+                    toast.success('Create user successfully', {
+                        autoClose: 3000
                     });
                     resetForm();
                 })
                 .catch((error) => {
-                    setNotify({
-                        isOpen: true,
-                        message: 'Create user failed',
-                        type: 'error'
+                    toast.error('Create user failed', {
+                        autoClose: 3000
                     });
                 })
                 .finally(() => {
@@ -60,17 +59,13 @@ function UserCU({ type, userData, setNotify, ...orthers }) {
         } else if (type === 'update') {
             UserService.update(userData.id, data)
                 .then((response) => {
-                    setNotify({
-                        isOpen: true,
-                        message: 'Update user successfully',
-                        type: 'success'
+                    toast.success('Update user successfully', {
+                        autoClose: 3000
                     });
                 })
                 .catch((error) => {
-                    setNotify({
-                        isOpen: true,
-                        message: 'Update user failed',
-                        type: 'error'
+                    toast.error('Update user failed', {
+                        autoClose: 3000
                     });
                 })
                 .finally(() => {

@@ -31,7 +31,10 @@ import { encode } from 'js-base64';
 
 import images from '../../../../../assets/images';
 
-const LoginForm = ({ setNotify, ...others }) => {
+import { toast } from 'react-toastify';
+
+const LoginForm = ({ ...others }) => {
+
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const dispatch = useDispatch();
@@ -58,22 +61,18 @@ const LoginForm = ({ setNotify, ...others }) => {
             const response = await AuthService.login(values);
             localStorage.setItem('TOKEN', encode(response.data.data.token));
             dispatch(SET_USER(response.data.data));
-            setNotify({
-                isOpen: true,
-                message: 'Login successfully',
-                type: 'success'
+            toast.success('Login successfully', {
+                autoClose: 3000
             });
         } catch (error) {
-            if(error.response.status === 401) {
-                setErrors({ password: 'Invalid credentials'});
+            if (error.response.status === 401) {
+                setErrors({ password: 'Invalid credentials' });
             } else {
                 setErrors(error.response.data.errors);
             }
-            setNotify({
-                isOpen: true,
-                message: 'Login failed',
-                type: 'error'
-            });
+            toast.error('Login failed'), {
+                autoClose: 3000
+            };
             setSubmitting(false);
         }
     };
