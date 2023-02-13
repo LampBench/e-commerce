@@ -12,7 +12,7 @@ class CategoriesSeeder extends Seeder
         $superiorCategories = Category::factory()->count(3)->create();
         foreach ($superiorCategories as $superiorCategory) {
             Category::factory()->count(5)->create([
-                'subcategory_of_id' => $superiorCategory->id
+                'parent_id' => $superiorCategory->id
             ]);
         }
     }

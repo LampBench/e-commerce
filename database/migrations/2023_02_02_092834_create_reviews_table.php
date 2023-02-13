@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('reply_for_id')->nullable()->constrained('reviews');
+            $table->foreignId('parent_id')->nullable()->constrained('reviews');
             $table->string('title', 120);
             $table->text('details')->nullable();
             $table->enum('status', [1, 2])->default(1);

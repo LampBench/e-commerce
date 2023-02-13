@@ -13,7 +13,7 @@ class Category extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'subcategory_of_id',
+        'parent_id',
         'name',
         'description'
     ];

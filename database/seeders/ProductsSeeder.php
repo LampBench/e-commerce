@@ -13,7 +13,7 @@ class ProductsSeeder extends Seeder
     public function run()
     {
         $manufacturers = Manufacturer::all();
-        $categories = Category::where('subcategory_of_id', '!=', null)->get();
+        $categories = Category::where('parent_id', '!=', null)->get();
         foreach ($manufacturers as $manufacturer) {
             foreach ($categories as $category) {
                 $numberOfProducts = rand(1, 5);
