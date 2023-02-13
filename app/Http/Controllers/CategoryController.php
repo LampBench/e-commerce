@@ -37,7 +37,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = $this->service->create($request->all());
+        return $this->respondWithSuccess($category, "Category created successfully", 201);
     }
 
     /**

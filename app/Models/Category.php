@@ -12,6 +12,11 @@ class Category extends Model
     protected $table = 'categories';
     public $timestamps = false;
 
+    protected $fillable = [
+        'category_name',
+        'category_desc'
+    ];
+
     public function scopeGetAllDetails($query)
     {
         return $query->select('*');
