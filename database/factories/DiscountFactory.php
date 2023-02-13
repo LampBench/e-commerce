@@ -36,10 +36,10 @@ class DiscountFactory extends Factory
         }
 
         return [
-            'discount_start_date' => $startDate,
-            'discount_end_date' => $endDate,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
             'type' => $this->faker->randomElement([1, 2]),
-            'discount_value' => $this->faker->randomFloat(2, 9, 28),
+            'value' => $this->faker->randomFloat(2, 9, 28),
         ];
     }
 }

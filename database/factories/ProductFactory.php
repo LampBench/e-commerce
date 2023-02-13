@@ -2,28 +2,28 @@
 
 namespace Database\Factories;
 
-use App\Models\Book;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Book>
  */
-class BookFactory extends Factory
+class ProductFactory extends Factory
 {
-    protected $model = Book::class;
+    protected $model = Product::class;
 
     public function definition()
     {
-        $bookPhotos = [null];
+        $photos = [null];
         for ($i = 1; $i <= 10; $i++) {
-            array_push($bookPhotos, 'book' . $i);
+            array_push($photos, 'product' . $i);
         }
         return [
             'status' => $this->faker->randomElement([1, 2, 3]),
-            'book_title' => $this->faker->text(),
-            'book_summary' => $this->faker->text(),
-            'book_price' => $this->faker->randomFloat(1, 20, 70),
-            'book_cover_photo' => $this->faker->randomElement($bookPhotos),
+            'name' => $this->faker->text(),
+            'summary' => $this->faker->text(),
+            'price' => $this->faker->randomFloat(1, 20, 150),
+            'cover_photo' => $this->faker->randomElement($photos),
             'quantity' => $this->faker->numberBetween(1, 50)
         ];
     }
