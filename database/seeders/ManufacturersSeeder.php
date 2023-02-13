@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Author;
+use App\Models\Manufacturer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AuthorsSeeder extends Seeder
+class ManufacturersSeeder extends Seeder
 {
     public function run()
     {
-        Author::factory()->count(10)->create();
+        Manufacturer::factory()->count(10)->create();
     }
 }
