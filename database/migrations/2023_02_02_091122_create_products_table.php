@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->nullable()->constrained('categories');
-            $table->foreignId('author_id')->nullable()->constrained('authors');
+            $table->foreignId('manufacturer_id')->nullable()->constrained('manufacturers');
             $table->enum('status', [1, 2, 3])->default(1);
-            $table->string('book_title', 255);
-            $table->string('book_summary')->nullable();
-            $table->double('book_price');
-            $table->string('book_cover_photo', 20)->nullable();
+            $table->string('name', 255);
+            $table->string('summary')->nullable();
+            $table->double('price');
+            $table->string('cover_photo', 20)->nullable();
             $table->integer('quantity')->default(0);
             $table->softDeletes();
         });
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('products');
     }
 };

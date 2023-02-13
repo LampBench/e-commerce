@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_group_id')->nullable()->constrained('user_groups');
             $table->string('first_name', 50);
             $table->string('last_name', 50);
             $table->string('email', 128)->unique();
             $table->string('password');
-            // user_group_id is a foreign key to the user_groups table but user_groups table is not created yet
-            $table->foreignId('user_group_id')->nullable()->constrained('user_groups');
             $table->softDeletes();
         });
     }
