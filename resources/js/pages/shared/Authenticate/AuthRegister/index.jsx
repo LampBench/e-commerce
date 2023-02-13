@@ -1,15 +1,12 @@
-import React, { useEffect, useState, forwardRef } from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import AuthWrapper from '../AuthWrapper';
 import AuthCardWrapper from '../AuthCardWrapper';
-import { Logo } from '../../../../components/admin';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useLogged from '../../../../hooks/useLogged';
 import RegisterForm from '../AuthForms/RegisterForm';
-import { Snackbar } from '@mui/material';
-import { Alert } from '../../../../components/shared';
 
 const Register = () => {
     const logged = useLogged();
@@ -21,25 +18,9 @@ const Register = () => {
     }, [logged]);
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
-    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setNotify({
-            ...notify,
-            isOpen: false,
-        });
-    };
+
     return (
         <AuthWrapper>
-            {notify.isOpen && (
-                <Snackbar open={notify.isOpen} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity={notify.type} sx={{ width: '100%' }}>
-                        {notify.message}
-                    </Alert>
-                </Snackbar>
-            )}
             <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
@@ -74,7 +55,7 @@ const Register = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <RegisterForm setNotify={setNotify}/>
+                                        <RegisterForm />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />

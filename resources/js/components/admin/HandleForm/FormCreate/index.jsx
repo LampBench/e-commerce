@@ -6,7 +6,7 @@ import { useTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { FormItem } from "../../../shared";
 
-const FormCreate = ({ FormItems, setNotify, service }) => {
+const FormCreate = ({ FormItems, service }) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
     const customization = useSelector((state) => state.theme);

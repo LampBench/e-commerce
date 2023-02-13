@@ -35,7 +35,10 @@ import AuthService from '../../../../services/auth.service';
 
 import { useNavigate } from 'react-router-dom';
 
-const RegisterForm = ({ setNotify, ...others }) => {
+import { toast } from 'react-toastify';
+
+const RegisterForm = ({ ...others }) => {
+
     const theme = useTheme();
     const navigate = useNavigate();
     const scriptedRef = useScriptRef();
@@ -74,21 +77,18 @@ const RegisterForm = ({ setNotify, ...others }) => {
             if (response.status === 201) {
                 setStatus({ success: true });
                 setSubmitting(false);
-                setNotify({
-                    isOpen: true,
-                    message: 'Register successfully',
-                    type: 'success'
+                toast.success('Register successfully', {
+                    autoClose: 3000
                 });
+                navigate('/login');
             }
         }).catch((error) => {
             setSubmitting(false);
             setStatus({ success: false });
             setErrors({ submit: error.response.data.message });
-            setNotify({
-                isOpen: true,
-                message: error.response.data.message,
-                type: 'error'
-            })
+            toast.error(error.response.data.message), {
+                autoClose: 3000
+            };
         });
     }
 
