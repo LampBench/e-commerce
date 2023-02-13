@@ -9,7 +9,7 @@ import { categoriesColumns } from "../../../constants/shared/columns/categories.
 const Category = () => {
     const [params, setParams] = useState({
         page: 1,
-        sort: "category-name",
+        sort: "name",
         order: "asc",
         perPage: "10",
         search: "",

@@ -13,8 +13,9 @@ class Category extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'category_name',
-        'category_desc'
+        'parent_id',
+        'name',
+        'description'
     ];
 
     public function scopeGetAllDetails($query)

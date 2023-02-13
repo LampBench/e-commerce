@@ -19,9 +19,10 @@ return new class extends Migration
             $table->enum('status', [1, 2, 3, 4, 5])->default(1);
             $table->string('delivery_address', 255);
             $table->string('phone_number', 15);
-            $table->string('order_note')->nullable();
-            $table->timestamp('order_date');
-            $table->double('order_amount')->default(0);
+            $table->string('note')->nullable();
+            $table->timestamp('date');
+            $table->dateTime('completed_date')->nullable();
+            $table->double('amount')->default(0);
         });
     }
 
