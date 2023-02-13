@@ -16,6 +16,7 @@ import { FormItem } from "../../../shared";
 import { userFormItems } from "../../../../constants/admin/user.form-item.constant";
 
 import UserService from "../../../../services/user.service";
+import { mappingRules } from "../../../../utils/function.helper";
 
 function UserCU({type, userData, setNotify, ...orthers}) {
     const theme = useTheme();
@@ -75,11 +76,7 @@ function UserCU({type, userData, setNotify, ...orthers}) {
     };
 
     const handleMappingRules = (items) => {
-        const rules = {};
-        items.forEach((item) => {
-            rules[item.name] = item.rules;
-        });
-        return rules;
+        return mappingRules(items);
     };
 
     return (

@@ -48,7 +48,8 @@ function TableGroup(props) {
                             <StyledTableCell align="left">
                                 <FormControl>
                                     <Checkbox
-                                        defaultChecked={permissions[module.name].view.checked}
+                                        // check undefined
+                                        defaultChecked={permissions[module.name] !== undefined ? permissions[module.name].view.checked : false}
                                         onChange={(e) => handleCheck(e, module.name, "view")}
                                         name={`roles[${module.name}][]`}
                                         color="primary"
@@ -60,7 +61,7 @@ function TableGroup(props) {
                             <StyledTableCell align="left">
                                 <FormControl>
                                     <Checkbox
-                                        defaultChecked={permissions[module.name].create.checked}
+                                        defaultChecked={permissions[module.name] !== undefined ? permissions[module.name].create.checked : false}
                                         onChange={(e) => handleCheck(e, module.name, "create")}
                                         name={`roles[${module.name}][]`}
                                         color="primary"
@@ -72,7 +73,7 @@ function TableGroup(props) {
                             <StyledTableCell align="left">
                                 <FormControl>
                                     <Checkbox
-                                        defaultChecked={permissions[module.name].update.checked}
+                                        defaultChecked={permissions[module.name] !== undefined ? permissions[module.name].update.checked : false}
                                         onChange={(e) => handleCheck(e, module.name, "update")}
                                         name={`roles[${module.name}][]`}
                                         color="primary"
@@ -84,7 +85,7 @@ function TableGroup(props) {
                             <StyledTableCell align="left">
                                 <FormControl>
                                     <Checkbox
-                                        defaultChecked={permissions[module.name].delete.checked}
+                                        defaultChecked={permissions[module.name] !== undefined ? permissions[module.name].delete.checked : false}
                                         onChange={(e) => handleCheck(e, module.name, "delete")}
                                         name={`roles[${module.name}][]`}
                                         color="primary"
