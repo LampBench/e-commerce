@@ -3,10 +3,13 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Models\Category;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use App\Models\UserGroup;
+use App\Policies\CategoryPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\GroupPolicy;
 use Laravel\Passport\Passport;
@@ -19,7 +22,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class => UserPolicy::class,
-        UserGroup::class => GroupPolicy::class
+        UserGroup::class => GroupPolicy::class,
+        Category::class => CategoryPolicy::class
     ];
 
     /**
@@ -38,12 +42,12 @@ class AuthServiceProvider extends ServiceProvider
 
         $moduleList = config('modules');
 
-        if(count($moduleList) > 0) {
+        if (count($moduleList) > 0) {
             foreach ($moduleList as $module) {
                 Gate::define($module['name'], function (User $user) use ($module) {
                     $roleJson = $user->group->permissions;
 
-                    if(!empty($roleJson)) {
+                    if (!empty($roleJson)) {
                         $roleArr = json_decode($roleJson, true);
                         $check = isRole($roleArr, $module['name']);
                         return $check;
