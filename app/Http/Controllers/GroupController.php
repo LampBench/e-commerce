@@ -22,7 +22,7 @@ class GroupController extends Controller
     public function index()
     {
         $groupList = $this->groupService->all();
-        return $this->respondWithSuccess($groupList);
+        return $this->respondWithSuccess(['groups' => new GroupCollection($groupList)]);
     }
 
     public function store(CreateGroupRequest $request)

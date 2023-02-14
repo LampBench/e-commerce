@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\UserGroup;
 use App\Policies\UserPolicy;
 use App\Policies\GroupPolicy;
-
+use Laravel\Passport\Passport;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -31,6 +31,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Passport::ignoreRoutes();
+        Passport::tokensExpireIn(now()->addDays(15));
+        Passport::refreshTokensExpireIn(now()->addDays(30));
+        Passport::personalAccessTokensExpireIn(now()->addMonths(6));
+
         $moduleList = config('modules');
 
         if(count($moduleList) > 0) {
@@ -44,7 +49,7 @@ class AuthServiceProvider extends ServiceProvider
                         return $check;
                     }
 
-                    return true;
+                    return false;
                 });
             }
         }

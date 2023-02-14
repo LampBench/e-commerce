@@ -56,13 +56,17 @@ const LoginForm = ({ setNotify, ...others }) => {
     const handleOnSubmit = async (values, { setErrors, setSubmitting }) => {
         try {
             const response = await AuthService.login(values);
-            localStorage.setItem('TOKEN', encode(response.data.data.token));
-            dispatch(SET_USER(response.data.data));
-            setNotify({
-                isOpen: true,
-                message: 'Login successfully',
-                type: 'success'
-            });
+            if (response.status === 200) {
+                localStorage.setItem('TOKEN', encode(response.data.access_token));
+                localStorage.setItem('REFRESH_TOKEN', encode(response.data.refresh_token));
+                const user = await AuthService.check();
+                dispatch(SET_USER(user.data));
+                setNotify({
+                    isOpen: true,
+                    message: 'Login successfully',
+                    type: 'success'
+                });
+            }
         } catch (error) {
             if(error.response.status === 401) {
                 setErrors({ password: 'Invalid credentials'});
