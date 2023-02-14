@@ -24,7 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('users', UserController::class)->middleware(['auth:api', 'can:users']);
-Route::apiResource('manufacturers', ManufacturerController::class);
+Route::apiResource('manufacturers', ManufacturerController::class)->middleware(['auth:api', 'can:manufacturers']);
 Route::apiResource('categories', CategoryController::class)->middleware(['auth:api', 'can:categories']);
 
 // Authenticated routes

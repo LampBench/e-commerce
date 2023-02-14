@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ManufacturerCollection;
 use App\Services\ManufacturerService;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateManufactureRequest;
+use App\Traits\RespondsWithHttpStatus;
+use App\Http\Resources\ManufacturerResource;
 
 class ManufacturerController extends Controller
 {
+    use RespondsWithHttpStatus;
+
     protected $service;
 
     public function __construct(ManufacturerService $service)
@@ -31,9 +36,12 @@ class ManufacturerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateManufactureRequest $request)
     {
-        //
+        $manufacturer = $this->service->create($request->all());
+        return $this->respondWithSuccess([
+            'manufacturer' => new ManufacturerResource($manufacturer)
+        ], 'Manufacturer created successfully', 201);
     }
 
     /**
