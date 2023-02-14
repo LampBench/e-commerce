@@ -14,6 +14,15 @@ class Manufacturer extends Model
     protected $table = 'manufacturers';
     public $timestamps = false;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'phone_number',
+        'email',
+        'address',
+        'type'
+    ];
+
     public function scopeGetAllDetails($query)
     {
         return $query->select('*');

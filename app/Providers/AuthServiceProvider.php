@@ -7,8 +7,10 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use App\Models\UserGroup;
+use App\Models\Manufacturer;
 use App\Policies\UserPolicy;
 use App\Policies\GroupPolicy;
+use App\Policies\ManufacturerPolicy;
 use Laravel\Passport\Passport;
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,7 +21,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class => UserPolicy::class,
-        UserGroup::class => GroupPolicy::class
+        UserGroup::class => GroupPolicy::class,
+        Manufacturer::class => ManufacturerPolicy::class,
     ];
 
     /**
