@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 512);
             $table->text('description')->nullable();
-            $table->string('phone_number', 15)->unique();
+            $table->string('phone_number', 30)->unique();
             $table->string('email', 512)->unique();
             $table->string('address', 128)->unique();
             $table->enum('type', [1, 2]);
