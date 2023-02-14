@@ -21,6 +21,7 @@ function FormItemRHF(props) {
         register,
         errors,
         rules,
+        value
     } = props;
 
     const handleDataChild = (type) => {
@@ -35,6 +36,7 @@ function FormItemRHF(props) {
                         type={type}
                         {...register(name, rules)}
                         label={label}
+                        defaultValue={value || ''}
                         endAdornment={
                             type === 'password' ? (
                                 <InputAdornment position="end">
