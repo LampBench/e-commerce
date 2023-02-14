@@ -19,8 +19,8 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'full_name' => $this->full_name,
             'email' => $this->email,
-            'group_name' => $this->group->name,
-            'permissions' => json_decode($this->group->permissions, true)
+            'group_name' => $this->group_name,
+            'permissions' => json_decode($this->group_permissions, true)
         ];
     }
 }
