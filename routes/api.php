@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('users', UserController::class)->middleware('can:users');
 Route::apiResource('manufacturers', ManufacturerController::class);
-Route::apiResource('categories', CategoryController::class);
+Route::apiResource('categories', CategoryController::class)->middleware('can:categories');
 
 // Authenticated routes
 Route::controller(AuthController::class)->group(function () {
