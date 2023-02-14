@@ -65,7 +65,7 @@ abstract class ExpandedBaseService extends BaseService
     public function getPerPage($requestData, $table)
     {
         $perPage = $requestData['per-page'] ?? config('constants.' . $table . '.default.perPage');
-        $perPage = (int) $perPage > 1 ? $perPage : config('constants.' . $table . '.default.perPage');
+        $perPage = ((int) $perPage > 1 || $perPage == 'all') ? $perPage : config('constants.' . $table . '.default.perPage');
         return $perPage;
     }
 

@@ -22,6 +22,9 @@ abstract class ExpandedBaseRepository extends BaseRepository
         $items = $this->sort($items, $requestData);
         $items = $this->filter($items, $requestData);
         $items = $this->search($items, $requestData['search']);
+        if ($requestData['perPage'] == 'all') {
+            return $items->get();
+        }
         return $items->paginate($requestData['perPage']);
     }
 
