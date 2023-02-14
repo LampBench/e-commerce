@@ -39,7 +39,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $category = $this->service->create($request->all());
-        return $this->respondWithSuccess($category, "Category created successfully", 201);
+        return $this->respondWithSuccess(["category" => $category], "Category created successfully", 201);
     }
 
     /**
@@ -75,6 +75,6 @@ class CategoryController extends Controller
     {
         $this->authorize('delete', 'App\Models\Category');
         $category = $this->service->delete($id);
-        return $this->respondWithSuccess($category);
+        return $this->respondWithSuccess(["category" => $category]);
     }
 }
