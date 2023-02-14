@@ -10,6 +10,10 @@ class CategoryService extends Repository {
     async create(data) {
         return await this.post("categories", data);
     }
+
+    async deleteCategory(id) {
+        return await this.delete(`categories/${id}`);
+    }
 }
 
 export default new CategoryService();
