@@ -27,9 +27,9 @@ function GroupView() {
     useEffect(() => {
         GroupService.getPermissions(id)
             .then((response) => {
-                setPermissions(response.data.data.permissions);
-                setGroup(response.data.data.group);
-                setModules(response.data.data.modules);
+                setPermissions(response.data.permissions);
+                setGroup(response.data.group);
+                setModules(response.data.modules);
             })
             .catch((error) => {
                 console.log(error);

@@ -12,3 +12,18 @@ if(!function_exists('isRole')) {
         return false;
     }
 }
+
+if(!function_exists('getCategories')) {
+    function getCategories($dataArr, $parent_id = 0)
+    {
+        $result = [];
+        foreach ($dataArr as $key => $value) {
+            if($value['parent_id'] == $parent_id) {
+                $result[$key] = $value;
+                $result[$key]['children'] = getCategories($dataArr, $value['id']);
+            }
+        }
+
+        return $result;
+    }
+}

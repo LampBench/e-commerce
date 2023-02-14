@@ -19,23 +19,23 @@ use App\Http\Controllers\ManufacturerController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('users', UserController::class)->middleware('can:users');
+Route::apiResource('users', UserController::class)->middleware(['auth:api', 'can:users']);
 Route::apiResource('manufacturers', ManufacturerController::class);
-Route::apiResource('categories', CategoryController::class);
+Route::apiResource('categories', CategoryController::class)->middleware(['auth:api', 'can:categories']);
 
 // Authenticated routes
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
-    Route::post('logout', 'logout');
-    Route::post('refresh', 'refresh');
-    Route::get('me', 'me');
+    Route::post('logout', 'logout')->middleware('auth:api');
+    Route::post('refresh', 'refresh')->middleware('auth:api');
+    Route::get('me', 'me')->middleware('auth:api');
 });
 
 // User groups
-Route::get('groups/modules', [GroupController::class, 'getModules'])->middleware('can:groups');
-Route::apiResource('groups', GroupController::class)->middleware('can:groups');
+Route::middleware('auth:api')->get('groups/modules', [GroupController::class, 'getModules']);
+Route::middleware('auth:api')->apiResource('groups', GroupController::class);

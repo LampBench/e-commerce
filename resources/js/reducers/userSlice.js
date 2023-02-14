@@ -9,7 +9,7 @@ export const userSlice = createSlice({
     reducers: {
         SET_USER: (state, action) => {
             state.data = action.payload.user;
-            state.permissions = action.payload.permissions;
+            state.permissions = action.payload.user.permissions;
         },
         LOG_OUT: (state, action) => {
             localStorage.removeItem('TOKEN');

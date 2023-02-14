@@ -19,7 +19,7 @@ function LayoutWrapper() {
     useEffect(() => {
         if(localStorage.getItem('TOKEN')) {
             AuthServices.check().then((response) => {
-                dispatch(SET_USER(response.data.data));
+                dispatch(SET_USER(response.data));
                 setLoggedIn(true);
                 setLoading(false);
             }).catch((error) => {

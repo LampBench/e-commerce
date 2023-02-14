@@ -58,7 +58,11 @@ class AuthController extends Controller
         if (!$logout) {
             return $this->respondUnauthorized();
         }
+        return $this->respondWithSuccess([], 'Logout successful', 200);
+    }
 
-        return $this->respondWithSuccess(null, 'Logout successful', 200);
+    public function refresh()
+    {
+    
     }
 }
