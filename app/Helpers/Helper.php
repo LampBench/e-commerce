@@ -27,3 +27,11 @@ if(!function_exists('getCategories')) {
         return $result;
     }
 }
+
+if(!function_exists('checkPolicy')) {
+    function checkPolicy($user, $module, $roleName='view')
+    {
+        $permissionsJson = json_decode($user->group->permissions, true);
+        return isRole($permissionsJson, $module, $roleName) ? true : false;
+    }
+}

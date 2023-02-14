@@ -65,13 +65,14 @@ abstract class ExpandedBaseService extends BaseService
     public function getPerPage($requestData, $table)
     {
         $perPage = $requestData['per-page'] ?? config('constants.' . $table . '.default.perPage');
-        $perPage = (int) $perPage > 1 ? $perPage : config('constants.' . $table . '.default.perPage');
+        $perPage = ((int) $perPage > 1 || $perPage == 'all') ? $perPage : config('constants.' . $table . '.default.perPage');
         return $perPage;
     }
 
     public function getRequestData($request, $table)
     {
         $requestData = $request->all();
+        $requestData['table'] = $table;
         $requestData['order'] = $this->getSortOrder($requestData);
         $requestData['sort'] = $this->getSortField($requestData, $table);
         $requestData['search'] = $this->getSearchData($requestData, $table);

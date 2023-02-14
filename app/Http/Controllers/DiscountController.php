@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ManufacturerCollection;
-use App\Services\ManufacturerService;
+use App\Http\Resources\DiscountCollection;
+use App\Services\DiscountService;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateManufactureRequest;
-use App\Traits\RespondsWithHttpStatus;
-use App\Http\Resources\ManufacturerResource;
 
-class ManufacturerController extends Controller
+class DiscountController extends Controller
 {
-    use RespondsWithHttpStatus;
-
     protected $service;
 
-    public function __construct(ManufacturerService $service)
+    public function __construct(DiscountService $service)
     {
         $this->service = $service;
     }
@@ -26,8 +21,8 @@ class ManufacturerController extends Controller
      */
     public function index(Request $request)
     {
-        $manufacturers = $this->service->applySortFilterSearch($request);
-        return new ManufacturerCollection($manufacturers);
+        $discounts = $this->service->applySortFilterSearch($request);
+        return new DiscountCollection($discounts);
     }
 
     /**
@@ -36,12 +31,9 @@ class ManufacturerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateManufactureRequest $request)
+    public function store(Request $request)
     {
-        $manufacturer = $this->service->create($request->all());
-        return $this->respondWithSuccess([
-            'manufacturer' => new ManufacturerResource($manufacturer)
-        ], 'Manufacturer created successfully', 201);
+        //
     }
 
     /**
