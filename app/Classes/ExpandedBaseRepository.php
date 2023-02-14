@@ -11,19 +11,27 @@ abstract class ExpandedBaseRepository extends BaseRepository
         return $this->model;
     }
 
+    public function getModelDetails()
+    {
+        return $this->model->getAllDetails();
+    }
+
     public function applySortFilterSearch($requestData)
     {
-        $items = $this->model->getAllDetails();
+        $items = $this->getModelDetails();
         $items = $this->sort($items, $requestData);
         $items = $this->filter($items, $requestData);
         $items = $this->search($items, $requestData['search']);
+        if ($requestData['perPage'] == 'all') {
+            return $items->get();
+        }
         return $items->paginate($requestData['perPage']);
     }
 
     public function sort($query, $requestData)
     {
         return $query->orderBy($requestData['sort'], $requestData['order'])
-            ->orderBy('id');
+            ->orderBy($requestData['table'] . '.id');
     }
 
     public function filter($query, $requestData)

@@ -49,7 +49,8 @@ class User extends Authenticatable
                 'users.last_name',
                 'users.email',
                 'users.user_group_id',
-                'user_groups.name as group_name'
+                'user_groups.name as group_name',
+                'user_groups.permissions as group_permissions'
             );
     }
 

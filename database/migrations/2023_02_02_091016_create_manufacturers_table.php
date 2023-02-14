@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 512);
             $table->text('description')->nullable();
-            $table->string('phone_number', 15)->nullable();
+            $table->string('phone_number', 30)->nullable();
             $table->string('email', 512)->nullable();
             $table->string('address', 128)->nullable();
             $table->enum('type', [1, 2]);

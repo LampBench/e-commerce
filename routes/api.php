@@ -5,8 +5,10 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('users', UserController::class)->middleware(['auth:api', 'can:users']);
 Route::apiResource('manufacturers', ManufacturerController::class)->middleware(['auth:api', 'can:manufacturers']);
 Route::apiResource('categories', CategoryController::class)->middleware(['auth:api', 'can:categories']);
+Route::apiResource('products', ProductController::class);
+Route::apiResource('discounts', DiscountController::class);
 
 // Authenticated routes
 Route::controller(AuthController::class)->group(function () {
