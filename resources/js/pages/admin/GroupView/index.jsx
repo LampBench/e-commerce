@@ -15,6 +15,13 @@ import {
 import GroupService from "../../../services/group.service";
 
 import TableGroup from "../../../components/admin/TableGroup";
+import { FormDialog } from '../../../components/shared';
+import { FormItemRHF } from '../../../components/shared';
+import { groupFormItems } from '../../../constants/admin/group.form-item.constant';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { SET_PERMISSIONS } from '../../../reducers/userSlice';
+import { useDispatch } from 'react-redux';
 
 function GroupView() {
     const { id } = useParams();
@@ -23,6 +30,9 @@ function GroupView() {
     const [group, setGroup] = useState({});
     const [modules, setModules] = useState([]);
     const [editMode, setEditMode] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         GroupService.getPermissions(id)
@@ -45,16 +55,47 @@ function GroupView() {
         setPermissions(newPermissions);
     };
 
+    const handleOpenDialog = () => {
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+
     const handleSave = () => {
         GroupService.updatePermissions(group.id, permissions)
             .then((response) => {
-                console.log(response);
+                toast.success('Update permissions successfully', {
+                    autoClose: 3000
+                });
             })
             .catch((error) => {
-                console.log(error);
+                toast.error('Update permissions failed', {
+                    autoClose: 3000
+                });
             })
             .finally(() => {
                 setEditMode(false);
+            });
+    };
+
+    const handleSaveInfo = (values) => {
+        GroupService.updateGroup(group.id, values)
+            .then((response) => {
+                setGroup(response.data.group);
+                toast.success('Update group successfully', {
+                    autoClose: 3000
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error('Update group failed', {
+                    autoClose: 3000
+                });
+            })
+            .finally(() => {
+                setOpenDialog(false);
             });
     };
 
@@ -82,16 +123,49 @@ function GroupView() {
                             onChange={() => setEditMode(!editMode)}
                             inputProps={{ 'aria-label': 'controlled' }}
                         />
-                        {editMode && <Button 
-                                        variant="contained" 
-                                        color="primary" 
-                                        sx={{ ml: 2 }}
-                                        onClick={() => {
-                                            handleSave();
-                                        }}>Save</Button>}
+                        {editMode && (
+                            <>
+                                <Button
+                                    variant="contained"
+                                    onClick={handleSave}
+                                >
+                                    Save
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => handleOpenDialog()}
+                                    sx={{ ml: 1 }}
+                                >
+                                    Change infomations
+                                </Button>
+                            </>
+                        )}
                     </div>
                 }
             >
+                <FormDialog
+                    title="Change group infomations"
+                    open={openDialog}
+                    onClose={handleCloseDialog}
+                    onSave={handleSubmit(handleSaveInfo)}
+                    isLoading={isLoading}
+                >
+                    {
+                        groupFormItems.map((item, index) => (
+                            <FormItemRHF
+                                key={index}
+                                name={item.name}
+                                label={item.label}
+                                type={item.type}
+                                register={register}
+                                errors={errors}
+                                rules={item.rules}
+                                options={item.options || null}
+                                value={group[item.name]}
+                            />
+                        ))
+                    }
+                </FormDialog>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography variant="h6" gutterBottom component="div">

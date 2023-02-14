@@ -14,10 +14,13 @@ export const userSlice = createSlice({
         LOG_OUT: (state, action) => {
             localStorage.removeItem('TOKEN');
             state.data = null;
+        },
+        SET_PERMISSIONS: (state, action) => {
+            state.permissions = action.payload;
         }
     }
 })
 
-export const { SET_USER, LOG_OUT } = userSlice.actions;
+export const { SET_USER, LOG_OUT, SET_PERMISSIONS } = userSlice.actions;
 
 export default userSlice.reducer;
