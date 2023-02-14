@@ -4,12 +4,12 @@ export const MenuList = [
         href: '/',
     },
     {
-        title: 'Sách',
-        href: '/books',
+        title: 'Sản phẩm',
+        href: '/products',
     },
     {
-        title: 'Tác giả',
-        href: '/authors',
+        title: 'Nhà sản xuất',
+        href: '/manufacturers',
     },
     {
         title: 'Thể loại',

@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('authors', function (Blueprint $table) {
+        Schema::create('manufacturers', function (Blueprint $table) {
             $table->id();
-            $table->string('author_name', 255);
-            $table->string('author_bio')->nullable();
+            $table->string('name', 512);
+            $table->text('description')->nullable();
+            $table->string('phone_number', 15)->unique();
+            $table->string('email', 512)->unique();
+            $table->string('address', 128)->unique();
+            $table->enum('type', [1, 2]);
         });
     }
 
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('authors');
+        Schema::dropIfExists('manufacturers');
     }
 };

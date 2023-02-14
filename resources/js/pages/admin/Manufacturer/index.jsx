@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
 import DataTable from "../../../components/shared/DataTable";
 import { MainCard } from "../../../components/shared";
-import CategoryService from "../../../services/category.service";
-import { categoriesColumns } from "../../../constants/shared/columns/categories.columns.constant";
-// import { categoryAction } from "../../../reducers/categorySlice";
+import ManufacturerService from "../../../services/manufacturer.service";
+import { manufacturersColumns } from "../../../constants/shared/columns/manufacturers.columns.constant";
 
-const Category = () => {
+const Manufacturer = () => {
     const [params, setParams] = useState({
         page: 1,
         sort: "name",
@@ -16,13 +15,13 @@ const Category = () => {
     });
 
     const service = (params) => {
-        return CategoryService.getCategories(params);
+        return ManufacturerService.getManufacturers(params);
     };
 
     return (
-        <MainCard title="Category list">
+        <MainCard title="Manufacturer list">
             <DataTable
-                columns={categoriesColumns}
+                columns={manufacturersColumns}
                 params={params}
                 setParams={setParams}
                 service={service}
@@ -31,4 +30,4 @@ const Category = () => {
     );
 };
 
-export default withPermission("categories", "view")(Category);
+export default withPermission("manufacturers", "view")(Manufacturer);

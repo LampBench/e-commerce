@@ -7,7 +7,7 @@ return [
             'perPage' => 15
         ],
         'sortFields' => [
-            'users.id',
+            'id',
             'first-name',
             'last-name',
             'group-name'
@@ -21,39 +21,44 @@ return [
             'full-name' => "CONCAT(users.first_name,' ', users.last_name)"
         ]
     ],
-    'authors' => [
+    'manufacturers' => [
         'default' => [
-            'sort' => 'author-name',
+            'sort' => 'name',
             'perPage' => 10
         ],
         'sortFields' => [
-            'authors.id',
-            'author-name',
-            'author-bio'
+            'id',
+            'name',
+            'phone-number',
+            'email',
+            'address',
+            'type'
         ],
-        'filterFields' => [],
+        'filterFields' => [
+            'type'
+        ],
         'searchFields' => [
-            'authors.id',
-            'author-name',
-            'author-bio'
+            'manufacturers.id',
+            'manufacturers.name',
+            'manufacturers.phone-number'
         ],
         'extraFields' => []
     ],
     'categories' => [
         'default' => [
-            'sort' => 'category-name',
+            'sort' => 'name',
             'perPage' => 10
         ],
         'sortFields' => [
-            'categories.id',
-            'category-name',
-            'category-desc'
+            'id',
+            'name',
+            'description'
         ],
         'filterFields' => [],
         'searchFields' => [
             'categories.id',
-            'category-name',
-            'category-desc'
+            'name',
+            'description'
         ],
         'extraFields' => []
     ],
@@ -61,5 +66,11 @@ return [
         'id',
         'rating-star',
         'quantity',
+        'type',
+        'status',
+        'value',
+        'amount',
+        'date',
+        'completed-date'
     ],
 ];

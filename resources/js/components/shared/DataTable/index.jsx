@@ -78,9 +78,9 @@ function DataTable({ columns, params, setParams, service }) {
                     onPageChange={handlePageChange}
                     onPageSizeChange={handlePageSizeChange}
                     rowCount={rowCount}
-                    // filterMode="server"
-                    // onFilterModelChange={handleFilterChange}
-                    checkboxSelection
+                // filterMode="server"
+                // onFilterModelChange={handleFilterChange}
+                // checkboxSelection
                 />
             </div>
         </>

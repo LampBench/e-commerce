@@ -1,4 +1,4 @@
-import { 
+import {
     Inventory2 as IconInventory2,
     LibraryBooks as IconLibraryBooks,
     LibraryAdd as IconLibraryAdd,
@@ -6,7 +6,7 @@ import {
     Badge as IconBadge,
     Sell as IconSell,
 } from "@mui/icons-material";
-const icons = { 
+const icons = {
     IconInventory2,
     IconLibraryBooks,
     IconLibraryAdd,
@@ -26,20 +26,20 @@ const manageProduct = {
             title: 'Manage Product',
             type: 'collapse',
             icon: icons.IconInventory2,
-            
+
             children: [
                 {
-                    id: 'admin-books',
-                    title: 'Book List',
+                    id: 'admin-products',
+                    title: 'Product List',
                     type: 'item',
-                    url: '/admin/books',
+                    url: '/admin/products',
                     icon: icons.IconLibraryBooks,
                 },
                 {
-                    id: 'books-create',
-                    title: 'Create Book',
+                    id: 'products-create',
+                    title: 'Create Product',
                     type: 'item',
-                    url: '/admin/books/create',
+                    url: '/admin/products/create',
                     icon: icons.IconLibraryAdd,
                 }
             ]
@@ -68,23 +68,23 @@ const manageProduct = {
             ]
         },
         {
-            id: 'manage-author',
-            title: 'Manage Author',
+            id: 'manage-manufacturer',
+            title: 'Manage Manufacturer',
             type: 'collapse',
             icon: icons.IconBadge,
 
             children: [
                 {
-                    id: 'admin-authors',
-                    title: 'Author List',
+                    id: 'admin-manufacturers',
+                    title: 'Manufacturer List',
                     type: 'item',
-                    url: '/admin/authors',
+                    url: '/admin/manufacturers',
                 },
                 {
-                    id: 'authors-create',
-                    title: 'Create Author',
+                    id: 'manufacturers-create',
+                    title: 'Create Manufacturer',
                     type: 'item',
-                    url: '/admin/authors/create',
+                    url: '/admin/manufacturers/create',
                 }
             ]
         },
