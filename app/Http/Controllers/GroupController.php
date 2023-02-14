@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\GroupCollection;
-use Illuminate\Http\Request;
 use App\Traits\RespondsWithHttpStatus;
 use App\Services\GroupService;
 use App\Http\Requests\CreateGroupRequest;
+use App\Http\Requests\UpdateGroupRequest;
 
 class GroupController extends Controller
 {
@@ -22,7 +22,7 @@ class GroupController extends Controller
     public function index()
     {
         $groupList = $this->groupService->all();
-        return $this->respondWithSuccess($groupList);
+        return $this->respondWithSuccess(['groups' => new GroupCollection($groupList)]);
     }
 
     public function store(CreateGroupRequest $request)
@@ -43,11 +43,12 @@ class GroupController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateGroupRequest $request, $id)
     {
         $this->authorize('update', 'App\Models\UserGroup');
-        $permissions = $this->groupService->update($request->roles, $id);
-        return $this->respondWithSuccess($permissions);
+        $group = $this->groupService->update($request->all(), $id);
+        return $this->respondWithSuccess(['group' => $group]);
+
     }
 
     public function destroy($id)

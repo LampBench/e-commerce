@@ -34,3 +34,12 @@ export const mappingPermissionsToArray = (permission) => {
 
     return permissions;
 }
+
+export const mappingToString = (data) => {
+    let dataPatch = "";
+    for (const [key, value] of Object.entries(data)) {
+        dataPatch += `${key}=${value}&`;
+    }
+    dataPatch = dataPatch.slice(0, -1);
+    return dataPatch;
+}

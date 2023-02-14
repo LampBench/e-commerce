@@ -31,7 +31,7 @@ abstract class BaseRepository extends EloquentRepository implements RepositoryIn
 
     public function delete($id)
     {
-        return $this->model->delete($id);
+        return $this->model->destroy($id);
     }
 
     public function show($id)

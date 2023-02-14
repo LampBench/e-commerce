@@ -16,6 +16,10 @@ class AuthService extends Repository {
     async logout() {
         return await this.post("logout");
     }
+
+    async getNewToken() {
+        return await this.post("refresh");
+    }
 }
 
 export default new AuthService();

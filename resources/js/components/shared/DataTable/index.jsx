@@ -1,23 +1,68 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import SearchSection from "../../../layouts/admin/Header/SearchSection";
+import {
+    DeleteForeverRounded,
+    DragHandleRounded,
+    Edit,
+} from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
 
-function DataTable({ columns, params, setParams, service }) {
+function DataTable({
+    columns,
+    params,
+    setParams,
+    service,
+    isDelete,
+    setId,
+    setOpen,
+}) {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [countPage, setCountPage] = useState(0);
     const [rowCount, setRowCount] = useState(0);
     const [perPage, setPerPage] = useState(0);
 
+    const ActionItems = () => {
+        return (
+            <>
+                <IconButton aria-label="update" size="large" disabled>
+                    <Edit fontSize="medium" />
+                </IconButton>
+                <IconButton
+                    aria-label="delete"
+                    size="large"
+                    onClick={handleopenDialog}
+                >
+                    <DeleteForeverRounded fontSize="medium" />
+                </IconButton>
+            </>
+        );
+    };
+
+    const actions = [
+        {
+            field: "actions",
+            headerName: "",
+            width: 150,
+            sortable: false,
+            renderCell: ActionItems,
+        },
+    ];
+
+    const handleopenDialog = () => {
+        setOpen(true);
+    };
+
     useEffect(() => {
         const timer = setTimeout(() => {
-            setIsLoading(false);
             service(params)
                 .then((res) => {
                     setData(res.data.data);
                     setCountPage(res.data.meta.last_page);
                     setRowCount(res.data.meta.total);
                     setPerPage(res.data.meta.per_page);
+                    setIsLoading(false);
                 })
                 .catch((e) => console.log(e.response));
         }, 500);
@@ -25,7 +70,7 @@ function DataTable({ columns, params, setParams, service }) {
             setIsLoading(true);
             clearTimeout(timer);
         };
-    }, [params]);
+    }, [params, isDelete]);
 
     const handleSortModelChange = (sortModel) => {
         setParams((prevValue) => {
@@ -65,7 +110,7 @@ function DataTable({ columns, params, setParams, service }) {
             <div style={{ height: 400, width: "100%" }}>
                 <DataGrid
                     rows={data}
-                    columns={columns}
+                    columns={[...columns, ...actions]}
                     sortingMode="server"
                     sortingOrder={["desc", "asc"]}
                     onSortModelChange={handleSortModelChange}
@@ -78,9 +123,10 @@ function DataTable({ columns, params, setParams, service }) {
                     onPageChange={handlePageChange}
                     onPageSizeChange={handlePageSizeChange}
                     rowCount={rowCount}
-                // filterMode="server"
-                // onFilterModelChange={handleFilterChange}
-                // checkboxSelection
+                    onSelectionModelChange={(item) => setId(item[0])}
+                    // filterMode="server"
+                    // onFilterModelChange={handleFilterChange}
+                    // checkboxSelection
                 />
             </div>
         </>

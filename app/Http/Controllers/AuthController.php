@@ -39,7 +39,7 @@ class AuthController extends Controller
             return $this->respondWithError('Register failed');
         }
 
-        return $this->respondWithSuccess($user, 'Register successful', 201);
+        return $this->respondWithSuccess(['user' => $user], 'Register successful', 201);
     }
 
     public function me()
@@ -58,7 +58,11 @@ class AuthController extends Controller
         if (!$logout) {
             return $this->respondUnauthorized();
         }
+        return $this->respondWithSuccess([], 'Logout successful', 200);
+    }
 
-        return $this->respondWithSuccess(null, 'Logout successful', 200);
+    public function refresh()
+    {
+    
     }
 }

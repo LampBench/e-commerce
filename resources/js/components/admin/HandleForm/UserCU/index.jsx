@@ -25,8 +25,6 @@ import { toast } from 'react-toastify';
 function UserCU({ type, userData, ...orthers }) {
 
     const theme = useTheme();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
-    const customization = useSelector((state) => state.theme);
     const [showPassword, setShowPassword] = React.useState(false);
     const [userGroupOptions, setUserGroupOptions] = useState([]);
 
@@ -49,7 +47,7 @@ function UserCU({ type, userData, ...orthers }) {
                     resetForm();
                 })
                 .catch((error) => {
-                    toast.error('Create user failed', {
+                    toast.error(error.response.data.message, {
                         autoClose: 3000
                     });
                 })
@@ -82,7 +80,7 @@ function UserCU({ type, userData, ...orthers }) {
         GroupService.getGroups()
             .then((response) => {
                 let options = [];
-                response.data.data.map((option) => {
+                response.data.groups.data.map((option) => {
                     options.push(
                         {
                             value: option.id,
