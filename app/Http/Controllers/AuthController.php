@@ -39,7 +39,7 @@ class AuthController extends Controller
             return $this->respondWithError('Register failed');
         }
 
-        return $this->respondWithSuccess($user, 'Register successful', 201);
+        return $this->respondWithSuccess(['user' => $user], 'Register successful', 201);
     }
 
     public function me()

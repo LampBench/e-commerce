@@ -22,8 +22,10 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { SET_PERMISSIONS } from '../../../reducers/userSlice';
 import { useDispatch } from 'react-redux';
+import withPermission from '../../../routes/hocs/WithPermission';
 
-function GroupView() {
+function GroupView(props) {
+    const { selfPermission } = props;
     const { id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [permissions, setPermissions] = useState([]);
@@ -117,30 +119,32 @@ function GroupView() {
             <MainCard 
                 title={"Group: " + group.name}
                 secondary={
-                    <div>
-                        <Switch
-                            checked={editMode}
-                            onChange={() => setEditMode(!editMode)}
-                            inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                        {editMode && (
-                            <>
-                                <Button
-                                    variant="contained"
-                                    onClick={handleSave}
-                                >
-                                    Save
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    onClick={() => handleOpenDialog()}
-                                    sx={{ ml: 1 }}
-                                >
-                                    Change infomations
-                                </Button>
-                            </>
-                        )}
-                    </div>
+                    selfPermission.groups?.includes('update') ? (
+                        <div>
+                            <Switch
+                                checked={editMode}
+                                onChange={() => setEditMode(!editMode)}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                            {editMode && (
+                                <>
+                                    <Button
+                                        variant="contained"
+                                        onClick={handleSave}
+                                    >
+                                        Save
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => handleOpenDialog()}
+                                        sx={{ ml: 1 }}
+                                    >
+                                        Change infomations
+                                    </Button>
+                                </>
+                            )}
+                        </div>
+                    ) : null
                 }
             >
                 <FormDialog
@@ -184,4 +188,4 @@ function GroupView() {
     }
 }
 
-export default GroupView
+export default withPermission('groups', 'view')(GroupView);
