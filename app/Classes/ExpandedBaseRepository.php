@@ -28,7 +28,7 @@ abstract class ExpandedBaseRepository extends BaseRepository
     public function sort($query, $requestData)
     {
         return $query->orderBy($requestData['sort'], $requestData['order'])
-            ->orderBy('id');
+            ->orderBy($requestData['table'] . '.id');
     }
 
     public function filter($query, $requestData)

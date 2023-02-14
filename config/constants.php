@@ -85,12 +85,13 @@ return [
             'status'
         ],
         'searchFields' => [
-            'products.id',
+            'id',
             'name',
             'manufacturer-name',
             'category-name'
         ],
         'extraFields' => [
+            'id' => 'products.id',
             'category-id' => 'categories.id',
             'manufacturer-id' => 'manufacturers.id',
             'name' => 'products.name',
@@ -98,17 +99,44 @@ return [
             'category-name' => 'categories.name'
         ]
     ],
+    'discounts' => [
+        'default' => [
+            'sort' => 'product-id',
+            'perPage' => 10
+        ],
+        'sortFields' => [
+            'product-id',
+            'product-name',
+            'product-price',
+            'product-quantity',
+            'start-date',
+            'end-date',
+            'value',
+            'discount-amount'
+        ],
+        'filterFields' => [
+            'type'
+        ],
+        'searchFields' => [
+            'product-id',
+            'product-name',
+        ],
+        'extraFields' => [
+            'product-name' => 'products.name',
+        ]
+    ],
     'nonStringFields' => [
         'id',
-        'rating_star',
+        'rating-star',
         'quantity',
         'type',
         'status',
         'value',
         'amount',
         'date',
-        'completed_date',
+        'completed-date',
         'categories.id',
-        'manufacturers.id'
+        'manufacturers.id',
+        'product-id'
     ],
 ];

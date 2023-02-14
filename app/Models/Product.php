@@ -15,8 +15,6 @@ class Product extends Model
     protected $model = 'products';
     public $timestamps = false;
 
-    public const DISCOUNT_AMOUNT_FORMULA = 'discounts.value / POWER(100, CAST(discounts.type AS INT) - 1) * POWER(products.price, CAST(discounts.type AS INT) - 1)';
-
     public function discounts()
     {
         return $this->hasMany(Discount::class, 'product_id');
@@ -58,9 +56,9 @@ class Product extends Model
             ELSE CASE
                 WHEN discounts.start_date > CURRENT_DATE THEN 0
                 ELSE CASE
-                    WHEN discounts.end_date = NULL THEN products.price - " . Product::DISCOUNT_AMOUNT_FORMULA . "
+                    WHEN discounts.end_date = NULL THEN products.price - " . Discount::DISCOUNT_AMOUNT_FORMULA . "
                     ELSE CASE
-                        WHEN discounts.end_date >= CURRENT_DATE THEN products.price - " . Product::DISCOUNT_AMOUNT_FORMULA . "
+                        WHEN discounts.end_date >= CURRENT_DATE THEN products.price - " . Discount::DISCOUNT_AMOUNT_FORMULA . "
                         ELSE 0
                         END
                     END
@@ -75,9 +73,9 @@ class Product extends Model
             ELSE CASE
                 WHEN discounts.start_date > CURRENT_DATE THEN 0
                 ELSE CASE
-                    WHEN discounts.end_date = NULL THEN " . Product::DISCOUNT_AMOUNT_FORMULA . "
+                    WHEN discounts.end_date = NULL THEN " . Discount::DISCOUNT_AMOUNT_FORMULA . "
                     ELSE CASE
-                        WHEN discounts.end_date >= CURRENT_DATE THEN " . Product::DISCOUNT_AMOUNT_FORMULA . "
+                        WHEN discounts.end_date >= CURRENT_DATE THEN " . Discount::DISCOUNT_AMOUNT_FORMULA . "
                         ELSE 0
                         END
                     END

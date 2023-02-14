@@ -72,6 +72,7 @@ abstract class ExpandedBaseService extends BaseService
     public function getRequestData($request, $table)
     {
         $requestData = $request->all();
+        $requestData['table'] = $table;
         $requestData['order'] = $this->getSortOrder($requestData);
         $requestData['sort'] = $this->getSortField($requestData, $table);
         $requestData['search'] = $this->getSearchData($requestData, $table);
