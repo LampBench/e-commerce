@@ -129,7 +129,7 @@ function GroupList() {
     useEffect(() => {
         GroupService.getGroups()
             .then((response) => {
-                setGroups(response.data.data);
+                setGroups(response.data.groups.data);
             })
             .catch((error) => {
                 console.log(error);

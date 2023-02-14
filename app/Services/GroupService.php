@@ -60,12 +60,18 @@ class GroupService extends BaseService {
     }
 
     public function update($data, $id) {
-        $permissionJson = $this->convertToPermissionArray($data);
         $group = $this->show($id);
-        $group->permissions = $permissionJson;
+        if (isset($data['permissions'])) {
+            $group->permissions = $this->convertToPermissionArray($data['permissions']);
+        }
+        if (isset($data['name'])) {
+            $group->name = $data['name'];
+        }
+        if (isset($data['description'])) {
+            $group->description = $data['description'];
+        }
         $group->save();
-
-        return $group->permissions;
+        return $group;
     }
 
     public function create($data) {

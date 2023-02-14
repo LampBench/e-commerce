@@ -37,8 +37,8 @@ function GroupCU(){
     useEffect(() => {
         GroupService.getModules()
             .then((response) => {
-                setModules(response.data.data.modules);
-                setPermissions(response.data.data.permissions);
+                setModules(response.data.modules);
+                setPermissions(response.data.permissions);
             })
             .catch((error) => {
                 console.log(error);

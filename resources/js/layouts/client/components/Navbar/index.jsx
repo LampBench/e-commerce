@@ -191,7 +191,7 @@ function Navbar(props) {
                             {
                                 props.user ? (
                                     SettingList.map((page, index) => {
-                                        if (!props.permissions['dashboard'].includes('view') && page.isPermission === true) return null;
+                                        if (!props.permissions['dashboard']?.includes('view') && page.isPermission === true) return null;
                                         return (
                                             <MenuItem key={index} onClick={handleCloseUserMenu}>
                                                 <Typography textAlign={'center'} onClick={

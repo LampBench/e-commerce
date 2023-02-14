@@ -8,9 +8,8 @@ trait RespondsWithHttpStatus
     {
         return response()->json([
             'success' => true,
-            'status_code' => $code,
             'message' => $message,
-            'data' => $data,
+            ...$data
         ], $code);
     }
 
@@ -18,7 +17,6 @@ trait RespondsWithHttpStatus
     {
         return response()->json([
             'success' => true,
-            'status_code' => $code,
             'message' => $message,
         ], $code);
     }
@@ -27,7 +25,6 @@ trait RespondsWithHttpStatus
     {
         return response()->json([
             'success' => false,
-            'status_code' => $code,
             'message' => $message,
         ], $code);
     }
