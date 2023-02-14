@@ -11,9 +11,14 @@ abstract class ExpandedBaseRepository extends BaseRepository
         return $this->model;
     }
 
+    public function getModelDetails()
+    {
+        return $this->model->getAllDetails();
+    }
+
     public function applySortFilterSearch($requestData)
     {
-        $items = $this->model->getAllDetails();
+        $items = $this->getModelDetails();
         $items = $this->sort($items, $requestData);
         $items = $this->filter($items, $requestData);
         $items = $this->search($items, $requestData['search']);

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('users', UserController::class)->middleware('can:users');
 Route::apiResource('manufacturers', ManufacturerController::class);
 Route::apiResource('categories', CategoryController::class);
+Route::apiResource('products', ProductController::class);
 
 // Authenticated routes
 Route::controller(AuthController::class)->group(function () {

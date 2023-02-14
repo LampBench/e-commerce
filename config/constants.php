@@ -62,15 +62,53 @@ return [
         ],
         'extraFields' => []
     ],
+    'products' => [
+        'default' => [
+            'sort' => 'name',
+            'perPage' => 10
+        ],
+        'sortFields' => [
+            'id',
+            'name',
+            'category-name',
+            'manufacturer-name',
+            'status',
+            'quantity',
+            'discount-amount',
+            'final-price',
+            'average-rating-star',
+            'number-of-reviews'
+        ],
+        'filterFields' => [
+            'category-id',
+            'manufacturer-id',
+            'status'
+        ],
+        'searchFields' => [
+            'products.id',
+            'name',
+            'manufacturer-name',
+            'category-name'
+        ],
+        'extraFields' => [
+            'category-id' => 'categories.id',
+            'manufacturer-id' => 'manufacturers.id',
+            'name' => 'products.name',
+            'manufacturer-name' => 'manufacturers.name',
+            'category-name' => 'categories.name'
+        ]
+    ],
     'nonStringFields' => [
         'id',
-        'rating-star',
+        'rating_star',
         'quantity',
         'type',
         'status',
         'value',
         'amount',
         'date',
-        'completed-date'
+        'completed_date',
+        'categories.id',
+        'manufacturers.id'
     ],
 ];
