@@ -42,15 +42,12 @@ class User extends Authenticatable
     public function scopeGetAllDetails($query)
     {
         return $query
-            ->leftJoin('user_groups', 'users.user_group_id', 'user_groups.id')
             ->select(
                 'users.id',
                 'users.first_name',
                 'users.last_name',
                 'users.email',
                 'users.user_group_id',
-                'user_groups.name as group_name',
-                'user_groups.permissions as group_permissions'
             );
     }
 
