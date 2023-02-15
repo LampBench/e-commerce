@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\VoucherService;
 
 class VoucherController extends Controller
 {
+
+    protected $voucherService;
+
+    public function __construct(VoucherService $voucherService)
+    {
+        $this->voucherService = $voucherService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,7 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
