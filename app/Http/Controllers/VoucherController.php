@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\VoucherService;
+use App\Traits\RespondsWithHttpStatus;
+use App\Http\Requests\CreateVoucherRequest;
 
 class VoucherController extends Controller
 {
+    use RespondsWithHttpStatus;
 
     protected $voucherService;
 
@@ -22,7 +25,8 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        
+        $vouchers = $this->voucherService->all();
+        return $vouchers;
     }
 
     /**
@@ -31,9 +35,9 @@ class VoucherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateVoucherRequest $request)
     {
-        //
+        return $request->all();
     }
 
     /**

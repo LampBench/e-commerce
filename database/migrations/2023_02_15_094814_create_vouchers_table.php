@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description')->nullable();
-            $table->string('code');
+            $table->string('code')->unique();
             $table->enum('type', [1, 2])->default(1)->comment('1: percentage, 2: fixed amount');
             $table->string('scope')->nullable();
             $table->double('value');
