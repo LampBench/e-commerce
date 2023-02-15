@@ -16,6 +16,9 @@ const GroupCreate = Loadable(lazy(() => import("../pages/admin/GroupCreate")));
 
 // Manage Category Page
 const Category = Loadable(lazy(() => import("../pages/admin/Category")));
+
+// Manage Voucher Page
+const CreateVoucher = Loadable(lazy(() => import("../pages/admin/CreateVoucher")));
 const AdminRoutes = {
     path: "/admin",
     element: <AdminLayout />,
@@ -57,6 +60,14 @@ const AdminRoutes = {
             path: "/admin/manufacturers",
             element: <Manufacturer />,
         },
+        {
+            path: "/admin/vouchers",
+            element: <CreateVoucher />
+        },
+        {
+            path: "/admin/vouchers/create",
+            element: <CreateVoucher />
+        }
     ],
 };
 
