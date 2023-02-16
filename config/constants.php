@@ -112,6 +112,7 @@ return [
             'start-date',
             'end-date',
             'value',
+            'type',
             'discount-amount'
         ],
         'filterFields' => [

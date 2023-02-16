@@ -2,16 +2,14 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
 import DataTable from "../../../components/shared/DataTable";
 import { MainCard } from "../../../components/shared";
-import CategoryService from "../../../services/category.service";
-import { categoriesColumns } from "../../../constants/shared/columns/categories.columns.constant";
+import DiscountService from "../../../services/discount.service";
+import { discountsColumns } from "../../../constants/shared/columns/discounts.columns.constant";
 import AlertDialog from "../../../components/shared/AlertDialog";
 
-// import { categoryAction } from "../../../reducers/categorySlice";
-
-const Category = () => {
+function Discount() {
     const [params, setParams] = useState({
         page: 1,
-        sort: "name",
+        sort: "product-id",
         order: "asc",
         perPage: "10",
         search: "",
@@ -22,32 +20,32 @@ const Category = () => {
     const [isDelete, setIsDelete] = useState(false);
 
     const service = (params) => {
-        return CategoryService.getCategories(params);
+        return DiscountService.getDiscounts(params);
     };
 
-    useEffect(() => {
-        if (isDelete) {
-            CategoryService.deleteCategory(id)
-                .then((res) => {
-                    setIsDelete(false);
-                    setOpen(false);
-                })
-                .catch(() => {
-                    setIsDelete(false);
-                    setOpen(false);
-                });
-        }
-    }, [isDelete]);
+    // useEffect(() => {
+    //     if (isDelete) {
+    //         DiscountService.deleteCategory(id)
+    //             .then((res) => {
+    //                 setIsDelete(false);
+    //                 setOpen(false);
+    //             })
+    //             .catch(() => {
+    //                 setIsDelete(false);
+    //                 setOpen(false);
+    //             });
+    //     }
+    // }, [isDelete]);
 
     return (
-        <MainCard title="Category list">
+        <MainCard title="Discount list">
             <AlertDialog
                 open={open}
                 setOpen={setOpen}
                 setIsDelete={setIsDelete}
             />
             <DataTable
-                columns={categoriesColumns}
+                columns={discountsColumns}
                 params={params}
                 setParams={setParams}
                 service={service}
@@ -57,6 +55,6 @@ const Category = () => {
             />
         </MainCard>
     );
-};
+}
 
-export default withPermission("categories", "view")(Category);
+export default withPermission("discounts", "view")(Discount);
