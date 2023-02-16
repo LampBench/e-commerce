@@ -121,11 +121,6 @@ function GroupView(props) {
                 secondary={
                     selfPermission.groups?.includes('update') ? (
                         <div>
-                            <Switch
-                                checked={editMode}
-                                onChange={() => setEditMode(!editMode)}
-                                inputProps={{ 'aria-label': 'controlled' }}
-                            />
                             {editMode && (
                                 <>
                                     <Button
@@ -143,6 +138,11 @@ function GroupView(props) {
                                     </Button>
                                 </>
                             )}
+                            <Switch
+                                checked={editMode}
+                                onChange={() => setEditMode(!editMode)}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
                         </div>
                     ) : null
                 }

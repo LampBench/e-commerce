@@ -87,27 +87,6 @@ const manageProduct = {
                     url: '/admin/manufacturers/create',
                 }
             ]
-        },
-        {
-            id: 'manage-discount',
-            title: 'Manage Discount',
-            type: 'collapse',
-            icon: icons.IconSell,
-
-            children: [
-                {
-                    id: 'admin-discounts',
-                    title: 'Discount List',
-                    type: 'item',
-                    url: '/admin/discounts',
-                },
-                {
-                    id: 'discounts-create',
-                    title: 'Create Discount',
-                    type: 'item',
-                    url: '/admin/discounts/create',
-                }
-            ]
         }
     ]
 };

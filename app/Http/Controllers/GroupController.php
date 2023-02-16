@@ -29,7 +29,7 @@ class GroupController extends Controller
     {
         $this->authorize('create', 'App\Models\UserGroup');
         $group = $this->groupService->create($request->all());
-        return $this->respondWithSuccess($group);
+        return $this->respondWithSuccess(['group' => $group]);
     }
 
     public function show($id)

@@ -43,3 +43,13 @@ export const mappingToString = (data) => {
     dataPatch = dataPatch.slice(0, -1);
     return dataPatch;
 }
+
+export const randomString = (stringLength = 10) => {
+    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    let randomString = '';
+    for (let i = 0; i<stringLength; i++) {
+        let rightNum = Math.floor(Math.random() * chars.length);
+        randomString += chars.substring(rightNum, rightNum + 1);
+    }
+    return randomString;
+}

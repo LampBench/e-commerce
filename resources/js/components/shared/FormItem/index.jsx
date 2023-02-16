@@ -8,12 +8,16 @@ import {
     MenuItem,
     IconButton,
     FormHelperText,
+    Grid
 } from "@mui/material";
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { useTheme } from "@mui/material/styles";
+import { randomString } from "../../../utils/function.helper";
+import { AutoMode } from "@mui/icons-material";
+import { MultiSelect, DateTimePicker } from "../../../components/shared";
 
 function FormItem(props) {
     const theme = useTheme();
@@ -32,6 +36,7 @@ function FormItem(props) {
         showPassword,
         errors,
         touched,
+        setFieldValue
     } = props;
 
     console.log('Debug render 2');
@@ -105,6 +110,79 @@ function FormItem(props) {
                         }
                     </Select>
                 );
+            case 'randomString':
+                return (
+                    <OutlinedInput
+                        id={name}
+                        name={name}
+                        type='text'
+                        value={value}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        label={label}
+                        endAdornment={
+                            (
+                                <InputAdornment position="end">
+                                    {
+                                        <IconButton
+                                            onClick={() => setFieldValue(name, randomString(10))}
+                                        >
+                                            <AutoMode />
+                                        </IconButton>
+                                    }
+                                </InputAdornment>
+                            )
+                        }
+                    />
+                );
+            case 'multiSelect':
+                return (
+                    <MultiSelect
+                        id={name}
+                        name={name}
+                        label={label}
+                        value={value}
+                        handleChange={setFieldValue}
+                        onBlur={handleBlur}
+                        options={options}
+                    />
+                );
+            case 'dateTimePicker':
+                return (
+                    <DateTimePicker
+                        id={name}
+                        name={name}
+                        label={label}
+                        value={value}
+                        handleChange={setFieldValue}
+                        onBlur={handleBlur}
+                    />
+                );
+            case 'number':
+                return (
+                    <OutlinedInput
+                        id={name}
+                        name={name}
+                        type='number'
+                        value={value}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        label={label}
+                        endAdornment={
+                            (
+                                <InputAdornment position="end">
+                                    {
+                                        rangeLength && (
+                                            <Typography variant="body2" color="text.secondary">
+                                                {value !== undefined ? value.length : 0} / {rangeLength}
+                                            </Typography>
+                                        )
+                                    }
+                                </InputAdornment>
+                            )
+                        }
+                    />
+                );
             default:
                 break;
         }
@@ -112,7 +190,11 @@ function FormItem(props) {
 
     return (
         <FormControl fullWidth error={Boolean(touched[name] && errors[name])}>
-            <InputLabel htmlFor={name + "_id"}>{label}</InputLabel>
+            {
+                type !== 'dateTimePicker' && (
+                    <InputLabel htmlFor={name}>{label}</InputLabel>
+                )
+            }
             {handleDataChild(type)}
             {
                 errors[name] && touched[name] && (

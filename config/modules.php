@@ -25,5 +25,10 @@ return [
         'name' => 'products',
         'title' => 'Products',
         'description' => 'Manage products',
+    ],
+    [
+        'name' => 'vouchers',
+        'title' => 'Vouchers',
+        'description' => 'Manage vouchers',
     ]
 ];
