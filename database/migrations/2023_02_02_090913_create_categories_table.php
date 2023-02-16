@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->string('name', 120);
             $table->string('description', 255)->nullable();
+            $table->integer('level')->default(1);
         });
     }
 

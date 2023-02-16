@@ -1,10 +1,10 @@
 <?php
 
-if(!function_exists('isRole')) {
-    function isRole($dataArr, $moduleName, $roleName='view')
+if (!function_exists('isRole')) {
+    function isRole($dataArr, $moduleName, $roleName = 'view')
     {
-        if(!empty($dataArr[$moduleName])) {
-            if(!empty($dataArr[$moduleName]) && in_array($roleName, $dataArr[$moduleName])) {
+        if (!empty($dataArr[$moduleName])) {
+            if (!empty($dataArr[$moduleName]) && in_array($roleName, $dataArr[$moduleName])) {
                 return true;
             }
         }
@@ -13,12 +13,12 @@ if(!function_exists('isRole')) {
     }
 }
 
-if(!function_exists('getCategories')) {
+if (!function_exists('getCategories')) {
     function getCategories($dataArr, $parent_id = 0)
     {
         $result = [];
         foreach ($dataArr as $key => $value) {
-            if($value['parent_id'] == $parent_id) {
+            if ($value['parent_id'] == $parent_id) {
                 $result[$key] = $value;
                 $result[$key]['children'] = getCategories($dataArr, $value['id']);
             }
@@ -28,10 +28,18 @@ if(!function_exists('getCategories')) {
     }
 }
 
-if(!function_exists('checkPolicy')) {
-    function checkPolicy($user, $module, $roleName='view')
+if (!function_exists('checkPolicy')) {
+    function checkPolicy($user, $module, $roleName = 'view')
     {
         $permissionsJson = json_decode($user->group->permissions, true);
         return isRole($permissionsJson, $module, $roleName) ? true : false;
+    }
+}
+
+if (!function_exists('getDiscountAmount')) {
+    function getDiscountAmount($product, $discount)
+    {
+        $discount_amount = $discount->value * pow($product->price, (int)$discount->type - 1) / pow(100, (int)$discount->type - 1);
+        return $discount_amount;
     }
 }
