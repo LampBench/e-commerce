@@ -21,31 +21,10 @@ function User() {
         return UserService.getUsers(params);
     };
 
-    const actions = [
-        {
-            field: "actions",
-            headerName: "",
-            width: 150,
-            sortable: false,
-            renderCell: (params) => {
-                return (
-                    <>
-                        <IconButton aria-label="update" size="large">
-                            <Edit fontSize="medium" />
-                        </IconButton>
-                        <IconButton aria-label="delete" size="large">
-                            <DeleteForeverRounded fontSize="medium" />
-                        </IconButton>
-                    </>
-                );
-            },
-        },
-    ];
-
     return (
         <MainCard title="User list">
             <DataTable
-                columns={[...usersColumns, ...actions]}
+                columns={usersColumns}
                 params={params}
                 setParams={setParams}
                 service={service}

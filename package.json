@@ -26,6 +26,7 @@
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "^5.11.7",
         "@mui/x-data-grid": "^5.17.22",
+        "@mui/x-data-grid-pro": "^5.17.23",
         "@reduxjs/toolkit": "^1.9.2",
         "formik": "^2.2.9",
         "framer-motion": "^9.0.2",

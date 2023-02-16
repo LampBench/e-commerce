@@ -5,6 +5,7 @@ import { MainCard } from "../../../components/shared";
 import CategoryService from "../../../services/category.service";
 import { categoriesColumns } from "../../../constants/shared/columns/categories.columns.constant";
 import AlertDialog from "../../../components/shared/AlertDialog";
+import { TreeTable } from "../../../components/shared";
 
 // import { categoryAction } from "../../../reducers/categorySlice";
 
@@ -45,7 +46,12 @@ const Category = () => {
                 setOpen={setOpen}
                 setIsDelete={setIsDelete}
             />
-            <DataTable
+            <TreeTable
+                columns={categoriesColumns}
+                params={params}
+                service={service}
+            />
+            {/* <DataTable
                 columns={categoriesColumns}
                 params={params}
                 setParams={setParams}
@@ -53,7 +59,7 @@ const Category = () => {
                 isDelete={isDelete}
                 setId={setId}
                 setOpen={setOpen}
-            />
+            /> */}
         </MainCard>
     );
 };

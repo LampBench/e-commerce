@@ -12,8 +12,9 @@ export const categoriesColumns = [
         width: 270,
         filterOperators,
         valueGetter: (params) =>
-            `${params.row.name.charAt(0).toUpperCase() +
-            params.row.name.slice(1)
+            `${
+                params.row.name.charAt(0).toUpperCase() +
+                params.row.name.slice(1)
             }`,
     },
     {
