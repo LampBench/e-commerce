@@ -47,7 +47,7 @@ return [
     'categories' => [
         'default' => [
             'sort' => 'name',
-            'perPage' => 10
+            'perPage' => 'all'
         ],
         'sortFields' => [
             'id',

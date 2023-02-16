@@ -11,4 +11,15 @@ class CategoryRepository extends ExpandedBaseRepository
     {
         $this->model = $model;
     }
+
+    public function applySortFilterSearch($requestData)
+    {
+        $items = $this->getModelDetails();
+        $items = $this->sort($items, $requestData);
+        if ($requestData['search']['value'] == "") {
+            return $items->whereNull('parent_id')->get();
+        }
+        $items = $this->search($items, $requestData['search']);
+        return $items->get();
+    }
 }
