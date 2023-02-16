@@ -32,6 +32,7 @@ class CreateVoucherRequest extends FormRequest
             'value' => 'required|numeric',
             'start_date' => 'required|date_format:Y-m-d H:i:s',
             'end_date' => 'nullable|date_format:Y-m-d H:i:s',
+            'limit' => 'nullable|numeric',
             'status' => 'required|in:1,2'
         ];
     }

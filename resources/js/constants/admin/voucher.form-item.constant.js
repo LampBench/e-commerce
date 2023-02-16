@@ -60,6 +60,12 @@ export const voucherFormItems = [
         placeholder: 'Select end date'
     },
     {
+        label: 'Limit',
+        name: 'limit',
+        type: 'number',
+        placeholder: 'Enter limit'
+    },
+    {
         label: 'Status',
         name: 'status',
         type: 'select',

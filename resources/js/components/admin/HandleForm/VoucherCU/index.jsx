@@ -35,7 +35,10 @@ export default function VoucherCU({ type }) {
             type: values.type,
             value: values.value,
             status: values.status,
+            limit: values.limit
         };
+
+        console.log("Debug: handleOnSubmit -> data", data)
 
         if (type === 'create') {
             VoucherService.create(data)
@@ -83,6 +86,7 @@ export default function VoucherCU({ type }) {
                 type: 1,
                 value: 0,
                 status: 1,
+                limit: 0,
                 submit: null
             }}
             onSubmit={handleOnSubmit}
