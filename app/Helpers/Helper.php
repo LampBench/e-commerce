@@ -35,3 +35,11 @@ if (!function_exists('checkPolicy')) {
         return isRole($permissionsJson, $module, $roleName) ? true : false;
     }
 }
+
+if (!function_exists('getDiscountAmount')) {
+    function getDiscountAmount($product, $discount)
+    {
+        $discount_amount = $discount->value * pow($product->price, (int)$discount->type - 1) / pow(100, (int)$discount->type - 1);
+        return $discount_amount;
+    }
+}
