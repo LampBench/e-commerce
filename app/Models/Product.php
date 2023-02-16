@@ -14,7 +14,7 @@ class Product extends Model
     use SoftDeletes;
     use GetTable;
 
-    protected $model = 'products';
+    protected $table = 'products';
     public $timestamps = false;
 
     public function discounts()
