@@ -71,11 +71,11 @@ const AdminRoutes = {
         {
             path: "/admin/vouchers/create",
             element: <CreateVoucher type="create" />
-        }
+        },
         {
             path: "/admin/manufacturers/create",
             element: <CreateManufacturer type="create" />,
-        }
+        },
     ],
 };
 
