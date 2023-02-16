@@ -24,9 +24,9 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function allChildrenCategories()
+    public function allChildren()
     {
-        return $this->childrenCategories()->with(['allChildrenCategories' => function ($query) {
+        return $this->childrenCategories()->with(['allChildren' => function ($query) {
             return $query->orderBy('id');
         }]);
     }

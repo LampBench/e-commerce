@@ -1,5 +1,7 @@
 import * as React from "react";
 import { DataGridPro } from "@mui/x-data-grid-pro";
+import { transform } from "lodash";
+import { categoriesColumns } from "../../../constants/shared/columns/categories.columns.constant";
 
 const getTreeDataPath = (row) => row.hierarchy;
 
@@ -18,20 +20,47 @@ export default function TreeData({ rows, columns, params, service }) {
         });
     };
 
-    // const recursion = (data) => {
-    //     rows = [];
-    //     if (data.length === 0) {
-    //         return false;
-    //     }
-    //     for (let i = 0; i < data.length; i++) {
-    //         rows.push(};
-    //     }
-    // };
+    const customTransformedData = (data, columns) => {
+        let customData = {};
+        columns.forEach(column => {
+            customData[column.field] = data[column.field];
+        })
+        return customData;
+    }
+
+    const getChildrenTransformedData = (item, currentTransformedItem, childrenTransformedData, columns) => {
+        if (item.all_children.length === 0) {
+            return childrenTransformedData;
+        }
+        let parentTransformedItem = currentTransformedItem.slice();
+        item.all_children.forEach(element => {
+            parentTransformedItem.push(customTransformedData(element, columns));
+            let currentTransformedItem = parentTransformedItem.slice();
+            childrenTransformedData.push(currentTransformedItem);
+            childrenTransformedData = getChildrenTransformedData(element, currentTransformedItem, childrenTransformedData, columns);
+            parentTransformedItem.pop();
+        });
+        return childrenTransformedData;
+    }
+
+    const getTransformedData = (data, columns) => {
+        let transformedData = [];
+        if (data !== []) {
+            data.forEach(item => {
+                let transformedItem = [customTransformedData(item, columns)]
+                let childrenTransformedData = [transformedItem];
+                childrenTransformedData = getChildrenTransformedData(item, transformedItem, childrenTransformedData, columns);
+                transformedData = transformedData.concat(childrenTransformedData);
+            })
+        }
+        return transformedData;
+    };
 
     React.useEffect(() => {
         service(params)
             .then((res) => {
-                recursion(res.data.data);
+                let transformedData = getTransformedData(res.data.data, categoriesColumns);
+                console.log(transformedData);
             })
             .catch((e) => {
                 console.log(e);
