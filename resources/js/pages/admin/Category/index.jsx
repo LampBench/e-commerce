@@ -24,6 +24,7 @@ const Category = () => {
     const service = (params) => {
         return CategoryService.getCategories(params);
     };
+
     useEffect(() => {
         if (isDelete) {
             CategoryService.deleteCategory(id)

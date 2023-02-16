@@ -27,6 +27,11 @@ return [
         'description' => 'Manage products',
     ],
     [
+        'name' => 'discounts',
+        'title' => 'Discounts',
+        'description' => 'Manage discounts',
+    ],
+    [
         'name' => 'vouchers',
         'title' => 'Vouchers',
         'description' => 'Manage vouchers',
