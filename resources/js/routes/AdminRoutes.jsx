@@ -16,6 +16,9 @@ const GroupCreate = Loadable(lazy(() => import("../pages/admin/GroupCreate")));
 const Category = Loadable(lazy(() => import("../pages/admin/Category")));
 const CreateCategory = Loadable(lazy(() => import("../pages/admin/CreateCategory")));
 
+// Manage Voucher Page
+const CreateVoucher = Loadable(lazy(() => import("../pages/admin/CreateVoucher")));
+
 // Manage Manufacturer Page
 const Manufacturer = Loadable(lazy(() => import("../pages/admin/Manufacturer")));
 const CreateManufacturer = Loadable(lazy(() => import("../pages/admin/CreateManufacturer")));
@@ -62,9 +65,17 @@ const AdminRoutes = {
             element: <Manufacturer />,
         },
         {
+            path: "/admin/vouchers",
+            element: <CreateVoucher />
+        },
+        {
+            path: "/admin/vouchers/create",
+            element: <CreateVoucher type="create" />
+        },
+        {
             path: "/admin/manufacturers/create",
             element: <CreateManufacturer type="create" />,
-        }
+        },
     ],
 };
 

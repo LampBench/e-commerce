@@ -17,13 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description')->nullable();
-            $table->string('code');
-            $table->enum('type', [1, 2])->default(1)->comment('1: percentage, 2: fixed amount');
+            $table->string('code')->unique();
+            $table->enum('type', [1, 2])->default(1)->comment('1: fixed amount, 2: percentage');
             $table->string('scope')->nullable();
             $table->double('value');
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
             $table->enum('status', [1, 2])->default(1)->comment('1: active, 2: inactive');
+            $table->integer('limit')->nullable();
             $table->timestamps();
         });
     }

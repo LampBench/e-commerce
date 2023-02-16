@@ -9,6 +9,7 @@ use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\VoucherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::apiResource('manufacturers', ManufacturerController::class)->middleware([
 Route::apiResource('categories', CategoryController::class)->middleware(['auth:api', 'can:categories']);
 Route::apiResource('products', ProductController::class);
 Route::apiResource('discounts', DiscountController::class);
+Route::apiResource('vouchers', VoucherController::class);
 
 // Authenticated routes
 Route::controller(AuthController::class)->group(function () {

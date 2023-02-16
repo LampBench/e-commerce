@@ -56,7 +56,7 @@ function GroupCU(){
         setSubmitting(true);
         GroupService.createGroup(data)
             .then((response) => {
-                navigate(`/admin/groups/${response.data.data.id}`);
+                navigate(`/admin/groups/${response.data.group.id}`);
             })
             .catch((error) => {
                 console.log(error);
