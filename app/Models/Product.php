@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\GetTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,6 +12,7 @@ class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use GetTable;
 
     protected $model = 'products';
     public $timestamps = false;
