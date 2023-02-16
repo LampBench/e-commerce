@@ -37,7 +37,8 @@ class VoucherController extends Controller
      */
     public function store(CreateVoucherRequest $request)
     {
-        return $request->all();
+        $voucher = $this->voucherService->create($request->all());
+        return $this->respondWithSuccess(['voucher' => $voucher], 'Voucher created successfully', 201);
     }
 
     /**
@@ -48,7 +49,8 @@ class VoucherController extends Controller
      */
     public function show($id)
     {
-        //
+        $voucher = $this->voucherService->show($id);
+        return $this->respondWithSuccess(['voucher' => $voucher], 'Voucher retrieved successfully', 200);
     }
 
     /**

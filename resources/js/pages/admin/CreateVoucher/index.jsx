@@ -3,8 +3,8 @@ import withPermission from '../../../routes/hocs/WithPermission';
 import { MainCard } from '../../../components/shared';
 import { useNavigate } from 'react-router-dom';
 import { BackButton } from '../../../components/shared';
-
-function CreateVoucher() {
+import { VoucherCU } from '../../../components/admin/HandleForm';
+function CreateVoucher({type}) {
     const navigate = useNavigate();
 
     return (
@@ -12,6 +12,7 @@ function CreateVoucher() {
             title="Create Voucher"
             secondary={<BackButton navigator={navigate} text="Back" />}
         >
+            <VoucherCU type={type} />
         </MainCard>
     );
 }

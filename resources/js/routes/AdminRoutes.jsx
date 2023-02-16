@@ -66,7 +66,7 @@ const AdminRoutes = {
         },
         {
             path: "/admin/vouchers/create",
-            element: <CreateVoucher />
+            element: <CreateVoucher type="create" />
         }
     ],
 };

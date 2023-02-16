@@ -30,8 +30,8 @@ class CreateVoucherRequest extends FormRequest
             'type' => 'required|in:1,2',
             'scope' => 'nullable|array',
             'value' => 'required|numeric',
-            'start_date' => 'required|datetime',
-            'end_date' => 'nullable|datetime',
+            'start_date' => 'required|date_format:Y-m-d H:i:s',
+            'end_date' => 'nullable|date_format:Y-m-d H:i:s',
             'status' => 'required|in:1,2'
         ];
     }
