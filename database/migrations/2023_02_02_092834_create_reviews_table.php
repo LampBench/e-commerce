@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('status', [1, 2])->default(1);
             $table->timestamp('date');
             $table->integer('rating_star')->default(5);
+            $table->integer('level')->default(1);
         });
     }
 

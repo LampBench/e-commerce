@@ -1,8 +1,6 @@
 import { lazy } from "react";
 import AdminLayout from "../layouts/admin";
 import Loadable from "../components/shared/Loadable";
-import Manufacturer from "../pages/admin/Manufacturer";
-import CreateCategory from "../pages/admin/CreateCategory";
 
 const Dashboard = Loadable(lazy(() => import("../pages/admin/Dashboard")));
 const Order = Loadable(lazy(() => import("../pages/admin/Order")));
@@ -16,9 +14,15 @@ const GroupCreate = Loadable(lazy(() => import("../pages/admin/GroupCreate")));
 
 // Manage Category Page
 const Category = Loadable(lazy(() => import("../pages/admin/Category")));
+const CreateCategory = Loadable(lazy(() => import("../pages/admin/CreateCategory")));
 
 // Manage Voucher Page
 const CreateVoucher = Loadable(lazy(() => import("../pages/admin/CreateVoucher")));
+
+// Manage Manufacturer Page
+const Manufacturer = Loadable(lazy(() => import("../pages/admin/Manufacturer")));
+const CreateManufacturer = Loadable(lazy(() => import("../pages/admin/CreateManufacturer")));
+
 const AdminRoutes = {
     path: "/admin",
     element: <AdminLayout />,
@@ -67,6 +71,10 @@ const AdminRoutes = {
         {
             path: "/admin/vouchers/create",
             element: <CreateVoucher type="create" />
+        }
+        {
+            path: "/admin/manufacturers/create",
+            element: <CreateManufacturer type="create" />,
         }
     ],
 };

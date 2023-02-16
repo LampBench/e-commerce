@@ -15,8 +15,21 @@ class Category extends Model
     protected $fillable = [
         'parent_id',
         'name',
-        'description'
+        'description',
+        'level'
     ];
+
+    public function childrenCategories()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function allChildrenCategories()
+    {
+        return $this->childrenCategories()->with(['allChildrenCategories' => function ($query) {
+            return $query->orderBy('id');
+        }]);
+    }
 
     public function scopeGetAllDetails($query)
     {
