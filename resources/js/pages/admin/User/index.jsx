@@ -1,12 +1,10 @@
-import React from "react";
-import { useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
-import { MainCard } from "../../../components/shared";
-import UserService from "../../../services/user.service";
 import DataTable from "../../../components/shared/DataTable";
+import { MainCard } from "../../../components/shared";
+import UserService from '../../../services/user.service';
 import { usersColumns } from "../../../constants/shared/columns/users.columns.constant";
-import { DeleteForeverRounded, Edit } from "@mui/icons-material";
-import IconButton from "@mui/material/IconButton";
+import AlertDialog from "../../../components/shared/AlertDialog";
 
 function User() {
     const [params, setParams] = useState({
@@ -17,39 +15,44 @@ function User() {
         search: "",
     });
 
+    const [open, setOpen] = useState(false);
+    const [id, setId] = useState();
+    const [isDelete, setIsDelete] = useState(false);
+
     const service = (params) => {
         return UserService.getUsers(params);
     };
 
-    const actions = [
-        {
-            field: "actions",
-            headerName: "",
-            width: 150,
-            sortable: false,
-            renderCell: (params) => {
-                return (
-                    <>
-                        <IconButton aria-label="update" size="large">
-                            <Edit fontSize="medium" />
-                        </IconButton>
-                        <IconButton aria-label="delete" size="large">
-                            <DeleteForeverRounded fontSize="medium" />
-                        </IconButton>
-                    </>
-                );
-            },
-        },
-    ];
+    // useEffect(() => {
+    //     if (isDelete) {
+    //         DiscountService.deleteCategory(id)
+    //             .then((res) => {
+    //                 setIsDelete(false);
+    //                 setOpen(false);
+    //             })
+    //             .catch(() => {
+    //                 setIsDelete(false);
+    //                 setOpen(false);
+    //             });
+    //     }
+    // }, [isDelete]);
 
     return (
-        <MainCard title="User list">
+        <MainCard title="Voucher list">
+            <AlertDialog
+                open={open}
+                setOpen={setOpen}
+                setIsDelete={setIsDelete}
+            />
             <DataTable
-                columns={[...usersColumns, ...actions]}
+                columns={usersColumns}
                 params={params}
                 setParams={setParams}
                 service={service}
-            ></DataTable>
+                isDelete={isDelete}
+                setId={setId}
+                setOpen={setOpen}
+            />
         </MainCard>
     );
 }

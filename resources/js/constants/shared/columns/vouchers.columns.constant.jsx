@@ -12,22 +12,19 @@ export const vouchersColumns = [
         filterOperators
     },
     {
-        field: "product_id",
-        headerName: "Product ID",
-        width: 100,
-        filterOperators
-    },
-    {
-        field: "product_name",
-        headerName: "Product name",
+        field: "title",
+        headerName: "Title",
         width: 300,
         filterOperators
     },
     {
-        field: "product_quantity",
-        headerName: "Product quantity",
+        field: "type",
+        headerName: "Type",
         width: 150,
-        filterOperators
+        filterOperators,
+        valueGetter: (params) =>
+            `${params.row.type === '1' ? 'Fixed amount' : 'Percentage'
+            }`,
     },
     {
         field: "start_date",
@@ -48,9 +45,12 @@ export const vouchersColumns = [
         filterOperators
     },
     {
-        field: "discount_amount",
-        headerName: "Discount amount",
+        field: "status",
+        headerName: "Status",
         width: 150,
-        filterOperators
+        filterOperators,
+        valueGetter: (params) =>
+            `${params.row.status === '1' ? 'Active' : 'Inactive'
+            }`,
     },
 ];
