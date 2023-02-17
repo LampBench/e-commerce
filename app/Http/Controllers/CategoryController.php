@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeleteCategoryRequest;
 use App\Http\Resources\CategoryCollection;
 use App\Models\Category;
 use App\Services\CategoryService;
@@ -71,7 +72,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DeleteCategoryRequest $request, $id)
     {
         $this->authorize('delete', 'App\Models\Category');
         $category = $this->service->delete($id);
