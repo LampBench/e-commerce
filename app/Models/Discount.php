@@ -14,6 +14,14 @@ class Discount extends Model
     protected $table = 'discounts';
     public $timestamps = false;
 
+    protected $fillable = [
+        'product_id',
+        'type',
+        'value',
+        'start_date',
+        'end_date'
+    ];
+
     public const DISCOUNT_AMOUNT_FORMULA = 'discounts.value / POWER(100, CAST(discounts.type AS INT) - 1) * POWER(products.price, CAST(discounts.type AS INT) - 1)';
 
     public function scopeGetAllDetails($query)
