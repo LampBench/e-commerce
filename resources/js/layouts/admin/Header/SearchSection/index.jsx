@@ -112,16 +112,16 @@ const SearchSection = ({ setParams }) => {
     const theme = useTheme();
     const [value, setValue] = useState("");
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setParams((prevValue) => {
-                return { ...prevValue, search: value, page: 1 };
-            });
-        }, 500);
-        return () => {
-            clearTimeout(timer);
-        };
-    }, [value]);
+    const setSearchValue = (searchValue) => {
+        setValue(searchValue);
+        setParams((prevValue) => {
+            return {
+                ...prevValue,
+                search: searchValue,
+                page: 1,
+            };
+        });
+    };
 
     return (
         <>
@@ -137,7 +137,7 @@ const SearchSection = ({ setParams }) => {
                     style={{ width: "35%" }}
                     id="input-search-header"
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={(e) => setSearchValue(e.target.value)}
                     placeholder="Search"
                     startAdornment={
                         <InputAdornment position="start">
