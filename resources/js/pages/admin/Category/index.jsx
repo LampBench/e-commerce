@@ -6,6 +6,8 @@ import CategoryService from "../../../services/category.service";
 import { categoriesColumns } from "../../../constants/shared/columns/categories.columns.constant";
 import AlertDialog from "../../../components/shared/AlertDialog";
 import { TreeTable } from "../../../components/shared";
+import SearchSection from "../../../layouts/admin/Header/SearchSection";
+import { toast } from "react-toastify";
 
 // import { categoryAction } from "../../../reducers/categorySlice";
 
@@ -33,9 +35,12 @@ const Category = () => {
                     setIsDelete(false);
                     setOpen(false);
                 })
-                .catch(() => {
+                .catch((e) => {
                     setIsDelete(false);
                     setOpen(false);
+                    toast.error(e.response.data.message, {
+                        autoClose: 3000,
+                    });
                 });
         }
     }, [isDelete]);
@@ -47,20 +52,15 @@ const Category = () => {
                 setOpen={setOpen}
                 setIsDelete={setIsDelete}
             />
+            <SearchSection setParams={setParams} />
             <TreeTable
                 columns={categoriesColumns}
                 params={params}
                 service={service}
-            />
-            {/* <DataTable
-                columns={categoriesColumns}
-                params={params}
-                setParams={setParams}
-                service={service}
                 isDelete={isDelete}
-                setId={setId}
                 setOpen={setOpen}
-            /> */}
+                setId={setId}
+            />
         </MainCard>
     );
 };
