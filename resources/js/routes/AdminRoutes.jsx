@@ -22,6 +22,7 @@ const CreateVoucher = Loadable(lazy(() => import("../pages/admin/CreateVoucher")
 
 // Manage Discount Page
 const Discount = Loadable(lazy(() => import("../pages/admin/Discount")));
+const CreateDiscount = Loadable(lazy(() => import("../pages/admin/CreateDiscount")));
 
 // Manage Product Page
 const Product = Loadable(lazy(() => import("../pages/admin/Product")));
@@ -86,6 +87,10 @@ const AdminRoutes = {
         {
             path: "/admin/discounts",
             element: <Discount />,
+        },
+        {
+            path: "/admin/discounts/create",
+            element: <CreateDiscount type="create" />,
         },
         {
             path: "/admin/products",
