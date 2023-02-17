@@ -2,11 +2,11 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
 import DataTable from "../../../components/shared/DataTable";
 import { MainCard } from "../../../components/shared";
-import UserService from '../../../services/user.service';
-import { usersColumns } from "../../../constants/shared/columns/users.columns.constant";
+import ProductService from '../../../services/product.service';
+import { productsColumns } from "../../../constants/shared/columns/products.columns.constant";
 import AlertDialog from "../../../components/shared/AlertDialog";
 
-function User() {
+function Product() {
     const [params, setParams] = useState({
         page: 1,
         sort: "first-name",
@@ -20,7 +20,7 @@ function User() {
     const [isDelete, setIsDelete] = useState(false);
 
     const service = (params) => {
-        return UserService.getUsers(params);
+        return ProductService.getProducts(params);
     };
 
     // useEffect(() => {
@@ -38,14 +38,14 @@ function User() {
     // }, [isDelete]);
 
     return (
-        <MainCard title="User list">
+        <MainCard title="Product list">
             <AlertDialog
                 open={open}
                 setOpen={setOpen}
                 setIsDelete={setIsDelete}
             />
             <DataTable
-                columns={usersColumns}
+                columns={productsColumns}
                 params={params}
                 setParams={setParams}
                 service={service}
@@ -57,4 +57,4 @@ function User() {
     );
 }
 
-export default withPermission("users", "view")(User);
+export default withPermission("products", "view")(Product);

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\GetTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Discount extends Model
 {
     use HasFactory;
+    use GetTable;
 
     protected $table = 'discounts';
     public $timestamps = false;

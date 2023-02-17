@@ -112,6 +112,7 @@ return [
             'start-date',
             'end-date',
             'value',
+            'type',
             'discount-amount'
         ],
         'filterFields' => [
@@ -124,6 +125,29 @@ return [
         'extraFields' => [
             'product-name' => 'products.name',
         ]
+    ],
+    'vouchers' => [
+        'default' => [
+            'sort' => 'title',
+            'perPage' => 10
+        ],
+        'sortFields' => [
+            'id',
+            'title',
+            'type',
+            'value',
+            'start-date',
+            'end-date',
+            'status'
+        ],
+        'filterFields' => [
+            'type'
+        ],
+        'searchFields' => [
+            'id',
+            'title',
+        ],
+        'extraFields' => []
     ],
     'nonStringFields' => [
         'id',
