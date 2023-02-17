@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Database\Query\Builder;
 
 class DeleteCategoryRequest extends FormRequest
 {
@@ -17,7 +18,7 @@ class DeleteCategoryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'category_id.exists' => 'This category already has products',
+            'category_id.unique' => 'This category already has products',
 
         ];
     }
@@ -40,9 +41,10 @@ class DeleteCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' =>  Rule::exists('products')->where(function ($query) {
-                return $query->where("category_id", "<>", $this->category_id);
-            })
+            'category_id' =>  Rule::unique('products')->where(function (Builder $query) {
+                return $query->where('category_id', $this->category_id);
+            }),
+
         ];
     }
 }
