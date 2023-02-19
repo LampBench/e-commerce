@@ -12,18 +12,4 @@ class DiscountService extends ExpandedBaseService
     {
         $this->repository = $repository;
     }
-
-    public function create(array $data)
-    {
-        $discountsOfProduct = Discount::where('product_id', '=', $data['product_id'])
-            ->where(function ($query) use ($data) {
-                $query->where('end_date', '>=', $data['start_date'])
-                    ->orWhereNull('end_date');
-            })
-            ->count();
-        if ($discountsOfProduct > 0) {
-            return false;
-        }
-        return $this->repository->create($data);
-    }
 }

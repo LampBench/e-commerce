@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CheckObjectDoNotHaveDiscount;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateDiscountRequest extends FormRequest
@@ -24,7 +25,7 @@ class CreateDiscountRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_id' => 'required|int|exists:products,id',
+            'product_id' => ['required', 'int', 'exists:products,id', new CheckObjectDoNotHaveDiscount($this->start_date)],
             'type' => 'required|in:1,2',
             'value' => 'required|numeric',
             'start_date' => 'required|date_format:Y-m-d',
