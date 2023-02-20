@@ -54,14 +54,14 @@ class Product extends Model
     public function scopeGetFinalPrice($query)
     {
         return $query->selectRaw("(CASE 
-            WHEN discounts.value = NULL THEN 0
+            WHEN discounts.value = NULL THEN products.price
             ELSE CASE
-                WHEN discounts.start_date > CURRENT_DATE THEN 0
+                WHEN discounts.start_date > CURRENT_DATE THEN products.price
                 ELSE CASE
                     WHEN discounts.end_date = NULL THEN products.price - " . Discount::DISCOUNT_AMOUNT_FORMULA . "
                     ELSE CASE
                         WHEN discounts.end_date >= CURRENT_DATE THEN products.price - " . Discount::DISCOUNT_AMOUNT_FORMULA . "
-                        ELSE 0
+                        ELSE products.price
                         END
                     END
                 END
