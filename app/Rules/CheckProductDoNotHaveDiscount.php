@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\Discount;
 use Illuminate\Contracts\Validation\Rule;
 
-class CheckObjectDoNotHaveDiscount implements Rule
+class CheckProductDoNotHaveDiscount implements Rule
 {
     private $start_date;
 
@@ -47,6 +47,6 @@ class CheckObjectDoNotHaveDiscount implements Rule
      */
     public function message()
     {
-        return 'This object has a discount at the moment!';
+        return 'This product has a discount at the moment!';
     }
 }

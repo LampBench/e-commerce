@@ -28,9 +28,6 @@ class DiscountController extends Controller
     public function store(CreateDiscountRequest $request)
     {
         $discount = $this->service->create($request->all());
-        if ($discount == false) {
-            return $this->respondWithError('This product has an discount at the moment!', 400);
-        }
         return $this->respondWithSuccess(['discount' => $discount], 'Discount created successfully', 201);
     }
 
