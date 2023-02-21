@@ -11,4 +11,12 @@ class ProductService extends ExpandedBaseService
     {
         $this->repository = $repository;
     }
+
+    public function create(array $data)
+    {
+        $data['status'] = 1;
+        $data['photos'] = implode(',', $data['photos']);
+        $product = $this->repository->create($data);
+        return $product;
+    }
 }

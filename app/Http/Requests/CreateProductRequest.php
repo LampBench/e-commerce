@@ -26,11 +26,11 @@ class CreateProductRequest extends FormRequest
         return [
             'category_id' => 'nullable|exists:categories,id',
             'manufacturer_id' => 'nullable|exists:manufacturers,id',
-            'status' => 'required|in:1,2,3',
+            'status' => 'nullable|in:1,2,3',
             'name' => 'required|string|max:255',
             'summary' => 'nullable|string',
             'price' => 'required|numeric',
-            'photos' => 'nullable|string',
+            'photos' => 'nullable|array',
             'quantity' => 'required|integer',
         ];
     }

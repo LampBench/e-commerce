@@ -16,7 +16,7 @@ import { productFormItems } from '../../../../constants/admin/product.form-item.
 import { ImageUpload } from '../../../shared';
 import { storage } from '../../../../services/firebase';
 import { randomString } from '../../../../utils/function.helper';
-
+import productService from '../../../../services/product.service';
 function ProductCU({ type }) {
     const [images, setImages] = useState([]);
 
@@ -46,9 +46,16 @@ function ProductCU({ type }) {
                 );
             });
             Promise.all(promises).then(urls => {
-                console.log(urls);
-                // Call api
-                console.log(data);
+                const product = {
+                    ...data,
+                    photos: urls
+                };
+                console.log(product);
+                productService.create(product).then(res => {
+                    console.log(res);
+                }).catch(err => {
+                    console.log(err);
+                });
             });
         }
 
