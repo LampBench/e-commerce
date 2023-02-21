@@ -2,14 +2,14 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
 import DataTable from "../../../components/shared/DataTable";
 import { MainCard } from "../../../components/shared";
-import ProductService from '../../../services/product.service';
-import { productsColumns } from "../../../constants/shared/columns/products.columns.constant";
+import VoucherService from '../../../services/voucher.service';
+import { vouchersColumns } from "../../../constants/shared/columns/vouchers.columns.constant";
 import AlertDialog from "../../../components/shared/AlertDialog";
 
-function Product() {
+function Voucher() {
     const [params, setParams] = useState({
         page: 1,
-        sort: "first-name",
+        sort: "title",
         order: "asc",
         perPage: "10",
         search: "",
@@ -20,7 +20,7 @@ function Product() {
     const [isDelete, setIsDelete] = useState(false);
 
     const service = (params) => {
-        return ProductService.getProducts(params);
+        return VoucherService.getVouchers(params);
     };
 
     // useEffect(() => {
@@ -38,14 +38,14 @@ function Product() {
     // }, [isDelete]);
 
     return (
-        <MainCard title="Product list">
+        <MainCard title="Voucher list">
             <AlertDialog
                 open={open}
                 setOpen={setOpen}
                 setIsDelete={setIsDelete}
             />
             <DataTable
-                columns={productsColumns}
+                columns={vouchersColumns}
                 params={params}
                 setParams={setParams}
                 service={service}
@@ -57,4 +57,4 @@ function Product() {
     );
 }
 
-export default withPermission("products", "view")(Product);
+export default withPermission("vouchers", "view")(Voucher);

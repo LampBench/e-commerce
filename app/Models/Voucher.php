@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\GetTable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Voucher extends Model
 {
     use HasFactory;
+    use GetTable;
+
+    protected $table = 'vouchers';
+    public $timestamps = false;
 
     protected $fillable = [
         'title',
@@ -21,4 +26,10 @@ class Voucher extends Model
         'status',
         'limit'
     ];
+
+    public function scopeGetAllDetails($query)
+    {
+        return $query
+            ->select('*');
+    }
 }

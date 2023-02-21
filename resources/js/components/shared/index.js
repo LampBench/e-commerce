@@ -9,3 +9,4 @@ export { default as BackButton } from './BackButton';
 export { default as MultiSelect } from './MultiSelect';
 export { default as DateTimePicker } from './DateTimePicker';
 export { default as ImageUpload } from './ImageUpload';
+export { default as TreeTable } from "./TreeTable";

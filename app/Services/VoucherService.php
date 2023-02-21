@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Classes\BaseService;
+use App\Classes\ExpandedBaseService;
 use App\Repositories\VoucherRepository;
 
-class VoucherService extends BaseService {
-
+class VoucherService extends ExpandedBaseService
+{
     public function __construct(VoucherRepository $repository)
     {
         $this->repository = $repository;

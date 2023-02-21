@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\VoucherService;
 use App\Traits\RespondsWithHttpStatus;
 use App\Http\Requests\CreateVoucherRequest;
+use App\Http\Resources\VoucherCollection;
 
 class VoucherController extends Controller
 {
@@ -23,10 +24,10 @@ class VoucherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $vouchers = $this->voucherService->all();
-        return $vouchers;
+        $vouchers = $this->voucherService->applySortFilterSearch($request);
+        return new VoucherCollection($vouchers);
     }
 
     /**
