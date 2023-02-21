@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { 
+import {
     AppBar,
     Container,
     Toolbar,
@@ -30,7 +30,7 @@ function Navbar(props) {
     const [anchorElMenu, setAnchorElMenu] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
     const dispatch = useDispatch();
-    
+
     const handleOpenNavMenu = (event) => {
         setAnchorElMenu(event.currentTarget);
     };
@@ -63,15 +63,15 @@ function Navbar(props) {
     const navigate = useNavigate();
 
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar>
                     <MenuBook sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                    <Typography 
+                    <Typography
                         variant="h6"
                         noWrap
                         component="a"
-                        href="/" 
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -84,7 +84,7 @@ function Navbar(props) {
                     >
                         BOOKSTORE
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none'} }}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="Mở menu"
@@ -150,7 +150,7 @@ function Navbar(props) {
                                     key={index}
                                     to={page.href}
                                     className={
-                                        ({isActive}) => (
+                                        ({ isActive }) => (
                                             isActive ? style.navLink + ' ' + style.navLinkActive : style.navLink
                                         )
                                     }
@@ -161,7 +161,7 @@ function Navbar(props) {
                         }
                     </Box>
                     {/* -------- Cart -------- */}
-                    <Cart sx={{ p: 0, mr: 3}}/>
+                    <Cart sx={{ p: 0, mr: 3 }} />
                     {/* -------- Profile -------- */}
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Account">
