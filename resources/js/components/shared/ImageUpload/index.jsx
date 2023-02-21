@@ -14,7 +14,11 @@ function ImageUpload({ images, setImages, limit = 3 }) {
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.addEventListener('load', function() {
-            setImages(images => [...images, reader.result]);
+            const image = {
+                fileName : file.name,
+                file : reader.result
+            }
+            setImages([...images, image]);
         });
         reader.readAsDataURL(file);
     }
@@ -44,7 +48,7 @@ function ImageUpload({ images, setImages, limit = 3 }) {
                     )}
                     {images.map((image, index) => (
                         <div style={{position: 'relative'}} key={index}>
-                            <img src={image} alt={`Uploaded image ${index + 1}`} />
+                            <img src={image.file} alt={`Uploaded image ${index + 1}`} />
                             <span className={style.remove_image_icon} onClick={() => handleRemoveImage(index)}>x</span>
                         </div>
                     ))}

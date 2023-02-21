@@ -14,12 +14,44 @@ import {
 } from '@mui/icons-material';
 import { productFormItems } from '../../../../constants/admin/product.form-item.constant';
 import { ImageUpload } from '../../../shared';
+import { storage } from '../../../../services/firebase';
+import { randomString } from '../../../../utils/function.helper';
 
 function ProductCU({ type }) {
     const [images, setImages] = useState([]);
 
     const onSubmit = (data) => {
-        // 
+        if (images.length > 0) {
+            console.log(images);
+            const promises = [];
+            images.forEach(image => {
+                console.log(image);
+                promises.push(
+                    new Promise((resolve, reject) => {
+                        const uploadTask = storage.ref(`images/${randomString(5)+image.fileName}`).putString(image.file, 'data_url');
+                        uploadTask.on(
+                            'state_changed',
+                            snapshot => {},
+                            error => {
+                                console.log(error);
+                                reject(error);
+                            }
+                        );
+                        uploadTask.then(() => {
+                            storage.ref('images').child(uploadTask.snapshot.metadata.name).getDownloadURL().then(url => {
+                                resolve(url);
+                            });
+                        });
+                    })
+                );
+            });
+            Promise.all(promises).then(urls => {
+                console.log(urls);
+                // Call api
+                console.log(data);
+            });
+        }
+
     }
     
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -44,27 +76,27 @@ function ProductCU({ type }) {
                         />
                     ))
                 }
-            </form>
-            <Divider />
-            <Box sx={{ mt: 3 }}>
-                <ImageUpload images={images} setImages={setImages} />
-            </Box>
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    mt: 3,
-                }}
-            >
-                <Button
-                    variant="contained"
-                    type="submit"
-                    size='large'
-                    startIcon={<SaveIcon />}
+                <Divider />
+                <Box sx={{ mt: 3 }}>
+                    <ImageUpload images={images} setImages={setImages} />
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        mt: 3,
+                    }}
                 >
-                    Save
-                </Button>
-            </Box>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        size='large'
+                        startIcon={<SaveIcon />}
+                    >
+                        Save
+                    </Button>
+                </Box>
+            </form>
         </Box>
     );
 }
