@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Resources\UserCollection;
 use App\Traits\RespondsWithHttpStatus;
 
 class UserController extends Controller
@@ -23,9 +24,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->service->all();
+        $users = $this->service->applySortFilterSearch($request);
+        return new UserCollection($users);
     }
 
     /**
@@ -37,7 +39,7 @@ class UserController extends Controller
     public function store(CreateUserRequest $request)
     {
         $user = $this->service->create($request->all());
-        return $this->respondWithSuccess($user, 'User created successfully', 201);
+        return $this->respondWithSuccess(['user' => $user], 'User created successfully', 201);
     }
 
     /**
@@ -48,7 +50,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->authorize('view', $this->service->show($id));
+        return $this->service->show($id);
     }
 
     /**

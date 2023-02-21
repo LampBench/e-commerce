@@ -39,6 +39,6 @@ export default class Repository {
     }
 
     async patch(url, data) {
-        return await this.axios.patch(url, data);
+        return await this.axios.patch(url + '?' + data);
     }
 }

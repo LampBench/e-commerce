@@ -164,7 +164,7 @@ function Navbar(props) {
                     <Cart sx={{ p: 0, mr: 3}}/>
                     {/* -------- Profile -------- */}
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Tài khoản">
+                        <Tooltip title="Account">
                             <IconButton
                                 onClick={handleOpenUserMenu} sx={{ p: 0 }}
                             >
@@ -191,12 +191,11 @@ function Navbar(props) {
                             {
                                 props.user ? (
                                     SettingList.map((page, index) => {
-                                        if (props.user.role !== 'admin' && page.isPermission === true) return null;
+                                        if (!props.permissions['dashboard']?.includes('view') && page.isPermission === true) return null;
                                         return (
                                             <MenuItem key={index} onClick={handleCloseUserMenu}>
                                                 <Typography textAlign={'center'} onClick={
                                                     () => {
-                                                        console.log('page.href: ', page.href);
                                                         if (page.href === '/logout') {
                                                             handleLogout();
                                                         } else {

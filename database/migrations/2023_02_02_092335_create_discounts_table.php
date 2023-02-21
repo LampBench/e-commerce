@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained('books');
-            $table->date('discount_start_date');
-            $table->date('discount_end_date')->nullable();
+            $table->foreignId('product_id')->constrained('products');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->enum('type', [1, 2])->default(1);
-            $table->double('discount_value');
+            $table->double('value');
         });
     }
 

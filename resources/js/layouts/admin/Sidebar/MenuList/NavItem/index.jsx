@@ -8,6 +8,7 @@ import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, u
 import { SET_MENU, SET_OPEN } from '../../../../../reducers/themeSlice';
 
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { getRouteKey } from '../../../../../utils/format.helper';
 
 const NavItem = ({ item, level }) => {
     const theme = useTheme();
@@ -41,17 +42,16 @@ const NavItem = ({ item, level }) => {
     }
 
     const itemHandler = (id) => {
-        dispatch({ type: MENU_OPEN, id });
-        if (matchesSM) dispatch({ type: SET_MENU, opened: false });
+        dispatch(SET_OPEN(id));
+        if (matchesSM) dispatch(SET_MENU(false));
     };
 
     useEffect(() => {
-        const currentIndex = document.location.pathname
-            .toString()
-            .split('/')
-            .findIndex((id) => id === item.id);
-        if (currentIndex > -1) {
-            dispatch({ type: MENU_OPEN, id: item.id });
+        const paths = window.location.pathname.toString().split('/');
+        if (paths[paths.length - 1] === '') paths.pop();
+        const routeKey = getRouteKey(paths);
+        if (routeKey === item.id) {
+            dispatch(SET_OPEN(item.id));
         }
     }, []);
 

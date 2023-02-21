@@ -15,14 +15,15 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained('books');
+            $table->foreignId('product_id')->constrained('products');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('review_reply_for')->nullable()->constrained('reviews');
-            $table->string('review_title', 120);
-            $table->text('review_details')->nullable();
+            $table->foreignId('parent_id')->nullable()->constrained('reviews');
+            $table->string('title', 120);
+            $table->text('details')->nullable();
             $table->enum('status', [1, 2])->default(1);
-            $table->timestamp('review_date');
+            $table->timestamp('date');
             $table->integer('rating_star')->default(5);
+            $table->integer('level')->default(1);
         });
     }
 

@@ -23,10 +23,10 @@ class ReviewFactory extends Factory
             '-3 months'
         ]);
         return [
-            'review_title' => $this->faker->sentence($this->faker->biasedNumberBetween(3, 6)),
-            'review_details' => $this->faker->paragraphs($this->faker->biasedNumberBetween(3, 6), true),
+            'title' => $this->faker->sentence($this->faker->biasedNumberBetween(3, 6)),
+            'details' => $this->faker->paragraphs($this->faker->biasedNumberBetween(3, 6), true),
             'status' => $this->faker->randomElement([1, 2]),
-            'review_date' => $this->faker->dateTimeBetween($rndDate),
+            'date' => $this->faker->dateTimeBetween($rndDate),
             'rating_star' => $this->faker->randomElement(['1', '2', '3', '4', '5'])
         ];
     }

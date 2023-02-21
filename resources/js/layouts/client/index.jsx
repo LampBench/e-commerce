@@ -13,9 +13,11 @@ import { useSelector } from "react-redux";
 
 function ClientLayout() {
     const user = useSelector((state) => state.user.data);
+    const permissions = useSelector((state) => state.user.permissions);
+    console.log("Debug permissions: ", permissions);
     return (
         <div className="container">
-            <Navbar user={user} />
+            <Navbar user={user} permissions={permissions}/>
             <Container maxWidth="lg">
                 <Outlet />
             </Container>

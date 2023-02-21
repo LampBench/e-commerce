@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeleteCategoryRequest;
+use App\Http\Resources\CategoryCollection;
+use App\Models\Category;
 use App\Services\CategoryService;
+use App\Traits\RespondsWithHttpStatus;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    use RespondsWithHttpStatus;
+
     protected $service;
 
     public function __construct(CategoryService $service)
@@ -19,9 +25,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->service->all();
+        $categories = $this->service->applySortFilterSearch($request);
+        return new CategoryCollection($categories);
     }
 
     /**
@@ -32,7 +39,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = $this->service->create($request->all());
+        return $this->respondWithSuccess(["category" => $category], "Category created successfully", 201);
     }
 
     /**
@@ -64,8 +72,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DeleteCategoryRequest $request, $id)
     {
-        //
+        $this->authorize('delete', 'App\Models\Category');
+        $category = $this->service->delete($id);
+        return $this->respondWithSuccess(["category" => $category]);
     }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-
+import withPermission from "../../../routes/hocs/WithPermission";
 function Dashboard() {
     return (
         <div className="container">
@@ -8,4 +8,4 @@ function Dashboard() {
     );
 }
 
-export default Dashboard;
+export default withPermission("dashboard", "view")(Dashboard);

@@ -1,0 +1,50 @@
+.image_upload {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    img {
+        width: 200px;
+        height: auto;
+        object-fit: cover;
+    }
+}
+
+.image_display {
+    width: 100%;
+    height: 300px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.add_image_icon {
+    font-size: 64px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.file_input {
+    display: none;
+}
+
+.add_more_button {
+    margin-top: 16px;
+}
+
+.remove_image_icon {
+    // X button beside the image
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 24px;
+    cursor: pointer;
+    background: #fff;
+    padding: 4px;
+    border-radius: 0 0 0 4px;
+}

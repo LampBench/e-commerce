@@ -9,9 +9,6 @@ import withPermission from "../../routes/hocs/WithPermission";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { drawerWidth } from "../../constants/shared/theme.constant";
-import {
-    CheveronRight
-} from "@mui/icons-material";
 
 import { SET_MENU } from "../../reducers/themeSlice";
 
@@ -52,15 +49,12 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(({
         [theme.breakpoints.down('md')]: {
             marginLeft: '20px'
         },
-        [theme.breakpoints.down('sm')]: {
-            marginLeft: '10px'
-        }
     })
 }));
 
 function AdminLayout() {
     const theme = useTheme();
-    const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'));
+    const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
 
     // Handle left drawer
     const leftDrawerOpened = useSelector((state) => state.theme.opened);
@@ -101,4 +95,4 @@ function AdminLayout() {
     );
 }
 
-export default withPermission(['admin'])(AdminLayout);
+export default withPermission('dashboard', 'view')(AdminLayout);
