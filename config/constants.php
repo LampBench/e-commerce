@@ -74,6 +74,7 @@ return [
             'manufacturer-name',
             'status',
             'quantity',
+            'end-date',
             'discount-amount',
             'final-price',
             'average-rating-star',
@@ -88,7 +89,7 @@ return [
             'id',
             'name',
             'manufacturer-name',
-            'category-name'
+            'category-name',
         ],
         'extraFields' => [
             'id' => 'products.id',
@@ -158,6 +159,8 @@ return [
         'value',
         'amount',
         'date',
+        'start-date',
+        'end-date',
         'completed-date',
         'categories.id',
         'manufacturers.id',

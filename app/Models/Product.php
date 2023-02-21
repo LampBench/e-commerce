@@ -17,6 +17,8 @@ class Product extends Model
     protected $table = 'products';
     public $timestamps = false;
 
+    public const PRODUCT_STATUS_AVAILABLE = 1;
+
     public function discounts()
     {
         return $this->hasMany(Discount::class, 'product_id');
@@ -26,7 +28,13 @@ class Product extends Model
     {
         return $query
             ->leftJoin('reviews', 'products.id', '=', 'reviews.product_id')
-            ->leftJoin('discounts', 'products.id', '=', 'discounts.product_id')
+            ->leftJoin('discounts', function ($join) {
+                $join->on('discounts.product_id', 'products.id')
+                    ->where(function ($query) {
+                        $query->whereNull('discounts.end_date')
+                            ->orWhereDate('discounts.end_date', '>=', Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d'));
+                    });
+            })
             ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
             ->leftJoin('manufacturers', 'products.manufacturer_id', '=', 'manufacturers.id')
             ->select(
@@ -36,6 +44,7 @@ class Product extends Model
                 'products.cover_photo',
                 'products.status',
                 'products.price',
+                'discounts.end_date',
                 'manufacturers.name as manufacturer_name',
                 'categories.name as category_name'
             )
@@ -93,5 +102,12 @@ class Product extends Model
     public function scopeGetNumberOfReviews($query)
     {
         return $query->selectRaw("COUNT(reviews.rating_star) AS number_of_reviews");
+    }
+
+    public function scopeGetExpireSoonItems($query, $days)
+    {
+        return $query
+            ->whereDate('end_date', '<=', Carbon::today('Asia/Ho_Chi_Minh')->addDays($days)->format('Y-m-d'))
+            ->where('products.status', '=', Product::PRODUCT_STATUS_AVAILABLE);
     }
 }
