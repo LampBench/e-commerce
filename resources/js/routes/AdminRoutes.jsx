@@ -23,6 +23,9 @@ const CreateVoucher = Loadable(lazy(() => import("../pages/admin/CreateVoucher")
 const Manufacturer = Loadable(lazy(() => import("../pages/admin/Manufacturer")));
 const CreateManufacturer = Loadable(lazy(() => import("../pages/admin/CreateManufacturer")));
 
+// Manage Product Page
+const Product = Loadable(lazy(() => import("../pages/admin/Product")));
+const CreateProduct = Loadable(lazy(() => import("../pages/admin/CreateProduct")));
 const AdminRoutes = {
     path: "/admin",
     element: <AdminLayout />,
@@ -75,6 +78,14 @@ const AdminRoutes = {
         {
             path: "/admin/manufacturers/create",
             element: <CreateManufacturer type="create" />,
+        },
+        {
+            path: "/admin/products",
+            element: <Product />,
+        },
+        {
+            path: "/admin/products/create",
+            element: <CreateProduct type="create" />,
         },
     ],
 };

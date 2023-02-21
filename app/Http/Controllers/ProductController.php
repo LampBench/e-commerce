@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProductCollection;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateProductRequest;
 
 class ProductController extends Controller
 {
@@ -31,9 +32,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
-        //
+        return true;
     }
 
     /**

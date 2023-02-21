@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('summary')->nullable();
             $table->double('price');
-            $table->string('cover_photo', 20)->nullable();
+            $table->string('photos')->nullable();
             $table->integer('quantity')->default(0);
             $table->softDeletes();
         });
