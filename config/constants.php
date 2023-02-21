@@ -95,6 +95,7 @@ return [
             'id' => 'products.id',
             'category-id' => 'categories.id',
             'manufacturer-id' => 'manufacturers.id',
+            'status' => 'products.status',
             'name' => 'products.name',
             'manufacturer-name' => 'manufacturers.name',
             'category-name' => 'categories.name'

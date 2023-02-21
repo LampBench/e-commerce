@@ -107,7 +107,6 @@ class Product extends Model
     public function scopeGetExpireSoonItems($query, $days)
     {
         return $query
-            ->whereDate('end_date', '<=', Carbon::today('Asia/Ho_Chi_Minh')->addDays($days)->format('Y-m-d'))
-            ->where('products.status', '=', Product::PRODUCT_STATUS_AVAILABLE);
+            ->whereDate('end_date', '<=', Carbon::today('Asia/Ho_Chi_Minh')->addDays($days)->format('Y-m-d'));
     }
 }
