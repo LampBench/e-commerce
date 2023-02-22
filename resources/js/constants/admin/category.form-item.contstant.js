@@ -3,7 +3,7 @@ import * as Yup from "yup";
 export const CategoryFormItems = [
     {
         label: "Category Name",
-        name: "category_name",
+        name: "name",
         type: "text",
         placeholder: "Enter category name",
         rangeLength: 50,
@@ -14,7 +14,7 @@ export const CategoryFormItems = [
     },
     {
         label: "Category Desc",
-        name: "category_desc",
+        name: "description",
         type: "text",
         placeholder: "Enter category description",
         rangeLength: 50,

@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { Box, FormHelperText, useMediaQuery, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
-import { FormItem } from "../../../shared";
+import { FormItem, SelectTree } from "../../../shared";
 
-const FormCreate = ({ FormItems, service }) => {
+const FormCreate = ({ FormItems, service, dataTrans }) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
     const customization = useSelector((state) => state.theme);
     const fields = FormItems.map(({ name }) => name);
+    const [idParent, setIDParent] = useState([]);
+
     const handleOnSubmit = (values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         const data = {};
@@ -19,7 +21,9 @@ const FormCreate = ({ FormItems, service }) => {
         });
         Object.keys(data).forEach((k, v) => {
             data[k] = values[`${k}`];
+            data["parent_id"] = idParent.length !== 0 ? idParent[0] : "";
         });
+
         service(data, setSubmitting, resetForm);
     };
 
@@ -96,6 +100,21 @@ const FormCreate = ({ FormItems, service }) => {
                                 </Box>
                             );
                         })}
+                        <Box
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginTop: "1rem",
+                            }}
+                        >
+                            <SelectTree
+                                dataTrans={dataTrans}
+                                setIDParent={setIDParent}
+                            />
+                        </Box>
                         {errors.submit && (
                             <Box sx={{ mt: 3 }}>
                                 <FormHelperText error>
