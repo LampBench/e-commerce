@@ -33,16 +33,14 @@ const CreateCategory = () => {
     const getTransformedData = (data, transformedData, keys) => {
         data.forEach((e) => {
             keys.push(e.id);
+            transformedData.push(e);
+            e.key = keys.join("-");
+            e.label = e.name;
             if (e.all_children.length === 0) {
-                e.label = e.name;
-                e.key = keys.join("-");
                 keys.pop();
                 return;
             }
-            e.key = keys.join("-");
-            e.label = e.name;
             e.children = e.all_children;
-            transformedData.push(e);
             getTransformedData(e.children, transformedData, keys);
             keys.pop();
         });
