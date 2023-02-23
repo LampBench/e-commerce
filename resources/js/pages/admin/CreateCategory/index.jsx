@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 const CreateCategory = () => {
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down("md"));
     const [data, setData] = useState([]);
+    const [isCreated, setIsCreated] = useState(false);
     const params = {};
 
     const service = (data, setSubmitting, resetForm) => {
@@ -18,12 +19,14 @@ const CreateCategory = () => {
                 toast.success("Create category successfully", {
                     autoClose: 3000,
                 });
+                setIsCreated(true);
                 resetForm();
             })
             .catch((error) => {
                 toast.error("Create category failed", {
                     autoClose: 3000,
                 });
+                setIsCreated(false);
             })
             .finally(() => {
                 setSubmitting(false);
@@ -53,7 +56,7 @@ const CreateCategory = () => {
             getTransformedData(res.data.data, transformedData, keys);
             setData(transformedData.filter((e) => e.parent_id === null));
         });
-    }, []);
+    }, [isCreated]);
 
     return (
         <MainCard title="Create a new category">
@@ -71,6 +74,7 @@ const CreateCategory = () => {
                         dataTrans={data}
                         FormItems={CategoryFormItems}
                         service={service}
+                        isCreated={isCreated}
                     />
                 </Grid>
             </Grid>

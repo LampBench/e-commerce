@@ -2,11 +2,14 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { TreeSelect } from "primereact/treeselect";
-import { useState } from "react";
-import { set } from "lodash";
+import { useEffect, useState } from "react";
 
-const SelectTree = ({ dataTrans, setIDParent }) => {
+const SelectTree = ({ dataTrans, setIDParent, isCreated }) => {
     const [value, setValue] = useState(null);
+
+    useEffect(() => {
+        if (isCreated) setValue(null);
+    }, [isCreated]);
 
     return (
         <TreeSelect

@@ -6,7 +6,7 @@ import { useTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { FormItem, SelectTree } from "../../../shared";
 
-const FormCreate = ({ FormItems, service, dataTrans }) => {
+const FormCreate = ({ FormItems, service, dataTrans, isCreated }) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
     const customization = useSelector((state) => state.theme);
@@ -38,8 +38,8 @@ const FormCreate = ({ FormItems, service, dataTrans }) => {
     return (
         <Formik
             initialValues={{
-                category_name: "",
-                category_desc: "",
+                name: "",
+                description: "",
             }}
             onSubmit={handleOnSubmit}
             validationSchema={Yup.object().shape(handleMappingRules(FormItems))}
@@ -113,6 +113,7 @@ const FormCreate = ({ FormItems, service, dataTrans }) => {
                             <SelectTree
                                 dataTrans={dataTrans}
                                 setIDParent={setIDParent}
+                                isCreated={isCreated}
                             />
                         </Box>
                         {errors.submit && (
