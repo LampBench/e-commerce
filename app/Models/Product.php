@@ -17,6 +17,17 @@ class Product extends Model
     protected $table = 'products';
     public $timestamps = false;
 
+    protected $fillable = [
+        'category_id',
+        'manufacturer_id',
+        'status',
+        'name',
+        'summary',
+        'price',
+        'photos',
+        'quantity',
+    ];
+
     public function discounts()
     {
         return $this->hasMany(Discount::class, 'product_id');

@@ -21,11 +21,13 @@ function FormItemRHF(props) {
         register,
         errors,
         rules,
-        value
+        value,
+        options,
     } = props;
 
     const handleDataChild = (type) => {
         switch (type) {
+            case 'number':
             case 'text':
             case 'password':
             case 'email':
@@ -60,6 +62,7 @@ function FormItemRHF(props) {
                         name={name}
                         {...register(name, rules)}
                         label={label}
+                        defaultValue={value || ''}
                     >
                         {
                             options.map((option, index) => (

@@ -31,6 +31,8 @@ const Product = Loadable(lazy(() => import("../pages/admin/Product")));
 const Manufacturer = Loadable(lazy(() => import("../pages/admin/Manufacturer")));
 const CreateManufacturer = Loadable(lazy(() => import("../pages/admin/CreateManufacturer")));
 
+// Manage Product Page
+const CreateProduct = Loadable(lazy(() => import("../pages/admin/CreateProduct")));
 const AdminRoutes = {
     path: "/admin",
     element: <AdminLayout />,
@@ -85,16 +87,16 @@ const AdminRoutes = {
             element: <CreateManufacturer type="create" />,
         },
         {
-            path: "/admin/discounts",
-            element: <Discount />,
-        },
-        {
-            path: "/admin/discounts/create",
-            element: <CreateDiscount type="create" />,
-        },
-        {
             path: "/admin/products",
             element: <Product />,
+        },
+        {
+            path: "/admin/products/create",
+            element: <CreateProduct type="create" />,
+        },
+        {
+            path: "/admin/discounts",
+            element: <Discount />,
         },
     ],
 };
