@@ -3,7 +3,10 @@ import Repository from "./repository";
 class CategoryService extends Repository {
     async getCategories(params) {
         return await this.get(
-            `categories?page=${params.page}&sort=${params.sort}&order=${params.order}&per-page=${params.perPage}&search=${params.search}`
+            "categories" +
+                (Object.keys(params).length === 0
+                    ? ""
+                    : `?page=${params.page}&sort=${params.sort}&order=${params.order}&per-page=${params.perPage}&search=${params.search}`)
         );
     }
 
