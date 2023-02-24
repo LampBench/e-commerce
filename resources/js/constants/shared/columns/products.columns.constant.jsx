@@ -4,7 +4,7 @@ const filterOperators = getGridStringOperators().filter(({ value }) =>
     ["contains" /* add more over time */].includes(value)
 );
 
-const statusList = {
+export const productStatusNameList = {
     '1': 'Available',
     '2': 'Not available',
     '3': 'Coming soon'
@@ -45,7 +45,7 @@ export const productsColumns = [
         width: 100,
         filterOperators,
         valueGetter: (params) =>
-            `${statusList[params.row.status]}`,
+            `${productStatusNameList[params.row.status]}`,
     },
     {
         field: "quantity",
