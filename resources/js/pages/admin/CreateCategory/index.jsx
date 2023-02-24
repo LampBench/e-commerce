@@ -1,32 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import withPermission from "../../../routes/hocs/WithPermission";
 import { Grid, useMediaQuery } from "@mui/material";
 import { MainCard } from "../../../components/shared";
 import FormCreate from "../../../components/admin/HandleForm/FormCreate";
 import { CategoryFormItems } from "../../../constants/admin/category.form-item.contstant";
 import CategoryService from "../../../services/category.service";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const CreateCategory = () => {
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down("md"));
+    const [data, setData] = useState([]);
+    const [isCreated, setIsCreated] = useState(false);
+    const params = {};
 
     const service = (data, setSubmitting, resetForm) => {
         CategoryService.create(data)
             .then((response) => {
-                toast.success('Create category successfully', {
-                    autoClose: 3000
+                toast.success("Create category successfully", {
+                    autoClose: 3000,
                 });
+                setIsCreated(true);
                 resetForm();
             })
             .catch((error) => {
-                toast.error('Create category failed', {
-                    autoClose: 3000
+                toast.error("Create category failed", {
+                    autoClose: 3000,
                 });
+                setIsCreated(false);
             })
             .finally(() => {
                 setSubmitting(false);
             });
     };
+
+    const getTransformedData = (data, transformedData, keys) => {
+        data.forEach((e) => {
+            keys.push(e.id);
+            transformedData.push(e);
+            e.key = keys.join("-");
+            e.label = e.name;
+            if (e.all_children.length === 0) {
+                keys.pop();
+                return;
+            }
+            e.children = e.all_children;
+            getTransformedData(e.children, transformedData, keys);
+            keys.pop();
+        });
+    };
+
+    useEffect(() => {
+        CategoryService.getCategories(params).then((res) => {
+            const transformedData = [];
+            const keys = [];
+            getTransformedData(res.data.data, transformedData, keys);
+            setData(transformedData.filter((e) => e.parent_id === null));
+        });
+    }, [isCreated]);
 
     return (
         <MainCard title="Create a new category">
@@ -41,8 +71,10 @@ const CreateCategory = () => {
             >
                 <Grid item xs={12} md={6}>
                     <FormCreate
+                        dataTrans={data}
                         FormItems={CategoryFormItems}
                         service={service}
+                        isCreated={isCreated}
                     />
                 </Grid>
             </Grid>
