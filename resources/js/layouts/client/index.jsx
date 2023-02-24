@@ -16,8 +16,8 @@ function ClientLayout() {
     const permissions = useSelector((state) => state.user.permissions);
     console.log("Debug permissions: ", permissions);
     return (
-        <div className="container">
-            <Navbar user={user} permissions={permissions}/>
+        <div>
+            <Navbar user={user} permissions={permissions} />
             <Container maxWidth="lg">
                 <Outlet />
             </Container>

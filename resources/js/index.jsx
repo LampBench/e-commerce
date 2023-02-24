@@ -7,6 +7,7 @@ import { store } from "./reducers/store";
 import config from "./config";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 createRoot(document.getElementById("root")).render(
     <Provider store={store}>

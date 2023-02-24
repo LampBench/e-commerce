@@ -2,9 +2,23 @@ import Repository from "./repository";
 
 class ProductService extends Repository {
     async getProducts(params) {
-        return await this.get(
-            `products?page=${params.page}&sort=${params.sort}&order=${params.order}&per-page=${params.perPage}&search=${params.search}`
-        );
+        let url = "products?";
+        Object.keys(params).forEach(element => {
+            if (element == "filterFields") {
+                let filterFields = params[element];
+                Object.keys(filterFields).forEach(filterField => {
+                    if (filterFields[filterField].value !== "") {
+                        url += filterFields[filterField].field + "=" + filterFields[filterField].value;
+                        url += "&";
+                    }
+                })
+            }
+            else {
+                url += element + "=" + params[element];
+                url += "&";
+            }
+        });
+        return await this.get(url);
     }
 
     async create(data) {

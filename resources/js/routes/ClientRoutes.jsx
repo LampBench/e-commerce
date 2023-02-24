@@ -4,6 +4,7 @@ import Loadable from "../components/shared/Loadable";
 
 const Home = Loadable(lazy(() => import("../pages/client/Home")));
 const Category = Loadable(lazy(() => import("../pages/client/Category")));
+const Product = Loadable(lazy(() => import("../pages/client/Product")));
 
 const ClientRoutes = {
     path: "/",
@@ -16,6 +17,10 @@ const ClientRoutes = {
         {
             path: "categories",
             element: <Category />,
+        },
+        {
+            path: "products",
+            element: <Product />,
         },
     ],
 }
