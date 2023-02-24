@@ -52,7 +52,7 @@ class Product extends Model
                 'products.id',
                 'products.name',
                 'products.quantity',
-                'products.cover_photo',
+                'products.photos',
                 'products.status',
                 'products.price',
                 'discounts.end_date',
