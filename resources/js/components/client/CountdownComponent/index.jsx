@@ -3,19 +3,12 @@ import { useEffect, useState } from 'react';
 import './style.scss';
 
 function CountdownComponent({ expireDiscountDays }) {
-    const countDownDate = new Date().setDate(new Date().getDate() + expireDiscountDays);
+    let expireDate = new Date().setDate(new Date().getDate() + expireDiscountDays);
+    const countDownDate = new Date(new Date(expireDate).toISOString().slice(0, 10)).getTime();
+
     const [countDown, setCountDown] = useState(
         countDownDate - new Date().getTime()
     );
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            let formatReturnValues = getFormatReturnValues(countDownDate - new Date().getTime());
-            setCountDown(formatReturnValues);
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [expireDiscountDays]);
 
     const getFormatReturnValues = (countDownTime) => {
         const days = Math.floor(countDownTime / (1000 * 60 * 60 * 24));
@@ -43,6 +36,16 @@ function CountdownComponent({ expireDiscountDays }) {
             })
         };
     };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            let formatReturnValues = getFormatReturnValues(countDownDate - new Date().getTime());
+            setCountDown(formatReturnValues);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [expireDiscountDays]);
+
     return (
         <span className='countdown-component'>
             {Object.keys(countDown).map((timeElement, index) => {
