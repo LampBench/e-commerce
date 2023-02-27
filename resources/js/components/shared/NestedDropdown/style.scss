@@ -1,3 +1,5 @@
+@import "../../../../sass/variables.module.scss";
+
 .navbar-dropdown {
     .dropdown {
         margin: 0px;
@@ -14,14 +16,14 @@
                 height: 36px;
 
                 &:hover {
-                    background-color: #2196f3;
+                    background-color: $primaryMain;
                     color: white;
                 }
             }
 
             .dropend {
                 &.show {
-                    background-color: #2196f3;
+                    background-color: $primaryMain;
                     color: white;
                 }
 

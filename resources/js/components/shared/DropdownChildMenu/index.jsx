@@ -51,14 +51,13 @@ function DropdownChildMenu({ item, dropdownName, handleChangeItem }) {
 
     return (
         <>
-
             {getClassName() === "component-content" &&
-                <CustomDiv className={"row dropdown-child-menu-component" + getDisplayType()}>
+                <CustomDiv className={"dropdown-child-menu-component" + getDisplayType()}>
                     <CustomButton className={getClassName()} onClick={() => handleClickItem(item)}>{itemName}</CustomButton>
                 </CustomDiv>
             }
             {getClassName() !== "component-content" &&
-                <div className={"row dropdown-child-menu-component" + getDisplayType()}>
+                <div className={"dropdown-child-menu-component" + getDisplayType()}>
                     <p className={getClassName()}>{itemName}</p>
                     {item.all_children && item.all_children.map((childItem) => {
                         return (
