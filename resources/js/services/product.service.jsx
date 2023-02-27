@@ -1,23 +1,9 @@
 import Repository from "./repository";
+import { transformURL } from './transform-url.service';
 
 class ProductService extends Repository {
     async getProducts(params) {
-        let url = "products?";
-        Object.keys(params).forEach(element => {
-            if (element == "filterFields") {
-                let filterFields = params[element];
-                Object.keys(filterFields).forEach(filterField => {
-                    if (filterFields[filterField].value !== "") {
-                        url += filterFields[filterField].field + "=" + filterFields[filterField].value;
-                        url += "&";
-                    }
-                })
-            }
-            else {
-                url += element + "=" + params[element];
-                url += "&";
-            }
-        });
+        let url = transformURL("products?", params);
         return await this.get(url);
     }
 
