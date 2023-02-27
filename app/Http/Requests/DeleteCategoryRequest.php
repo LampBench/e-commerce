@@ -8,7 +8,6 @@ use Illuminate\Database\Query\Builder;
 
 class DeleteCategoryRequest extends FormRequest
 {
-
     protected function prepareForValidation(): void
     {
         $this->merge([

@@ -16,7 +16,7 @@ class AuthRepository extends BaseRepository
     public function getClients()
     {
         $client = Client::where('password_client', 1)->first();
-        if(!$client) {
+        if (!$client) {
             return false;
         }
 

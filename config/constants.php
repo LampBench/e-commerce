@@ -35,7 +35,8 @@ return [
             'type'
         ],
         'filterFields' => [
-            'type'
+            'type',
+            // 'categories'
         ],
         'searchFields' => [
             'manufacturers.id',

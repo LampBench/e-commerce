@@ -107,7 +107,7 @@ class Product extends Model
 
     public function scopeGetAverageRatingStar($query)
     {
-        return $query->selectRaw("AVG(COALESCE(reviews.rating_star, 0)) AS average_rating_star");;
+        return $query->selectRaw("AVG(COALESCE(reviews.rating_star, 0)) AS average_rating_star");
     }
 
     public function scopeGetNumberOfReviews($query)
