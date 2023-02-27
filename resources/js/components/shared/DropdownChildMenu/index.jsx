@@ -4,13 +4,9 @@ import { useTheme } from "@mui/material/styles";
 import { styled } from "@mui/material/styles";
 import './style.scss';
 
-function DropdownChildMenu({ item, dropdownName, handleChangeCategories, checkShow }) {
+function DropdownChildMenu({ item, dropdownName, handleChangeItem }) {
     const itemName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
     const theme = useTheme();
-
-    const getActiveClass = () => {
-        return checkShow.includes(item.id) ? " active" : "";
-    }
 
     const getClassName = () => {
         if (item.level === 2) {
@@ -49,28 +45,27 @@ function DropdownChildMenu({ item, dropdownName, handleChangeCategories, checkSh
         },
     });
 
-    const handleClickCategory = (id) => {
-        handleChangeCategories(id)
+    const handleClickItem = (item) => {
+        handleChangeItem(item)
     }
 
     return (
         <>
 
             {getClassName() === "component-content" &&
-                <CustomDiv className={"row dropdown-child-menu-component" + getActiveClass() + getDisplayType()}>
-                    <CustomButton className={getClassName() + getActiveClass()} onClick={() => handleClickCategory(item.id)}>{itemName}</CustomButton>
+                <CustomDiv className={"row dropdown-child-menu-component" + getDisplayType()}>
+                    <CustomButton className={getClassName()} onClick={() => handleClickItem(item)}>{itemName}</CustomButton>
                 </CustomDiv>
             }
             {getClassName() !== "component-content" &&
-                <div className={"row dropdown-child-menu-component" + getActiveClass() + getDisplayType()}>
+                <div className={"row dropdown-child-menu-component" + getDisplayType()}>
                     <p className={getClassName()}>{itemName}</p>
                     {item.all_children && item.all_children.map((childItem) => {
                         return (
                             <DropdownChildMenu
                                 item={childItem}
                                 dropdownName={dropdownName}
-                                checkShow={checkShow}
-                                handleChangeCategories={handleChangeCategories}
+                                handleChangeItem={handleChangeItem}
                                 key={dropdownName + "_" + childItem.id}>
                             </DropdownChildMenu>
                         );

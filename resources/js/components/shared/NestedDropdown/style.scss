@@ -1,54 +1,45 @@
-.dropdown {
-    #dropdown-item-button {
-        background-color: #283e68;
-        border: none;
-        font-weight: bold;
-    }
-
-    .dropdown-menu {
-        width: 200px;
-
-        .dropdown-item {
-            height: 36px;
-
-            &:hover {
-                background-color: #283e68;
-                color: white;
-            }
-
-            &:active {
-                background-color: #283e68;
-                color: white;
-            }
+.navbar-dropdown {
+    .dropdown {
+        #dropdown-item-button {
+            background-color: transparent;
+            border: none;
         }
 
-        .active {
-            background-color: #283e68;
-            color: white;
-        }
+        .dropdown-menu {
+            width: 200px;
 
-        .dropend {
-            &.show {
-                background-color: #283e68;
-                color: white;
-            }
+            .dropdown-item {
+                height: 36px;
 
-            #dropdown-item-button {
-                text-align: left;
-                width: 200px;
-                background-color: transparent;
-                border: none;
-                color: black;
-
-                &.show {
+                &:hover {
+                    background-color: #2196f3;
                     color: white;
                 }
             }
 
-            .dropdown-menu {
-                width: 1000px;
-                max-height: 1000px;
-                overflow: auto;
+            .dropend {
+                &.show {
+                    background-color: #2196f3;
+                    color: white;
+                }
+
+                #dropdown-item-button {
+                    text-align: left;
+                    width: 200px;
+                    background-color: transparent;
+                    border: none;
+                    color: black;
+
+                    &.show {
+                        color: white;
+                    }
+                }
+
+                .dropdown-menu {
+                    width: 800px;
+                    max-height: 1000px;
+                    padding: 10px 30px 10px 30px;
+                }
             }
         }
     }

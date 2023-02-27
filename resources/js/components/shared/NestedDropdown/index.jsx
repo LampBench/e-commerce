@@ -3,18 +3,14 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 import DropdownChildMenu from "../DropdownChildMenu";
 import './style.scss';
 
-function NestedDropdown({ items, dropdownName, title, drop, setAPIParams, checkShow, setCheckShow }) {
-    const [show, setShow] = useState(0);
+function NestedDropdown({ items, dropdownName, title, drop, setAPIParams }) {
+    const [show, setShow] = useState(false);
+    const [showItem, setShowItem] = useState(0);
 
-    const handleChangeChosenCategories = (id) => {
-        let checkShowId = checkShow;
-        if (checkShowId.includes(id)) {
-            checkShowId.splice(checkShowId.indexOf(id), 1);
-        }
-        else {
-            checkShowId.push(id);
-        }
-        setAPIParams(checkShowId, dropdownName, setCheckShow);
+    const handleChangeChosenItems = (item) => {
+        setAPIParams(item);
+        setShowItem(0);
+        setShow(false);
     }
 
     return (
@@ -23,17 +19,20 @@ function NestedDropdown({ items, dropdownName, title, drop, setAPIParams, checkS
                 id="dropdown-item-button"
                 title={title}
                 drop={drop}
-                autoClose={'outside'}>
+                show={show}
+                onMouseEnter={() => setShow(true)}
+                onMouseLeave={() => setShow(false)}
+            >
                 {items && items.map((item) => {
                     if (item.all_children.length !== 0) {
                         return (
                             <DropdownButton
                                 id="dropdown-item-button"
                                 title={item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                                show={show === item.id}
+                                show={showItem === item.id}
                                 drop={'end'}
-                                onMouseEnter={() => setShow(item.id)}
-                                onMouseLeave={() => setShow(0)}
+                                onMouseEnter={() => setShowItem(item.id)}
+                                onMouseLeave={() => setShowItem(0)}
                                 key={dropdownName + "_" + item.id}>
                                 <div className="row dropdown-child-menu">
                                     {item.all_children && item.all_children.map((childItem) => {
@@ -41,8 +40,7 @@ function NestedDropdown({ items, dropdownName, title, drop, setAPIParams, checkS
                                             <DropdownChildMenu
                                                 item={childItem}
                                                 dropdownName={dropdownName}
-                                                checkShow={checkShow}
-                                                handleChangeCategories={handleChangeChosenCategories}
+                                                handleChangeItem={handleChangeChosenItems}
                                                 key={dropdownName + "_" + childItem.id} className="row">
                                             </DropdownChildMenu>
                                         )
@@ -55,9 +53,8 @@ function NestedDropdown({ items, dropdownName, title, drop, setAPIParams, checkS
                         return (
                             <Dropdown.Item
                                 as="button"
-                                active={checkShow.includes(item.id)}
                                 key={dropdownName + "_" + item.id}
-                                onClick={() => handleChangeChosenCategories(item.id)}>{item.name}
+                                onClick={() => handleChangeChosenItems(item)}>{item.name}
                             </Dropdown.Item>
                         );
                     }
