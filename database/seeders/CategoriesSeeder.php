@@ -18,10 +18,16 @@ class CategoriesSeeder extends Seeder
                 'level' => $superiorCategory->level + 1
             ]);
             foreach ($categories as $category) {
-                Category::factory()->count(3)->create([
+                $subordinates = Category::factory()->count(3)->create([
                     'parent_id' => $category->id,
                     'level' => $category->level + 1
                 ]);
+                foreach ($subordinates as $subordinate) {
+                    Category::factory()->count(3)->create([
+                        'parent_id' => $subordinate->id,
+                        'level' => $subordinate->level + 1
+                    ]);
+                }
             }
         }
     }
