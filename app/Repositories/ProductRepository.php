@@ -37,9 +37,7 @@ class ProductRepository extends ExpandedBaseRepository
         $items = $this->sort($items, $requestData);
         $items = $this->filter($items, $requestData);
         $items = $this->search($items, $requestData['search']);
-        if ($requestData['perPage'] == 'all') {
-            return $items->get();
-        }
-        return $items->paginate($requestData['perPage']);
+        $items = $this->relatedModelFilter($items, $requestData);
+        return $requestData['perPage'] == 'all' ? $items->get() : $items->paginate($requestData['perPage']);
     }
 }
