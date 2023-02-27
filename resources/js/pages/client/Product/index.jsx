@@ -15,7 +15,6 @@ import NormalDropdown from '../../../components/shared/NormalDropdown';
 
 function ProductList() {
     const dispatch = useDispatch();
-    const categories = useSelector((state) => state.category.categories);
     const chosenCategories = useSelector((state) => state.category.chosenCategories);
     const expireSoonProducts = useSelector((state) => state.product.expireSoonProducts);
     const [data, setData] = useState(null);
@@ -99,11 +98,10 @@ function ProductList() {
     };
 
     const ready = () => {
-        return data && categories && expireSoonProducts;
+        return data && expireSoonProducts;
     }
 
     const getProducts = (urlParams) => {
-        console.log(urlParams)
         ProductService.getProducts(urlParams)
             .then((res) => {
                 setData(res.data);
@@ -159,7 +157,12 @@ function ProductList() {
     }, []);
 
     useEffect(() => {
-        getProducts(params);
+        if (chosenCategories) {
+            let tempParams = params;
+            tempParams.filterFields.category.value = chosenCategories.id;
+            getProducts(tempParams);
+            setParams(tempParams);
+        }
     }, [chosenCategories]);
 
     return (
