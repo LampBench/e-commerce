@@ -27,7 +27,7 @@ function DropdownChildMenu({ item, dropdownName, handleChangeItem }) {
 
     const CustomButton = styled(ButtonUnstyled)`
         background-color: transparent;
-        padding-left: 5px;
+        padding: 5px;
         text-align: left;
         color: black;
         border: none;
@@ -37,11 +37,13 @@ function DropdownChildMenu({ item, dropdownName, handleChangeItem }) {
     `;
 
     const CustomDiv = styled('div')({
+        display: 'flex',
+        alignItems: 'center',
         margin: '0px',
         height: '30px',
         '&:hover': {
             fontWeight: 'bold',
-            backgroundColor: theme.palette.grey[50],
+            backgroundColor: theme.palette.grey[100],
         },
     });
 
@@ -52,7 +54,7 @@ function DropdownChildMenu({ item, dropdownName, handleChangeItem }) {
     return (
         <>
             {getClassName() === "component-content" &&
-                <CustomDiv className={"dropdown-child-menu-component" + getDisplayType()}>
+                <CustomDiv className={"dropdown-child-menu-component child " + getDisplayType()}>
                     <CustomButton className={getClassName()} onClick={() => handleClickItem(item)}>{itemName}</CustomButton>
                 </CustomDiv>
             }
