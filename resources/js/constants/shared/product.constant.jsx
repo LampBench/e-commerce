@@ -1,5 +1,7 @@
 export const timeZone = "Asia/Ho_Chi_Minh";
 
+export const defaultShow = 10;
+
 export const expireDiscountDays = 7;
 
 export const availableStatus = 1;
