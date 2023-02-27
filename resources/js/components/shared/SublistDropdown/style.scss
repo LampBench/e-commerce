@@ -1,0 +1,45 @@
+@import "../../../../sass/variables.module";
+
+.filter-components {
+    #sublist-dropdown {
+        margin-right: 20px;
+
+        #dropdown-item-button {
+            background-color: $primaryMain;
+            border: none;
+        }
+
+        .sublist-menu {
+            width: 800px;
+            max-height: 600px;
+            padding: 10px;
+            overflow-y: auto;
+
+            .sublist-menu-item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px;
+
+                button {
+                    width: 100%;
+                    background-color: white;
+                    color: $primaryMain;
+                    border: $grey300 1px solid;
+
+                    &:hover {
+                        background-color: $primaryMain;
+                        border: none;
+                        color: white;
+                    }
+
+                    &.active {
+                        background-color: $primaryMain;
+                        border: none;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}

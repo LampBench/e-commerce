@@ -1,3 +1,5 @@
+@import "../../../../sass/variables.module.scss";
+
 .product-page {
     padding-bottom: 20px;
     justify-content: center;
@@ -11,9 +13,9 @@
             border-radius: 8px;
 
             .title {
-                color: #e79f41;
+                color: $warningDark;
                 font-weight: bold;
-                text-shadow: 2px 2px 2px #fce0bd;
+                text-shadow: 2px 2px 2px $warningLight;
 
                 .carousel-icon {
                     width: 60px;
@@ -27,7 +29,7 @@
             }
         }
 
-        .products-filter {
+        .filter-components {
             display: flex;
         }
 

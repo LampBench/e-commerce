@@ -7,19 +7,23 @@ import ProductCard from '../../../components/client/ProductCard';
 import ProductsCarousel from '../../../components/client/ProductsCarousel';
 import CountdownComponent from '../../../components/client/CountdownComponent';
 import ProductService from '../../../services/product.service';
-import { expireDiscountDays, availableStatus, comingSoonStatus, defaultShow } from '../../../constants/shared/product.constant';
+import ManufacturerService from '../../../services/manufacturer.service';
+import { expireDiscountDays, availableStatus, defaultShow } from '../../../constants/shared/product.constant';
 import { productStatusNameList } from "../../../constants/shared/columns/products.columns.constant";
 import BoltIcon from '@mui/icons-material/Bolt';
 import './style.scss';
 import NormalDropdown from '../../../components/shared/NormalDropdown';
+import SublistDropdown from '../../../components/shared/SublistDropdown';
 
 function ProductList() {
     const dispatch = useDispatch();
     const chosenCategories = useSelector((state) => state.category.chosenCategories);
     const expireSoonProducts = useSelector((state) => state.product.expireSoonProducts);
     const [data, setData] = useState(null);
+    const [manufacturers, setManufacturers] = useState([]);
     const [page, setPage] = useState(1);
     const [showStatus, setShowStatus] = useState([]);
+    const [showManufacturer, setShowManufacturer] = useState([]);
     const [showPerPage, setShowPerPage] = useState([defaultShow]);
     const [params, setParams] = useState({
         page: 1,
@@ -53,6 +57,7 @@ function ProductList() {
             show: 'Status',
             parentField: "filterFields",
             multiple: true,
+            sublist: false,
             values: Object.keys(productStatusNameList).map((key) => {
                 return ({
                     'id': parseInt(key),
@@ -67,6 +72,7 @@ function ProductList() {
             show: 'Show',
             parentField: "filterFields",
             multiple: false,
+            sublist: false,
             values: [
                 {
                     'id': 5,
@@ -88,6 +94,21 @@ function ProductList() {
             checkShow: showPerPage,
             setCheckShow: setShowPerPage
         },
+        {
+            field: 'manufacturer',
+            show: 'Manufacturers',
+            parentField: "filterFields",
+            multiple: true,
+            sublist: true,
+            values: manufacturers.map((item) => {
+                return ({
+                    'id': item.id,
+                    'name': item.name,
+                });
+            }),
+            checkShow: showManufacturer,
+            setCheckShow: setShowManufacturer
+        },
     ]
 
     const handleChange = (event, value) => {
@@ -102,7 +123,8 @@ function ProductList() {
     }
 
     const getProducts = (urlParams) => {
-        ProductService.getProducts(urlParams)
+        console.log(urlParams)
+        ProductService.getProductsApplyFilter(urlParams)
             .then((res) => {
                 setData(res.data);
             })
@@ -111,9 +133,29 @@ function ProductList() {
             });
     }
 
+    const getManufacturers = () => {
+        ManufacturerService.getManufacturersApplyFilter({
+            sort: "name",
+            order: "asc",
+            search: "",
+            filterFields: {
+                perPage: {
+                    field: "per-page",
+                    value: 'all'
+                }
+            }
+        })
+            .then((res) => {
+                setManufacturers(res.data.data);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
+
     const getExpireSoonProducts = () => {
         if (expireSoonProducts) {
-            ProductService.getProducts({
+            ProductService.getProductsApplyFilter({
                 sort: "final-price",
                 order: "asc",
                 perPage: "all",
@@ -153,6 +195,7 @@ function ProductList() {
 
     useEffect(() => {
         getProducts(params);
+        getManufacturers();
         getExpireSoonProducts();
     }, []);
 
@@ -179,18 +222,31 @@ function ProductList() {
                             <ProductsCarousel items={expireSoonProducts} carouselName={'expireSoon'} perSlide={4}></ProductsCarousel>
                         </div>
                     }
-                    <div className='products-filter'>
+                    <div className='filter-components'>
                         {filterFields.map((filterField) => {
-                            return (
-                                <NormalDropdown
-                                    item={filterField}
-                                    setAPIParams={setAPIParams}
-                                    checkShow={filterField.checkShow}
-                                    setCheckShow={filterField.setCheckShow}
-                                    key={'dropdown_' + filterField.field}>
-                                </NormalDropdown>
-                            );
+                            if (filterField.sublist) {
+                                return (
+                                    <SublistDropdown item={filterField}
+                                        setAPIParams={setAPIParams}
+                                        checkShow={filterField.checkShow}
+                                        setCheckShow={filterField.setCheckShow}
+                                        key={'dropdown_' + filterField.field}>
+                                    </SublistDropdown>
+                                );
+                            }
+                            else {
+                                return (
+                                    <NormalDropdown
+                                        item={filterField}
+                                        setAPIParams={setAPIParams}
+                                        checkShow={filterField.checkShow}
+                                        setCheckShow={filterField.setCheckShow}
+                                        key={'dropdown_' + filterField.field}>
+                                    </NormalDropdown>
+                                );
+                            }
                         })}
+
                     </div>
                     <div className='row products-list'>
                         {data.data.map((item) => {
