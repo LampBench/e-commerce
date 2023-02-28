@@ -1,6 +1,7 @@
 import React from "react";
 import {
-    Navbar
+    Navbar,
+    Footer
 } from "./components";
 
 import {
@@ -22,6 +23,7 @@ function ClientLayout() {
             <Container maxWidth="lg">
                 <Outlet />
             </Container>
+            <Footer></Footer>
         </div>
     );
 };
