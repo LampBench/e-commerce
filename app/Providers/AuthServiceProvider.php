@@ -15,6 +15,7 @@ use App\Policies\UserPolicy;
 use App\Policies\GroupPolicy;
 use App\Policies\ManufacturerPolicy;
 use Laravel\Passport\Passport;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**

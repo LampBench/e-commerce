@@ -17,7 +17,7 @@ function LayoutWrapper() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(localStorage.getItem('TOKEN')) {
+        if (localStorage.getItem('TOKEN')) {
             AuthServices.check().then((response) => {
                 dispatch(SET_USER(response.data));
                 setLoggedIn(true);
@@ -30,7 +30,7 @@ function LayoutWrapper() {
         }
     }, []);
 
-    if(loading) {
+    if (loading) {
         return (
             <Backdrop open={loading} sx={{
                 zIndex: (theme) => theme.zIndex.drawer + 1,

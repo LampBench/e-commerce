@@ -98,6 +98,10 @@ const AdminRoutes = {
             path: "/admin/discounts",
             element: <Discount />,
         },
+        {
+            path: "/admin/discounts/create",
+            element: <CreateDiscount type="create" />,
+        },
     ],
 };
 

@@ -1,0 +1,24 @@
+@import "../../../../sass/variables.module.scss";
+
+.filter-components {
+    #normal-dropdown {
+        margin-right: 20px;
+
+        #dropdown-item-button {
+            background-color: $primaryMain;
+            border: none;
+        }
+
+        .dropdown-item {
+            height: 30px;
+
+            &.active {
+                background-color: $primaryMain;
+            }
+
+            &:active {
+                background-color: $primaryMain;
+            }
+        }
+    }
+}

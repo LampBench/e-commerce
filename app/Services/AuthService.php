@@ -38,7 +38,6 @@ class AuthService
 
         $token = $response->json();
         return $token;
-
     }
 
     public function me()

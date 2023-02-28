@@ -15,13 +15,28 @@ abstract class ExpandedBaseService extends BaseService
         return $sortOrder;
     }
 
+    public function checkCustomSort($sortField, $table)
+    {
+        $customSortFields = config('constants.' . $table . '.customSort');
+        if (in_array($sortField, array_keys($customSortFields))) {
+            return (object) [
+                'fields' => $customSortFields[$sortField],
+                'custom' => true
+            ];
+        }
+        return (object) [
+            'field' => str_replace('-', '_', $sortField),
+            'custom' => false
+        ];
+    }
+
     public function getSortField($requestData, $table)
     {
         $defaultSortField = config('constants.' . $table . '.default.sort');
         $requestSort = $requestData['sort'] ?? $defaultSortField;
         $sortFields = config('constants.' . $table . '.sortFields');
         $sortField = in_array($requestSort, $sortFields) ? $requestSort : $defaultSortField;
-        return str_replace('-', '_', $sortField);
+        return $this->checkCustomSort($sortField, $table);
     }
 
     public function getQueryField($field, $table)
@@ -62,6 +77,22 @@ abstract class ExpandedBaseService extends BaseService
         return $filterData;
     }
 
+    public function getRelatedModelFiltersData($requestData, $table)
+    {
+        $relatedModelFilterFields = config('constants.' . $table . '.relatedModelFilters');
+        $relatedModelFilterData = array();
+        foreach ($relatedModelFilterFields as $field => $value) {
+            if (isset($requestData[$field])) {
+                $filterValues = explode(' ', strtolower($requestData[$field]));
+                $relatedModelFilterData[$field] = (object)[
+                    "condition" => $value,
+                    "values" => $filterValues
+                ];
+            }
+        }
+        return $relatedModelFilterData;
+    }
+
     public function getPerPage($requestData, $table)
     {
         $perPage = $requestData['per-page'] ?? config('constants.' . $table . '.default.perPage');
@@ -77,6 +108,7 @@ abstract class ExpandedBaseService extends BaseService
         $requestData['sort'] = $this->getSortField($requestData, $table);
         $requestData['search'] = $this->getSearchData($requestData, $table);
         $requestData['filter'] = $this->getFilterData($requestData, $table);
+        $requestData['relatedModelFilters'] = $this->getRelatedModelFiltersData($requestData, $table);
         $requestData['perPage'] = $this->getPerPage($requestData, $table);
         return $requestData;
     }

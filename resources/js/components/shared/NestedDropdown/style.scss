@@ -1,0 +1,51 @@
+@import "../../../../sass/variables.module.scss";
+
+.navbar-dropdown {
+    .dropdown {
+        margin: 0px;
+
+        #dropdown-item-button {
+            background-color: transparent;
+            border: none;
+        }
+
+        .dropdown-menu {
+            width: 200px;
+
+            .dropdown-item {
+                height: 36px;
+
+                &:hover {
+                    background-color: $primaryMain;
+                    color: white;
+                }
+            }
+
+            .dropend {
+                &.show {
+                    background-color: $primaryMain;
+                    color: white;
+                }
+
+                #dropdown-item-button {
+                    text-align: left;
+                    width: 200px;
+                    background-color: transparent;
+                    border: none;
+                    color: black;
+
+                    &.show {
+                        color: white;
+                    }
+                }
+
+                .dropdown-menu {
+                    width: 700px;
+                    max-height: 1000px;
+                    overflow-y: auto;
+                    padding: 10px 30px 10px 30px;
+                }
+            }
+        }
+    }
+}

@@ -5,8 +5,8 @@ namespace App\Services;
 use App\Classes\BaseService;
 use App\Repositories\GroupRepository;
 
-class GroupService extends BaseService {
-
+class GroupService extends BaseService
+{
     public function __construct(GroupRepository $repository)
     {
         $this->repository = $repository;
@@ -18,7 +18,8 @@ class GroupService extends BaseService {
         return $moduleList;
     }
 
-    public function mapPermissions($rawPermissions) {
+    public function mapPermissions($rawPermissions)
+    {
         $modules = $this->getModuleList();
         $roleListArr = [
             'view' => 'View',
@@ -41,14 +42,16 @@ class GroupService extends BaseService {
         return $permissionList;
     }
 
-    public function getPermissionList($id) {
+    public function getPermissionList($id)
+    {
         $group = $this->show($id);
         $permissionList = $this->mapPermissions($group->permissions);
         return $permissionList;
     }
 
-    public function convertToPermissionArray($data) {
-        if(!empty($data)) {
+    public function convertToPermissionArray($data)
+    {
+        if (!empty($data)) {
             $permissionArr = $data;
             $permissionArr['dashboard'] = ['view'];
         } else {
@@ -59,7 +62,8 @@ class GroupService extends BaseService {
         return json_encode($permissionArr);
     }
 
-    public function update($data, $id) {
+    public function update($data, $id)
+    {
         $group = $this->show($id);
         if (isset($data['permissions'])) {
             $group->permissions = $this->convertToPermissionArray($data['permissions']);
@@ -74,7 +78,8 @@ class GroupService extends BaseService {
         return $group;
     }
 
-    public function create($data) {
+    public function create($data)
+    {
         $permissionJson = $this->convertToPermissionArray($data['permissions']);
         $groupData = [
             'name' => $data['name'],

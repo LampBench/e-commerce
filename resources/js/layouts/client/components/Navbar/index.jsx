@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { 
+import React, { useState, useEffect } from "react";
+import {
     AppBar,
     Container,
     Toolbar,
@@ -23,14 +23,20 @@ import { MenuList, SettingList } from "../../../../constants/client";
 import Cart from "./Cart";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../../../services/auth.service";
+import CategoryService from "../../../../services/category.service";
 import { LOG_OUT } from "../../../../reducers/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_CATEGORY, SET_CHOSEN_CATEGORY } from "../../../../reducers/categorySlice";
+import NestedDropdown from "../../../../components/shared/NestedDropdown";
 
 function Navbar(props) {
     const [anchorElMenu, setAnchorElMenu] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+
     const dispatch = useDispatch();
-    
+    const navigate = useNavigate();
+    const categories = useSelector((state) => state.category.categories);
+
     const handleOpenNavMenu = (event) => {
         setAnchorElMenu(event.currentTarget);
     };
@@ -60,18 +66,43 @@ function Navbar(props) {
             });
     };
 
-    const navigate = useNavigate();
+    const getCategories = () => {
+        if (categories.length === 0) {
+            CategoryService.getCategories({
+                sort: "name",
+                order: "asc",
+                perPage: "all",
+                search: "",
+            })
+                .then((res) => {
+                    dispatch(SET_CATEGORY(res.data.data));
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
+    }
+
+    const setAPIParams = (item) => {
+        dispatch(SET_CHOSEN_CATEGORY(item));
+        navigate('/products');
+    }
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
 
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar>
                     <MenuBook sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                    <Typography 
+                    <Typography
                         variant="h6"
                         noWrap
                         component="a"
-                        href="/" 
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -84,7 +115,7 @@ function Navbar(props) {
                     >
                         BOOKSTORE
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none'} }}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="Mở menu"
@@ -144,24 +175,36 @@ function Navbar(props) {
                         BOOKSTORE
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <div className="navbar-dropdown">
+                            <NestedDropdown
+                                items={categories}
+                                dropdownName={"categories"}
+                                title={"Categories"}
+                                drop={'down'}
+                                setAPIParams={setAPIParams}
+                            >
+                            </NestedDropdown>
+                        </div>
                         {
-                            MenuList.map((page, index) => (
-                                <NavLink
-                                    key={index}
-                                    to={page.href}
-                                    className={
-                                        ({isActive}) => (
-                                            isActive ? style.navLink + ' ' + style.navLinkActive : style.navLink
-                                        )
-                                    }
-                                >
-                                    <Typography textAlign={'center'}>{page.title}</Typography>
-                                </NavLink>
-                            ))
+                            MenuList.map((page, index) => {
+                                return (
+                                    <NavLink
+                                        key={index}
+                                        to={page.href}
+                                        className={
+                                            ({ isActive }) => (
+                                                isActive ? style.navLink + ' ' + style.navLinkActive : style.navLink
+                                            )
+                                        }
+                                    >
+                                        <Typography textAlign={'center'}>{page.title}</Typography>
+                                    </NavLink>
+                                )
+                            })
                         }
                     </Box>
                     {/* -------- Cart -------- */}
-                    <Cart sx={{ p: 0, mr: 3}}/>
+                    <Cart sx={{ p: 0, mr: 3 }} />
                     {/* -------- Profile -------- */}
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Account">

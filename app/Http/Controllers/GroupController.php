@@ -48,7 +48,6 @@ class GroupController extends Controller
         $this->authorize('update', 'App\Models\UserGroup');
         $group = $this->groupService->update($request->all(), $id);
         return $this->respondWithSuccess(['group' => $group]);
-
     }
 
     public function destroy($id)

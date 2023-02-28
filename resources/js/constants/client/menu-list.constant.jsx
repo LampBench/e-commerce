@@ -1,19 +1,15 @@
 export const MenuList = [
     {
-        title: 'Trang chủ',
+        title: 'Home',
         href: '/',
     },
     {
-        title: 'Sản phẩm',
+        title: 'Products',
         href: '/products',
     },
     {
-        title: 'Nhà sản xuất',
+        title: 'Manufacturers',
         href: '/manufacturers',
-    },
-    {
-        title: 'Thể loại',
-        href: '/categories',
     },
 ];
 

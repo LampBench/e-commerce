@@ -19,7 +19,9 @@ return [
         ],
         'extraFields' => [
             'full-name' => "CONCAT(users.first_name,' ', users.last_name)"
-        ]
+        ],
+        'relatedModelFilters' => [],
+        'customSort' => []
     ],
     'manufacturers' => [
         'default' => [
@@ -35,14 +37,22 @@ return [
             'type'
         ],
         'filterFields' => [
-            'type'
+            'type',
         ],
         'searchFields' => [
             'manufacturers.id',
             'manufacturers.name',
             'manufacturers.phone-number'
         ],
-        'extraFields' => []
+        'extraFields' => [],
+        'relatedModelFilters' => [
+            'category-id' =>
+            [
+                'products',
+                'category_id',
+            ]
+        ],
+        'customSort' => []
     ],
     'categories' => [
         'default' => [
@@ -60,7 +70,9 @@ return [
             'name',
             'description'
         ],
-        'extraFields' => []
+        'extraFields' => [],
+        'relatedModelFilters' => [],
+        'customSort' => []
     ],
     'products' => [
         'default' => [
@@ -74,10 +86,13 @@ return [
             'manufacturer-name',
             'status',
             'quantity',
+            'end-date',
             'discount-amount',
             'final-price',
             'average-rating-star',
-            'number-of-reviews'
+            'number-of-reviews',
+            'on-sale',
+            'recommended'
         ],
         'filterFields' => [
             'category-id',
@@ -88,15 +103,63 @@ return [
             'id',
             'name',
             'manufacturer-name',
-            'category-name'
+            'category-name',
         ],
         'extraFields' => [
             'id' => 'products.id',
             'category-id' => 'categories.id',
             'manufacturer-id' => 'manufacturers.id',
+            'status' => 'products.status',
             'name' => 'products.name',
             'manufacturer-name' => 'manufacturers.name',
             'category-name' => 'categories.name'
+        ],
+        'relatedModelFilters' => [],
+        'customSort' => [
+            'on-sale' => [
+                [
+                    'discount_amount',
+                    'desc'
+                ],
+                [
+                    'final_price',
+                    'asc'
+                ],
+                [
+                    'end_date',
+                    'asc'
+                ],
+                [
+                    'name',
+                    'asc'
+                ],
+                [
+                    'id',
+                    'asc'
+                ]
+            ],
+            'recommended' => [
+                [
+                    'average_rating_star',
+                    'desc'
+                ],
+                [
+                    'number_of_reviews',
+                    'desc'
+                ],
+                [
+                    'final_price',
+                    'asc'
+                ],
+                [
+                    'name',
+                    'asc'
+                ],
+                [
+                    'id',
+                    'asc'
+                ]
+            ]
         ]
     ],
     'discounts' => [
@@ -124,7 +187,9 @@ return [
         ],
         'extraFields' => [
             'product-name' => 'products.name',
-        ]
+        ],
+        'relatedModelFilters' => [],
+        'customSort' => []
     ],
     'vouchers' => [
         'default' => [
@@ -147,7 +212,9 @@ return [
             'id',
             'title',
         ],
-        'extraFields' => []
+        'extraFields' => [],
+        'relatedModelFilters' => [],
+        'customSort' => []
     ],
     'nonStringFields' => [
         'id',
@@ -158,6 +225,8 @@ return [
         'value',
         'amount',
         'date',
+        'start-date',
+        'end-date',
         'completed-date',
         'categories.id',
         'manufacturers.id',

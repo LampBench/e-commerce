@@ -28,6 +28,8 @@ class Product extends Model
         'quantity',
     ];
 
+    public const PRODUCT_STATUS_AVAILABLE = 1;
+
     public function discounts()
     {
         return $this->hasMany(Discount::class, 'product_id');
@@ -37,16 +39,23 @@ class Product extends Model
     {
         return $query
             ->leftJoin('reviews', 'products.id', '=', 'reviews.product_id')
-            ->leftJoin('discounts', 'products.id', '=', 'discounts.product_id')
+            ->leftJoin('discounts', function ($join) {
+                $join->on('discounts.product_id', 'products.id')
+                    ->where(function ($query) {
+                        $query->whereNull('discounts.end_date')
+                            ->orWhereDate('discounts.end_date', '>=', Carbon::today('Asia/Ho_Chi_Minh')->format('Y-m-d'));
+                    });
+            })
             ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
             ->leftJoin('manufacturers', 'products.manufacturer_id', '=', 'manufacturers.id')
             ->select(
                 'products.id',
                 'products.name',
                 'products.quantity',
-                'products.cover_photo',
+                'products.photos',
                 'products.status',
                 'products.price',
+                'discounts.end_date',
                 'manufacturers.name as manufacturer_name',
                 'categories.name as category_name'
             )
@@ -65,14 +74,14 @@ class Product extends Model
     public function scopeGetFinalPrice($query)
     {
         return $query->selectRaw("(CASE 
-            WHEN discounts.value = NULL THEN 0
+            WHEN discounts.value = NULL THEN products.price
             ELSE CASE
-                WHEN discounts.start_date > CURRENT_DATE THEN 0
+                WHEN discounts.start_date > CURRENT_DATE THEN products.price
                 ELSE CASE
                     WHEN discounts.end_date = NULL THEN products.price - " . Discount::DISCOUNT_AMOUNT_FORMULA . "
                     ELSE CASE
                         WHEN discounts.end_date >= CURRENT_DATE THEN products.price - " . Discount::DISCOUNT_AMOUNT_FORMULA . "
-                        ELSE 0
+                        ELSE products.price
                         END
                     END
                 END
@@ -98,11 +107,17 @@ class Product extends Model
 
     public function scopeGetAverageRatingStar($query)
     {
-        return $query->selectRaw("AVG(COALESCE(reviews.rating_star, 0)) AS average_rating_star");;
+        return $query->selectRaw("AVG(COALESCE(reviews.rating_star, 0)) AS average_rating_star");
     }
 
     public function scopeGetNumberOfReviews($query)
     {
         return $query->selectRaw("COUNT(reviews.rating_star) AS number_of_reviews");
+    }
+
+    public function scopeGetExpireSoonItems($query, $days)
+    {
+        return $query
+            ->whereDate('end_date', '<=', Carbon::today('Asia/Ho_Chi_Minh')->addDays($days)->format('Y-m-d'));
     }
 }

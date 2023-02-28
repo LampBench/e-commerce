@@ -1,0 +1,29 @@
+.product-item {
+    padding: 10px;
+
+    .product-card {
+        width: 100%;
+
+        .product-card-name {
+            height: 60px;
+            overflow: hidden;
+            // white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .previous-price {
+            text-decoration: line-through;
+            padding-left: 10px;
+        }
+
+        .action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}
