@@ -121,8 +121,6 @@ function Footer() {
                             >
                                 FOLLOW US
                             </Typography>
-                        </div>
-                        <div>
                             <Link to="https://vi-vn.facebook.com/">
                                 <Image src={images['facebook_icon']}></Image>
                             </Link>
