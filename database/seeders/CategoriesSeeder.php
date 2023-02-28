@@ -22,12 +22,6 @@ class CategoriesSeeder extends Seeder
                     'parent_id' => $category->id,
                     'level' => $category->level + 1
                 ]);
-                foreach ($subordinates as $subordinate) {
-                    Category::factory()->count(3)->create([
-                        'parent_id' => $subordinate->id,
-                        'level' => $subordinate->level + 1
-                    ]);
-                }
             }
         }
     }
