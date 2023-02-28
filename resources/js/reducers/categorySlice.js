@@ -4,14 +4,14 @@ export const categorySlice = createSlice({
     name: "category",
     initialState: {
         categories: [],
-        chosenCategories: ""
+        chosenCategory: ""
     },
     reducers: {
         SET_CATEGORY: (state, action) => {
             state.categories = action.payload;
         },
         SET_CHOSEN_CATEGORY: (state, action) => {
-            state.chosenCategories = action.payload;
+            state.chosenCategory = action.payload;
         },
     },
 });

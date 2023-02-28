@@ -8,7 +8,16 @@ import ProductsCarousel from '../../../components/client/ProductsCarousel';
 import CountdownComponent from '../../../components/client/CountdownComponent';
 import ProductService from '../../../services/product.service';
 import ManufacturerService from '../../../services/manufacturer.service';
-import { expireDiscountDays, availableStatus, defaultShow } from '../../../constants/shared/product.constant';
+import {
+    expireDiscountDays,
+    availableStatus,
+    defaultShow,
+    defaultSort,
+    defaultOrder,
+    sortFields,
+    orderFields,
+    perPageFields
+} from '../../../constants/shared/product.constant';
 import { productStatusNameList } from "../../../constants/shared/columns/products.columns.constant";
 import BoltIcon from '@mui/icons-material/Bolt';
 import './style.scss';
@@ -17,18 +26,21 @@ import SublistDropdown from '../../../components/shared/SublistDropdown';
 
 function ProductList() {
     const dispatch = useDispatch();
-    const chosenCategories = useSelector((state) => state.category.chosenCategories);
+    const chosenCategory = useSelector((state) => state.category.chosenCategory);
     const expireSoonProducts = useSelector((state) => state.product.expireSoonProducts);
     const [data, setData] = useState(null);
     const [manufacturers, setManufacturers] = useState([]);
     const [page, setPage] = useState(1);
-    const [showStatus, setShowStatus] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [showStatus, setShowStatus] = useState([availableStatus]);
+    const [showOrder, setShowOrder] = useState([defaultOrder]);
+    const [showSort, setShowSort] = useState([defaultSort]);
     const [showManufacturer, setShowManufacturer] = useState([]);
     const [showPerPage, setShowPerPage] = useState([defaultShow]);
     const [params, setParams] = useState({
         page: 1,
-        sort: "discount-amount",
-        order: "desc",
+        sort: defaultSort,
+        order: defaultOrder,
         search: "",
         filterFields: {
             status: {
@@ -41,7 +53,7 @@ function ProductList() {
             },
             category: {
                 field: "category-id",
-                value: chosenCategories ? chosenCategories.id : ""
+                value: chosenCategory ? chosenCategory.id : ""
             },
             perPage: {
                 field: "per-page",
@@ -68,33 +80,6 @@ function ProductList() {
             setCheckShow: setShowStatus
         },
         {
-            field: 'perPage',
-            show: 'Show',
-            parentField: "filterFields",
-            multiple: false,
-            sublist: false,
-            values: [
-                {
-                    'id': 5,
-                    'name': '5'
-                },
-                {
-                    'id': 10,
-                    'name': '10'
-                },
-                {
-                    'id': 15,
-                    'name': '15'
-                },
-                {
-                    'id': 20,
-                    'name': '20'
-                }
-            ],
-            checkShow: showPerPage,
-            setCheckShow: setShowPerPage
-        },
-        {
             field: 'manufacturer',
             show: 'Manufacturers',
             parentField: "filterFields",
@@ -109,24 +94,52 @@ function ProductList() {
             checkShow: showManufacturer,
             setCheckShow: setShowManufacturer
         },
+        {
+            field: 'perPage',
+            show: 'Show ' + showPerPage[0],
+            parentField: "filterFields",
+            multiple: false,
+            sublist: false,
+            values: perPageFields,
+            checkShow: showPerPage,
+            setCheckShow: setShowPerPage
+        },
+        {
+            field: 'sort',
+            show: sortFields.filter((field) => field.id == showSort)[0].name,
+            parentField: null,
+            multiple: false,
+            sublist: false,
+            values: sortFields,
+            checkShow: showSort,
+            setCheckShow: setShowSort
+        },
+        {
+            field: 'order',
+            show: orderFields.filter((field) => field.id == showOrder)[0].name,
+            parentField: null,
+            multiple: false,
+            sublist: false,
+            values: orderFields,
+            checkShow: showOrder,
+            setCheckShow: setShowOrder
+        },
     ]
 
     const handleChange = (event, value) => {
+        let tempParams = params;
+        tempParams.page = value;
+        getProducts(tempParams);
         setPage(value);
-        setParams((prevValue) => {
-            return { ...prevValue, page: value };
-        });
+        setParams(tempParams);
     };
-
-    const ready = () => {
-        return data && expireSoonProducts;
-    }
 
     const getProducts = (urlParams) => {
         console.log(urlParams)
         ProductService.getProductsApplyFilter(urlParams)
             .then((res) => {
                 setData(res.data);
+                setLoading(false);
             })
             .catch((e) => {
                 console.log(e);
@@ -142,6 +155,10 @@ function ProductList() {
                 perPage: {
                     field: "per-page",
                     value: 'all'
+                },
+                category: {
+                    field: "category-id",
+                    value: chosenCategory ? chosenCategory.id : ""
                 }
             }
         })
@@ -156,7 +173,7 @@ function ProductList() {
     const getExpireSoonProducts = () => {
         if (expireSoonProducts) {
             ProductService.getProductsApplyFilter({
-                sort: "final-price",
+                sort: "on-sale",
                 order: "asc",
                 perPage: "all",
                 expire: expireDiscountDays,
@@ -165,6 +182,10 @@ function ProductList() {
                         field: "status",
                         value: availableStatus
                     },
+                    category: {
+                        field: "category-id",
+                        value: chosenCategory ? chosenCategory.id : ""
+                    }
                 },
             })
                 .then((res) => {
@@ -176,11 +197,16 @@ function ProductList() {
         }
     }
 
+    const ready = () => {
+        return data && expireSoonProducts && manufacturers;
+    }
+
     const checkMultipleChoices = (checkShowId, multiple) => {
         return multiple ? checkShowId.join("+") : checkShowId[0];
     }
 
     const setAPIParams = (checkShowId, item, setCheckShow) => {
+        setLoading(true);
         let tempParams = params;
         if (item.parentField) {
             tempParams[item.parentField][item.field].value = checkMultipleChoices(checkShowId, item.multiple);
@@ -200,18 +226,23 @@ function ProductList() {
     }, []);
 
     useEffect(() => {
-        if (chosenCategories) {
+        if (chosenCategory) {
+            setLoading(true);
             let tempParams = params;
-            tempParams.filterFields.category.value = chosenCategories.id;
+            tempParams.filterFields.manufacturer.value = "";
+            tempParams.filterFields.category.value = chosenCategory.id;
             getProducts(tempParams);
+            getExpireSoonProducts();
+            getManufacturers();
+            setShowManufacturer([]);
             setParams(tempParams);
         }
-    }, [chosenCategories]);
+    }, [chosenCategory]);
 
     return (
         <div className='container product-page'>
-            {!ready() && <CircularProgress />}
-            {ready() &&
+            {loading && <CircularProgress />}
+            {!loading &&
                 <div className='product-content'>
                     {expireSoonProducts.length > 0 &&
                         <div className='row products-expire-soon'>
@@ -222,6 +253,7 @@ function ProductList() {
                             <ProductsCarousel items={expireSoonProducts} carouselName={'expireSoon'} perSlide={4}></ProductsCarousel>
                         </div>
                     }
+                    {chosenCategory && <h3 className='page-title'>{chosenCategory.name.charAt(0).toUpperCase() + chosenCategory.name.slice(1)}</h3>}
                     <div className='filter-components'>
                         {filterFields.map((filterField) => {
                             if (filterField.sublist) {

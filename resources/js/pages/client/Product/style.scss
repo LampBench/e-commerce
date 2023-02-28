@@ -1,7 +1,7 @@
 @import "../../../../sass/variables.module.scss";
 
 .product-page {
-    padding-bottom: 20px;
+    padding: 20px 0px 20px 0px;
     justify-content: center;
     display: flex;
 
@@ -29,8 +29,18 @@
             }
         }
 
+        .page-title {
+            color: #283e68;
+            font-weight: bold;
+        }
+
         .filter-components {
             display: flex;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
         }
 
         .products-list {
