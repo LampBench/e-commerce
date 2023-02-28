@@ -4,7 +4,6 @@ import { useTheme } from "@mui/material/styles";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import ProfileSection from "./ProfileSection";
 import NotificationSection from "./NotificationSection";
-// import SearchSection from "./SearchSection";
 import LogoSection from "../LogoSection";
 function Header({ handleLeftDrawerToggle }) {
     const theme = useTheme();
@@ -57,10 +56,8 @@ function Header({ handleLeftDrawerToggle }) {
                     </Avatar>
                 </ButtonBase>
             </Box>
-            {/* <SearchSection /> */}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ flexGrow: 1 }} />
-            <NotificationSection />
             <ProfileSection />
         </React.Fragment>
     );
