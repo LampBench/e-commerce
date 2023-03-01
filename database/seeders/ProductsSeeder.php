@@ -16,16 +16,16 @@ class ProductsSeeder extends Seeder
         $categories = Category::where('parent_id', '!=', null)->get();
         foreach ($manufacturers as $manufacturer) {
             foreach ($categories as $category) {
-                if ($category->level == 4) {
+                if ($category->level == 3) {
                     if (array_rand([true, false])) {
-                        $numberOfProducts = rand(1, 5);
+                        $numberOfProducts = rand(3, 10);
                         $products = Product::factory()->count($numberOfProducts)->create([
                             'category_id' => $category->id,
                             'manufacturer_id' => $manufacturer->id
                         ]);
 
                         foreach ($products as $product) {
-                            if ($product->quantity > 30) {
+                            if ($product->quantity > 30 && $product->status == 1) {
                                 Discount::factory()->create([
                                     'product_id' => $product->id
                                 ]);

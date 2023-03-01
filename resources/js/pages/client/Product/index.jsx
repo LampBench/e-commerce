@@ -171,34 +171,28 @@ function ProductList() {
     }
 
     const getExpireSoonProducts = () => {
-        if (expireSoonProducts) {
-            ProductService.getProductsApplyFilter({
-                sort: "on-sale",
-                order: "asc",
-                perPage: "all",
-                expire: expireDiscountDays,
-                filterFields: {
-                    status: {
-                        field: "status",
-                        value: availableStatus
-                    },
-                    category: {
-                        field: "category-id",
-                        value: chosenCategory ? chosenCategory.id : ""
-                    }
+        ProductService.getProductsApplyFilter({
+            sort: "on-sale",
+            order: "asc",
+            perPage: "all",
+            expire: expireDiscountDays,
+            filterFields: {
+                status: {
+                    field: "status",
+                    value: availableStatus
                 },
+                category: {
+                    field: "category-id",
+                    value: chosenCategory ? chosenCategory.id : ""
+                }
+            },
+        })
+            .then((res) => {
+                dispatch(SET_EXPIRE_SOON_PRODUCTS(res.data.data));
             })
-                .then((res) => {
-                    dispatch(SET_EXPIRE_SOON_PRODUCTS(res.data.data));
-                })
-                .catch((e) => {
-                    console.log(e);
-                });
-        }
-    }
-
-    const ready = () => {
-        return data && expireSoonProducts && manufacturers;
+            .catch((e) => {
+                console.log(e);
+            });
     }
 
     const checkMultipleChoices = (checkShowId, multiple) => {
@@ -226,17 +220,15 @@ function ProductList() {
     }, []);
 
     useEffect(() => {
-        if (chosenCategory) {
-            setLoading(true);
-            let tempParams = params;
-            tempParams.filterFields.manufacturer.value = "";
-            tempParams.filterFields.category.value = chosenCategory.id;
-            getProducts(tempParams);
-            getExpireSoonProducts();
-            getManufacturers();
-            setShowManufacturer([]);
-            setParams(tempParams);
-        }
+        setLoading(true);
+        let tempParams = params;
+        tempParams.filterFields.manufacturer.value = "";
+        tempParams.filterFields.category.value = chosenCategory === "" ? "" : chosenCategory.id;
+        getProducts(tempParams);
+        getExpireSoonProducts();
+        getManufacturers();
+        setShowManufacturer([]);
+        setParams(tempParams);
     }, [chosenCategory]);
 
     return (

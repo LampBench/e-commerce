@@ -1,0 +1,59 @@
+.footer {
+    background-color: black;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+
+    h5 {
+        display: block;
+    }
+
+    .brand-logo-name {
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h3,
+        svg {
+            display: inline;
+        }
+    }
+
+    .other-information {
+        display: flex;
+        align-items: center;
+
+        div {
+            padding: 10px 5px 10px 5px;
+        }
+
+        .contact-information {
+            padding: 30px;
+
+            h6,
+            svg {
+                display: inline;
+            }
+        }
+
+        .follow-information {
+            padding: 30px;
+            align-items: center;
+
+            h6,
+            svg {
+                display: inline;
+            }
+
+            img {
+                background-color: white;
+                padding: 5px;
+                margin: 10px 10px 10px 0px;
+                border-radius: 8px;
+                height: 40px;
+                width: 40px;
+            }
+        }
+    }
+}
